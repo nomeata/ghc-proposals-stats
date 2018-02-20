@@ -164,7 +164,11 @@ main = do
     let stateHist = timedHistogram stateChanges
     putStrLn $ stateChangeTable stateHist
 
-    BSL.writeFile "sankey.json" $ encode $ mkSankey
+    BSL.writeFile "sankey.json" $ encode $ mkCsaldenSankey
+        [ (prState from, c) | ((from, Nothing), c, t, ns) <- stateHist]
+        [ (prState from, prState to, c) | ((from, to@(Just _)), c, t, ns) <- stateHist]
+
+    BS.writeFile "sankey.html" =<< mkSankeyHTML
         [ (prState from, c) | ((from, Nothing), c, t, ns) <- stateHist]
         [ (prState from, prState to, c) | ((from, to@(Just _)), c, t, ns) <- stateHist]
 
