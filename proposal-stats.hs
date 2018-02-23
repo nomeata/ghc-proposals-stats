@@ -35,6 +35,8 @@ data IssueSummary = IssueSummary
     , assignee :: Maybe Text
     , status :: Maybe Text
     , created :: UTCTime
+    , updated :: UTCTime
+    , closed :: Bool
     , isPullRequest :: Bool
     }
   deriving (Generic, Show)
@@ -47,12 +49,12 @@ data State = State
     { issueSummaries :: [IssueSummary]
     , histories :: [(Timed StateChange, IssueNumber)]
     }
-    deriving (Generic, Show)
 
-instance ToJSON State where
-    toEncoding = genericToEncoding defaultOptions
-instance FromJSON State
 
+getNumber :: Value -> Integer
+getNumber v = number
+  where
+    Just number = v ^? key "number" . _Integer
 
 summarizeIssue :: Value -> IssueSummary
 summarizeIssue v =
@@ -63,7 +65,9 @@ summarizeIssue v =
     status = v ^? key "labels" . nth 0 . key "name" ._String
     Just number = v ^? key "number" . _Integer
     Just created = v ^? key "created_at" . _JSON
+    Just updated = v ^? key "updated_at" . _JSON
     isPullRequest = isJust $ v ^? key "pull_request"
+    closed = isJust $ (v ^? key "closed_at" . _String :: Maybe Text)
 
 
 histogram2 :: (a -> Maybe Text) -> (a -> Maybe Text) -> [a] -> String
@@ -132,37 +136,63 @@ timedHistogram = map norm . M.toList . M.unionsWith mappend . map prep
     prep ((a,d),b) = M.singleton a (Sum d, Sum 1, [b])
     norm (a,(Sum d, Sum c, bs)) = (a, c, d / fromIntegral c, bs)
 
-getState :: IO State
-getState = do
-    args <- getArgs
-    if args == ["--update"] then do
-        tok <- BS.readFile "github-token.txt"
-        let opts = defaults & auth ?~ oauth2Token tok
-        r1 <- asValue =<< getWith opts "https://api.github.com/repos/ghc-proposals/ghc-proposals/issues?per_page=100&state=all"
-        r2 <- asValue =<< getWith opts "https://api.github.com/repos/ghc-proposals/ghc-proposals/issues?per_page=100&state=all&page=2"
-        let summaries = filter isPullRequest $ fmap summarizeIssue $ toList $
-                (r1 ^. responseBody . _Array) <> (r2 ^. responseBody . _Array)
+type RawState = [RawIssue]
+data RawIssue = RawIssue
+    { issueJson :: Value
+    , issueEvents :: [Value]
+    }
+    deriving (Generic, Show)
 
-        now <- getCurrentTime
-        histories <- forM summaries $ \is -> do
-            r <- asValue =<< getWith opts (printf "https://api.github.com/repos/ghc-proposals/ghc-proposals/issues/%d/events?per_page=100" (number is))
-            let hist = toList (r ^. responseBody . _Array)
-            return $ map (,number is) $ stateChanges now is hist
-        let allStateChanges = concat histories
-        let s = State summaries allStateChanges
-        BSL.writeFile "cache.json" (encode s)
-        return s
-    else
-        fromJust . decode <$> BSL.readFile "cache.json"
+instance ToJSON RawIssue where
+    toEncoding = genericToEncoding defaultOptions
+instance FromJSON RawIssue
+
+getFreshState :: IO RawState
+getFreshState = do
+    tok <- BS.readFile "github-token.txt"
+    let opts = defaults & auth ?~ oauth2Token tok
+    r1 <- asValue =<< getWith opts "https://api.github.com/repos/ghc-proposals/ghc-proposals/issues?per_page=100&state=all"
+    r2 <- asValue =<< getWith opts "https://api.github.com/repos/ghc-proposals/ghc-proposals/issues?per_page=100&state=all&page=2"
+    forM (toList $ (r1 ^. responseBody . _Array) <> (r2 ^. responseBody . _Array)) $ \issueJson -> do
+        let n = getNumber issueJson
+        r <- asValue =<< getWith opts (printf "https://api.github.com/repos/ghc-proposals/ghc-proposals/issues/%d/events?per_page=100" n)
+        let issueEvents = toList $ r ^. responseBody . _Array
+        return $ RawIssue {..}
+
+
+getState :: UTCTime -> IO State
+getState now = do
+    args <- getArgs
+    rawState <-
+        if args == ["--update"] then do
+            rawState <- getFreshState
+            BSL.writeFile "cache.json" (encode rawState)
+            return rawState
+        else
+            fromJust . decode <$> BSL.readFile "cache.json"
+
+    let stuff = [ (is, map (,number is) $ stateChanges now is hist)
+                | RawIssue ij hist <- rawState
+                , let is = summarizeIssue ij
+                , isPullRequest is
+                ]
+
+    let summaries = map fst stuff
+    let allStateChanges = concatMap snd stuff
+    return $ State summaries allStateChanges
 
 main = do
-    State summaries stateChanges <- getState
+    now <- getCurrentTime
+    State summaries stateChanges <- getState now
 
     putStrLn $ histogram2 assignee status summaries
     putStrLn ""
 
     let stateHist = timedHistogram stateChanges
     putStrLn $ stateChangeTable stateHist
+    putStrLn ""
+
+    putStrLn $ shouldBeDormant now summaries
 
     BSL.writeFile "sankey.json" $ encode $ mkCsaldenSankey
         [ (prState from, c) | ((from, Nothing), c, t, ns) <- stateHist]
@@ -177,15 +207,36 @@ stateChangeTable dat = tableString
     [def, def, numCol, numCol, def]
     unicodeS
     (titlesH ["From", "To", "Count", "Avg. time", "Issues"])
-    [ rowG $ [prState from, prState to, show c, showT t, showNums ns] | ((from, to), c, t, ns) <- dat]
-  where
-    showT t = show (round (t / (3600*24))) ++ " days"
-    showNums ns = (intercalate ", " $ map ('#':) $ map show start) ++ more
-      where
-        start = take 8 ns
-        more | length ns > 8 = "…"
-             | otherwise = ""
+    [ rowG $ [prState from, prState to, show c, showTimeDiff t, showNums ns]
+    | ((from, to), c, t, ns) <- dat]
 
+showNums :: [Integer] -> String
+showNums ns = (intercalate ", " $ map ('#':) $ map show start) ++ more
+  where
+    start = take 8 ns
+    more | length ns > 8 = "…"
+         | otherwise = ""
+
+showNum :: Integer -> String
+showNum = printf "https://github.com/ghc-proposals/ghc-proposals/pull/%d"
+
+showTimeDiff :: NominalDiffTime -> String
+showTimeDiff t = show (round (t / (3600*24))) ++ " days"
+
+shouldBeDormant :: UTCTime -> [IssueSummary] -> String
+shouldBeDormant now iss = tableString
+    [def, def, numCol, numCol, def]
+    unicodeS
+    (titlesH ["Last activity", "State", "Issue"])
+    [ rowG $ [showTimeDiff age, prState (status is), showNum (number is)]
+    | is <- iss'
+    , let age = now `diffUTCTime` updated is
+    , age > 30 * 24 * 3600
+    , not (closed is)
+    , status is `elem` [Nothing, Just "dormant", Just "Needs revision"]
+    ]
+  where
+    iss' = sortOn updated iss
 
 prState (Just t) | "Pending" `T.isPrefixOf` t = "Pending"
                  | otherwise = T.unpack t
