@@ -32,6 +32,7 @@ type IssueNumber = Integer
 
 data IssueSummary = IssueSummary
     { number :: IssueNumber
+    , title :: Text
     , assignee :: Maybe Text
     , status :: Maybe Text
     , created :: UTCTime
@@ -63,6 +64,7 @@ summarizeIssue v =
   where
     assignee = v ^? key "assignees" . nth 0 . key "login" . _String
     status = v ^? key "labels" . nth 0 . key "name" ._String
+    title = fromMaybe "no title" $ v ^? key "title" . _String
     Just number = v ^? key "number" . _Integer
     Just created = v ^? key "created_at" . _JSON
     Just updated = v ^? key "updated_at" . _JSON
@@ -94,6 +96,15 @@ type PullState = Maybe Text
 type Timed a = (a, NominalDiffTime)
 
 type StateChange = (PullState, PullState)
+
+acceptedListTrac :: [IssueSummary] -> String
+acceptedListTrac = unlines . map go . sortOn number . filter select
+  where
+    select is = status is == Just "Accepted"
+    go is = " * " <> T.unpack (title is) <> " [" <> urlFor is <> " (PR #" <> show (number is) <> ")]"
+
+urlFor :: IssueSummary -> String
+urlFor is = "https://github.com/ghc-proposals/ghc-proposals/pull/" <>  show (number is)
 
 stateChanges :: UTCTime -> IssueSummary -> [Value] -> [Timed StateChange]
 stateChanges now issue evs = prune $ go (created issue) "discussed" evs
@@ -201,6 +212,10 @@ main = do
     BS.writeFile "sankey.html" =<< mkSankeyHTML
         [ (prState from, c) | ((from, Nothing), c, t, ns) <- stateHist]
         [ (prState from, prState to, c) | ((from, to@(Just _)), c, t, ns) <- stateHist]
+
+    putStrLn ""
+    putStrLn $ "writing list of accepted proposals to accepted.trac"
+    writeFile "accepted.trac" $ acceptedListTrac summaries
 
 stateChangeTable :: [(StateChange, Integer, NominalDiffTime, [IssueNumber])] -> String
 stateChangeTable dat = tableString
