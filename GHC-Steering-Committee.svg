@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="128"
+   height="128"
+   version="1.0"
+   id="svg14"
+   sodipodi:docname="GHC-Steering-Committee.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   inkscape:export-filename="/home/jojo/build/haskell/ghc-proposals/tools/GHC-Steering-Committee.png"
+   inkscape:export-xdpi="384"
+   inkscape:export-ydpi="384">
+  <metadata
+     id="metadata20">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Haskell Logo</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs18" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1410"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="3.6875"
+     inkscape:cx="-56.135593"
+     inkscape:cy="64"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg14" />
+  <title
+     id="title2">Haskell Logo</title>
+  <desc
+     id="desc4">Combination bind and lambda symbol</desc>
+  <g
+     id="g851"
+     transform="matrix(0.7835104,0,0,0.7835104,13.495109,-6.1533467)">
+    <path
+       id="path6"
+       d="M 16.133619,85.068171 H 27.86716 c 0.95335,0 2.28804,-1.232022 3.8134,-3.520062 L 52.800934,49.867549 50.454226,46.347486 31.68056,18.186988 c -1.52536,-2.28804 -2.86005,-3.520062 -3.8134,-3.520062 H 16.133619 c -0.953351,0 -0.645345,1.232022 0.880015,3.520062 L 38.134008,49.867549 35.7873,53.387611 17.013634,81.548109 c -1.52536,2.28804 -1.833366,3.520062 -0.880015,3.520062"
+       inkscape:connector-curvature="0"
+       style="fill:#3f2971;stroke:#3f2971;stroke-width:1" />
+    <path
+       id="path8"
+       d="m 40.187377,85.068171 h 11.733541 c 0.95335,0 2.03137,-0.847015 3.080055,-2.420043 l 14.520257,-21.780385 1.613361,2.420043 12.906895,19.360342 c 1.048686,1.573028 2.126705,2.420043 3.080055,2.420043 h 11.733541 c 0.95335,0 -0.176003,-2.464043 -3.226724,-7.040124 L 58.081027,21.707051 C 55.030307,17.13097 52.874268,14.666926 51.920918,14.666926 H 40.187377 c -0.95335,0 -0.645344,1.232022 0.880016,3.520062 l 21.120373,31.680561 -2.346708,3.520062 -18.773665,28.160498 c -1.52536,2.28804 -1.833366,3.520062 -0.880016,3.520062"
+       inkscape:connector-curvature="0"
+       style="fill:#46787a;stroke:#46787a;stroke-width:1" />
+    <path
+       id="path10"
+       d="m 75.563994,37.214706 6.222709,9.334064 h 3.154637 25.2371 c 2.05051,0 3.15463,-0.362991 3.15463,-1.037118 v -8.296946 c 0,-0.674127 -1.34611,-1.037118 -3.84605,-1.037118 H 74.872581 l 0.691413,1.037118"
+       inkscape:connector-curvature="0"
+       style="fill:#3f2971;stroke:#3f2971;stroke-width:1" />
+    <path
+       id="path12"
+       d="m 86.903153,54.223445 6.222709,9.334064 h 2.020721 16.165767 c 1.31347,0 2.02072,-0.362991 2.02072,-1.037118 v -8.296946 c 0,-0.674127 -0.94924,-1.037118 -2.71213,-1.037118 H 86.211741 l 0.691412,1.037118"
+       inkscape:connector-curvature="0"
+       style="fill:#3f2971;stroke:#3f2971;stroke-width:1" />
+  </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:25px;font-family:Cantarell;-inkscape-font-specification:'Cantarell, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="19.949333"
+     y="93.016953"
+     id="text829"><tspan
+       sodipodi:role="line"
+       x="19.949333"
+       y="93.016953"
+       id="tspan831"
+       style="font-size:42.66666794px">GHC</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:25px;font-family:Cantarell;-inkscape-font-specification:'Cantarell, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="20.554375"
+     y="108.20338"
+     id="text837"><tspan
+       sodipodi:role="line"
+       x="20.554375"
+       y="108.20338"
+       id="tspan839"
+       dx="0"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:20px;font-family:Cantarell;-inkscape-font-specification:'Cantarell, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:1.24000001px;writing-mode:lr-tb;text-anchor:start">Steering</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:25px;font-family:Cantarell;-inkscape-font-specification:'Cantarell, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     x="15.809532"
+     y="124.47458"
+     id="text845"><tspan
+       sodipodi:role="line"
+       id="tspan843"
+       x="15.809532"
+       y="124.47458"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:20px;font-family:Cantarell;-inkscape-font-specification:'Cantarell, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start;letter-spacing:-0.83999997px;writing-mode:lr-tb;text-anchor:start">Committee</tspan></text>
+</svg>
