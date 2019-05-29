@@ -76,16 +76,12 @@ histogram2 :: (a -> Maybe Text) -> (a -> Maybe Text) -> [a] -> String
 histogram2 getX getY dat = tableString
     (def : (numCol <$ xs) ++ [numCol])
     unicodeS
-    (titlesH ("" : map pr xs ++ ["∑"])) $
-    [ rowG $ pr y : [ show (count x y) | x <- xs] ++ [ show (countY y) ] | y <- ys ] ++
+    (titlesH ("" : map prState xs ++ ["∑"])) $
+    [ rowG $ prState y : [ show (count x y) | x <- xs] ++ [ show (countY y) ] | y <- ys ] ++
     [ rowG $ "∑"  : [ show (countX x) | x <- xs] ++ [ show (length dat)] ]
   where
     xs = Nothing : map Just (sort (nub (mapMaybe getX dat)))
     ys = Nothing : map Just (sort (nub (mapMaybe getY dat)))
-
-    pr (Just t) | "Pending" `T.isPrefixOf` t = "Pending"
-                | otherwise = T.unpack t
-    pr Nothing = "-"
 
     count x y = length [ () | v <- dat, getX v == x, getY v == y ]
     countX x  = length [ () | v <- dat, getX v == x ]
