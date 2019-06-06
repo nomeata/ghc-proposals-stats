@@ -249,6 +249,7 @@ shouldBeDormant now iss = tableString
   where
     iss' = sortOn updated iss
 
-prState (Just t) | "Pending" `T.isPrefixOf` t = "Pending"
+prState (Just t) | t == "Pending shepherd recommendation" = "Pending rec"
+                 | t == "Pending committee review" = "Pending dec"
                  | otherwise = T.unpack t
 prState Nothing = "-"
