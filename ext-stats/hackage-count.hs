@@ -1,3 +1,9 @@
+{-# language OverloadedStrings #-}
+{-# language LambdaCase #-}
+{-# language StandaloneDeriving #-}
+{-# language DerivingStrategies #-}
+{-# language DeriveGeneric #-}
+{-# language DeriveAnyClass #-}
 import qualified Data.Set as Set
 import qualified Data.Map as Map
 import Data.List
@@ -11,9 +17,15 @@ import System.Directory
 import Data.Monoid
 import Text.Printf
 import Data.Containers.ListUtils
+import Data.Maybe
+import GHC.LanguageExtensions (Extension)
+import GHC.Generics
+import qualified Data.ByteString.Lazy as ByteString
+import Data.Map hiding (take, filter)
+import qualified Data.Map as Map
 
 import Extensions
-
+import Data.Aeson
 
 main = do
   args <- getArgs
@@ -33,7 +45,7 @@ main = do
 
         setCurrentDirectory previous
         case mergeExtensions . concatMap (Set.toList . extensionsAll) <$> sequence (Map.elems anyExts) of
-            Left (ModuleParseError file err) -> do
+            Left (Extensions.ModuleParseError file err) -> do
                 hPutStrLn stderr $ "Failed to parse " ++ takeDirectory cabalPath </> file ++ ":"
                 hPrint stderr err
                 return Nothing
@@ -61,7 +73,34 @@ main = do
   printf "%4d packages total\n" total
   printf "%4d packages parsed\n" parsed
   printf "%4d packages with extensions in cabal file\n" any_in_cabal
+  ByteString.writeFile "data.json" $ encode $ mconcat $ mkE <$> catMaybes sets
 
+data Tally = Tally { inFiles :: OO, inCabal :: OO }
+
+mkE :: (Set.Set OnOffExtension, Set.Set OnOffExtension) -> Tally
+mkE (a, b) = Tally (foldMap runOff a) (foldMap runOff b)
+
+data OO = OO (Map String Int) (Map String Int)
+instance ToJSON OO where
+  toJSON (OO a b) = object [ "turned-off" .= toJSON a, "turned-on" .= toJSON b ]
+
+instance Semigroup OO where
+  OO a0 b0 <> OO a1 b1 = OO (Map.unionWith (+) a0 a1) (Map.unionWith (+) b0 b1)
+instance Monoid OO where
+  mempty = OO mempty mempty
+
+runOff :: OnOffExtension -> OO
+runOff = \case
+  Off e -> OO (Map.singleton (show e) 1) mempty
+  On e -> OO mempty (Map.singleton (show e) 1)
+
+instance Semigroup Tally where
+  Tally a0 b0 <> Tally a1 b1 = Tally (a0 <> a1) (b0 <> b1)
+instance Monoid Tally where
+  mempty = Tally mempty mempty
+deriving stock instance Generic Tally
+instance ToJSON Tally where
+  toJSON (Tally a b) = object [ "enabled-in-cabal" .= toJSON a, "enabled-in-file" .= toJSON b ]
 
 outOf :: Int -> Int -> String
 outOf x 0 = "---%"
@@ -80,5 +119,5 @@ exitAfter action = action >> exitFailure
 
 handleCabalException :: IO a -> IO a
 handleCabalException action = action `catch` \exc -> exitAfter $
-    hPutStrLn stderr $ "Error processing .cabal file: " <> show (exc :: CabalException)
+    hPutStrLn stderr $ "Error processing .cabal file: " <> show (exc :: Extensions.CabalException)
 
