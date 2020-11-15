@@ -63,11 +63,14 @@ findCabalFile dirPath = do
     dirContent <- listDirectory dirPath
     case filter (\p -> take 1 p /= "." && takeExtension p == ".cabal") dirContent of
         [] -> exitAfter $ hPutStrLn stderr $ ".cabal file not found in " ++ dirPath
-        [cabalFile] ->
+        -- lets be more liberal than the extensions tool
+        (cabalFile:_) ->
             pure $ dirPath </> cabalFile
+        {-
         l -> exitAfter $ hPutStrLn stderr $
             "Multiple .cabal files found in " ++ dirPath ++ ": " <>
             intercalate ", " l
+        -}
 
 exitAfter :: IO a -> IO b
 exitAfter action = action >> exitFailure
