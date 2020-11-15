@@ -1,9 +1,8 @@
 #!/bin/bash
 
-[ -d "00-index" ] || aunpack  ~/.cabal/packages/hackage.haskell.org/00-index.tar.gz
-
 # get latest version each
-pkgs_files=$(find 00-index/ -type f -name \*.cabal |cut -d/ -f2-4 | sort -k1,1 -k2,2rV -t'/' --stable | sort -k1,1 -t'/' --stable --unique)
+echo -n "Reading package list …"
+pkgs_files=$(tar tzf ~/.cabal/packages/hackage.haskell.org/00-index.tar.gz | grep -v preferred-versions | sort -k1,1 -k2,2rV -t'/' --stable | sort -k1,1 -t'/' --stable --unique)
 
 selected_pkgs=()
 for pkg_file in $pkgs_files
@@ -14,6 +13,7 @@ do
     selected_pkgs+=("$pkg")
   #fi
 done
+echo " done (${#selected_pkgs[@]} packages)"
 
 mkdir -p hackage/
 
