@@ -1,8 +1,10 @@
 #!/bin/bash
 
+[ -e 00-index.tar.gz ] || wget hackage.haskell.org/00-index.tar.gz
+
 # get latest version each
 echo -n "Reading package list …"
-pkgs_files=$(tar tzf ~/.cabal/packages/hackage.haskell.org/00-index.tar.gz | grep -v preferred-versions | sort -k1,1 -k2,2rV -t'/' --stable | sort -k1,1 -t'/' --stable --unique)
+pkgs_files=$(tar tzf 00-index.tar.gz | grep -v preferred-versions | sort -k1,1 -k2,2rV -t'/' --stable | sort -k1,1 -t'/' --stable --unique)
 
 selected_pkgs=()
 for pkg_file in $pkgs_files
