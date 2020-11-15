@@ -18,34 +18,12 @@ echo " done (${#selected_pkgs[@]} packages)"
 mkdir -p hackage/
 
 # for debugging
-selected_pkgs=("${selected_pkgs[@]:0:200}")
+# selected_pkgs=("${selected_pkgs[@]:0:200}")
 
-tallies=()
-failed_pkgs=()
-skipped_pkgs=()
 for pkg in "${selected_pkgs[@]}"
 do
-  echo -n "$pkg …"
   if [ ! -e "hackage/$pkg" ]
   then
     ( cd "hackage" && cabal unpack "$pkg" )
-    echo -n " unpack …"
-  fi
-
-  if ( cd "hackage/$pkg" && extensions --union ) > "hackage/$pkg.extensions" 2> "hackage/$pkg.failure"
-  then
-    echo " good."
-    tallies+=("hackage/$pkg.extensions")
-  else
-    echo " failed:"
-    cat "hackage/$pkg.failure"
-    failed_pkgs+=("$pkg")
   fi
 done
-
-
-sort /dev/null "${tallies[@]}" | uniq -c | sort -n > total.extensions
-echo "Total  files:    ${#selected_pkgs[@]}"
-echo "Parsed files:    ${#tallies[@]}"
-echo "Failed to parse: ${#failed_pkgs[@]}"
-echo "Skipped:         ${#skipped_pkgs[@]}"
