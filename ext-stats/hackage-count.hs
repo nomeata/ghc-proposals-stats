@@ -19,21 +19,30 @@ main = do
   args <- getArgs
   sets <- forM args $ \dir -> do
     cabalPath <- findCabalFile dir
-    -- change cwd due to https://github.com/kowainik/extensions/issues/69
-    previous <- getCurrentDirectory
-    setCurrentDirectory (takeDirectory cabalPath)
-    anyExts <- handleCabalException $ getPackageExtentions (takeFileName cabalPath)
-    cabalExts' <- handleCabalException $ parseCabalFileExtensions (takeFileName cabalPath)
-    let exts2 = Set.fromList $ concatMap parsedExtensionsAll cabalExts'
-
-    setCurrentDirectory previous
-    case mergeExtensions . concatMap (Set.toList . extensionsAll) <$> sequence (Map.elems anyExts) of
-        Left err   -> do
-            hPutStrLn stderr $ "Failed to parse files in " ++ dir ++ ":"
-            hPrint stderr err
+    case cabalPath of
+      Nothing -> do
+            hPutStrLn stderr $ "No cabal file found in " ++ dir
             return Nothing
-        Right exts1 ->
-            return (Just (exts1, exts2))
+      Just cabalPath -> do
+        -- change cwd due to https://github.com/kowainik/extensions/issues/69
+        previous <- getCurrentDirectory
+        setCurrentDirectory (takeDirectory cabalPath)
+        anyExts <- handleCabalException $ getPackageExtentions (takeFileName cabalPath)
+        cabalExts' <- handleCabalException $ parseCabalFileExtensions (takeFileName cabalPath)
+        let exts2 = Set.fromList $ concatMap parsedExtensionsAll cabalExts'
+
+        setCurrentDirectory previous
+        case mergeExtensions . concatMap (Set.toList . extensionsAll) <$> sequence (Map.elems anyExts) of
+            Left (ModuleParseError file err) -> do
+                hPutStrLn stderr $ "Failed to parse " ++ takeDirectory cabalPath </> file ++ ":"
+                hPrint stderr err
+                return Nothing
+            Left err   -> do
+                hPutStrLn stderr $ "Failed to parse files in " ++ dir ++ ":"
+                hPrint stderr err
+                return Nothing
+            Right exts1 ->
+                return (Just (exts1, exts2))
   let total = length sets
   let failures = length [ () | Nothing <- sets ]
   let parsed = total - failures
@@ -58,19 +67,13 @@ outOf :: Int -> Int -> String
 outOf x 0 = "---%"
 outOf x y = printf "%2.0f%%" (fromIntegral x / fromIntegral y * 100 :: Double)
 
-findCabalFile :: FilePath -> IO FilePath
+findCabalFile :: FilePath -> IO (Maybe FilePath)
 findCabalFile dirPath = do
     dirContent <- listDirectory dirPath
     case filter (\p -> take 1 p /= "." && takeExtension p == ".cabal") dirContent of
-        [] -> exitAfter $ hPutStrLn stderr $ ".cabal file not found in " ++ dirPath
-        -- lets be more liberal than the extensions tool
-        (cabalFile:_) ->
-            pure $ dirPath </> cabalFile
-        {-
-        l -> exitAfter $ hPutStrLn stderr $
-            "Multiple .cabal files found in " ++ dirPath ++ ": " <>
-            intercalate ", " l
-        -}
+        [] -> return Nothing
+        -- lets be more liberal than the extensions tool, and just take the first
+        (cabalFile:_) -> return $ Just $ dirPath </> cabalFile
 
 exitAfter :: IO a -> IO b
 exitAfter action = action >> exitFailure
