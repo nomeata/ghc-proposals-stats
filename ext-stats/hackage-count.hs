@@ -8,7 +8,9 @@ import System.Environment
 import System.Exit
 import System.IO
 import System.Directory
+import Data.Monoid
 import Text.Printf
+import Data.Containers.ListUtils
 
 import Extensions
 
@@ -20,23 +22,28 @@ main = do
     -- change cwd due to https://github.com/kowainik/extensions/issues/69
     previous <- getCurrentDirectory
     setCurrentDirectory (takeDirectory cabalPath)
-    cabalExts <- handleCabalException $ getPackageExtentions (takeFileName cabalPath)
+    anyExts <- handleCabalException $ getPackageExtentions (takeFileName cabalPath)
+    cabalExts' <- handleCabalException $ parseCabalFileExtensions (takeFileName cabalPath)
+    let exts2 = Set.fromList $ concatMap parsedExtensionsAll cabalExts'
+
     setCurrentDirectory previous
-    case mergeExtensions . concatMap (Set.toList . extensionsAll) <$> sequence (Map.elems cabalExts) of
+    case mergeExtensions . concatMap (Set.toList . extensionsAll) <$> sequence (Map.elems anyExts) of
         Left err   -> do
             hPutStrLn stderr $ "Failed to parse files in " ++ dir ++ ":"
             hPrint stderr err
             return Nothing
-        Right exts ->
-            return (Just exts)
+        Right exts1 ->
+            return (Just (exts1, exts2))
   let total = length sets
   let failures = length [ () | Nothing <- sets ]
   let parsed = total - failures
   let tally =
-        sortOn snd $ Map.toList $
-        Map.unionsWith (+) [ Map.fromSet (const 1) s | Just s <- sets ]
+        sortOn snd $ Map.toList $ Map.unionsWith mappend $
+        [ Map.fromSet (const (Sum 1,mempty)) s | Just (s,_) <- sets ] ++
+        [ Map.fromSet (const (mempty, Sum 1)) s | Just (_, s) <- sets ]
 
-  forM_ tally $ \(e, n) -> printf "%4d %s\n" (n::Int) (showOnOffExtension e)
+  forM_ tally $ \(e, (Sum n1, Sum n2)) ->
+    printf "%4d %4d %s\n" (n1::Int) (n2::Int) (showOnOffExtension e)
   printf "--------------------\n"
   printf "%4d packages total\n" total
   printf "%4d packages parsed\n" parsed
