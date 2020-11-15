@@ -61,7 +61,7 @@ outOf x y = printf "%2.0f%%" (fromIntegral x / fromIntegral y * 100 :: Double)
 findCabalFile :: FilePath -> IO FilePath
 findCabalFile dirPath = do
     dirContent <- listDirectory dirPath
-    case filter (\p -> takeExtension p == ".cabal") dirContent of
+    case filter (\p -> take 1 p /= "." && takeExtension p == ".cabal") dirContent of
         [] -> exitAfter $ hPutStrLn stderr $ ".cabal file not found in " ++ dirPath
         [cabalFile] ->
             pure $ dirPath </> cabalFile
