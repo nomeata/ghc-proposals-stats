@@ -21,7 +21,7 @@ while ($input =~
   $exts{$1} = $ver;
 }
 
-print "extension;since\n";
+print "extension,since\n";
 for my $ext (sort keys %exts) {
-  print "$ext;$exts{$ext}\n";
+  print "$ext,$exts{$ext}\n";
 }

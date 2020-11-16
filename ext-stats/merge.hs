@@ -55,9 +55,7 @@ norm s = s
 d file =
     V.toList .
     either error id .
-    CSV.decodeWith
-        CSV.defaultDecodeOptions { CSV.decDelimiter = fromIntegral (ord ';') }
-        CSV.HasHeader <$>
+    CSV.decodeWith CSV.defaultDecodeOptions CSV.HasHeader <$>
     BS.readFile ("GHC2021/" ++ file)
 
 rstTable :: [String] -> [[String]] -> String
@@ -70,4 +68,4 @@ rstTable header rows = unlines $
     sep = unwords $ map (`replicate` '=') widths
 
 csvTable :: [String] -> [[String]] -> String
-csvTable header rows = unlines $ map (intercalate ";") (header : rows)
+csvTable header rows = unlines $ map (intercalate ",") (header : rows)
