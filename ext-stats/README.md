@@ -1,4 +1,5 @@
 GHC20xx data gathering and tallying scripts
+===========================================
 
 This directory contains a bunch of rather hacky scripts that I (nomeata) use to
 produce the statistics about the extensions used to guide the committee
