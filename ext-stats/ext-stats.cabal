@@ -9,5 +9,13 @@ executable hackage-count
   build-depends: extensions (== 0.0.0.1)
   build-depends: filepath (== 1.4.2.1)
   build-depends: directory (== 1.3.6.0)
-  efault-language: Haskell2010
+  default-language: Haskell2010
 
+executable merge
+  main-is: merge.hs
+  build-depends: base
+  build-depends: containers (== 0.6.2.1)
+  build-depends: cassava
+  build-depends: bytestring
+  build-depends: vector
+  default-language: Haskell2010
