@@ -66,13 +66,14 @@ main = do
   printf "%4d packages parsed\n" parsed
   printf "%4d packages with extensions in cabal file\n" any_in_cabal
   writeFile "hackage-totals.csv" $ unlines
-    [ printf "total;%d" total
-    , printf "parsed;%d" parsed
-    , printf "in-cabal;%d" any_in_cabal
+    [ "metric,number"
+    , printf "total,%d" total
+    , printf "parsed,%d" parsed
+    , printf "in-cabal,%d" any_in_cabal
     ]
   writeFile "hackage-data.csv" $ unlines $
-    ["extension;used;used-in-cabal;explicit-per-module-use"] ++
-    [ printf "%s;%d;%d;%d" (showOnOffExtension e) n1 n2 n3
+    ["extension,used,used-in-cabal,explicit-per-module-use"] ++
+    [ printf "%s,%d,%d,%d" (showOnOffExtension e) n1 n2 n3
     | (e, (Sum n1, Sum n2, Sum n3)) <- tally ]
         
 outOf :: Int -> Int -> String
