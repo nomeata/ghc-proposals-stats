@@ -9,5 +9,5 @@ executable hackage-count
   build-depends: extensions (== 0.0.0.1)
   build-depends: filepath (== 1.4.2.1)
   build-depends: directory (== 1.3.6.0)
-  default-language: Haskell2010
+  efault-language: Haskell2010
 
