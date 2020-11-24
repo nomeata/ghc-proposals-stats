@@ -18,4 +18,5 @@ executable merge
   build-depends: cassava
   build-depends: bytestring
   build-depends: vector
+  build-depends: split
   default-language: Haskell2010
