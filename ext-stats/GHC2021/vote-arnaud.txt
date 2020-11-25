@@ -1,0 +1,244 @@
+Here is my vote:
+
+## I don't know what these are
+
+LexicalNegation: maybe
+NondecreasingIndentation: maybe
+
+## No opinion yet
+
+Probably none of these are popular enough to be worth including in
+this first round anyway.
+
+BlockArguments: maybe
+CUSKs: maybe
+DataKinds: maybe
+DefaultSignatures: maybe
+DisambiguateRecordFields: maybe
+DuplicateRecordFields: maybe
+ImportQualifiedPost: maybe
+MonadComprehensions: maybe
+   ^ It's fairly popular this one, but I don't know the effects on
+   type inference. I feel it may be a similar case as the OverloadedX
+   extensions, in which case it feels premature to add it to GHC2021.
+NamedFieldPuns: maybe
+   ^ While I live and breath for NamedFieldPuns, it does remove some
+   shadowing warnings, so it does make some things harder, and it's
+   likely that we want this one left out of this round.
+NamedWildCards: maybe
+RecordWildCards: maybe
+NullaryTypeClasses: maybe
+NumDecimals: maybe
+PackageImports: maybe
+ParallelListComp: maybe
+PolyKinds: maybe
+PostfixOperators: maybe
+RankNTypes: maybe
+RecursiveDo: maybe
+TransformListComp: maybe
+TypeInType: maybe
+TypeSynonymInstances: maybe
+UnliftedFFITypes: maybe
+ScopedTypeVariables: maybe
+    ^ There seem to be discussion about the type-signature-in-pattern
+    part of this extension, which I have no opinion about. I'm very
+    much in favour of the bind-type-signature-variable parts. But I
+    guess this is likely to be too controversial an extension for this
+    round.
+UnicodeSyntax: maybe
+    ^ I think it changes error messages. I don't think that we can
+    make error messages in Unicode by default. If it only affects
+    parsing, then I'm in favour.
+
+## Just adds syntax
+
+These extensions simply add syntax, they bear little risk, I see no
+reason not to avoid them. Let me include all of the deriving things in
+this category.
+
+Arrows: yes
+BangPatterns: yes
+BinaryLiterals: yes
+DeriveDataTypeable: yes
+DeriveFoldable: yes
+DeriveFunctor: yes
+DeriveGeneric: yes
+DeriveLift: yes
+DeriveTraversable: yes
+DerivingStrategies: yes
+GeneralisedNewtypeDeriving: yes
+    ^ Though this technically collides with the DeriveX syntax, the
+    collision is innocuous: you would derive the same functor whether
+    you are using the stock strategy or the newtype strategy.
+TypeFamilies: yes
+TypeFamilyDependencies: yes
+GADTs: yes
+GADTSyntax: yes
+    ^ Implied by GADTs
+TypeOperators: yes
+ConstraintKinds: yes
+FunctionalDependencies: yes
+EmptyCase: yes
+HexFloatLiterals: yes
+ConstrainedClassMethods: yes
+ExplicitForAll: yes
+ExplicitNamespaces: yes
+KindSignatures: yes
+NegativeLiterals: yes
+NumericUnderscores: yes
+PartialTypeSignatures: yes
+ViewPatterns: yes
+TypeApplications: yes
+StandaloneDeriving: yes
+
+MonoLocalBinds: yes
+   ^ MonoLocalBinds is implied by both GADTs and TypeFamilies. And it
+   makes my addition of GADTs and TypeFamilies in this section a
+   lie. We may want to have NoMonoLocalBinds turned on forcefully (or
+   GADTSyntax but not GADTs nor TypeFamilies this time around). But
+   MonoLocalBinds really want to become the default. So I'm inclined
+   to let it be.
+
+### Exceptions to the rule
+
+DeriveAnyClass: no
+   ^ This doesn't so much add syntax as generalises syntax (as opposed
+   to DeriveFunctor, for instance, which may be read as adding Functor
+   to the syntactic list of things which can appear in the Derive
+   list). This probably leads to too many ambiguities for the first
+   round.
+DerivingVia: no
+   ^ It's pretty innocuous, but too recent for inclusion.
+TupleSections: probably not
+   ^ I believe there has been some discussion about conflicts between
+   TupleSection and terminal commas. So while it's a fairly popular
+   extension, I think it's safer to keep it out.
+ExistentialQuantification: probably notation
+   ^ I don't think we need this syntax if GADTs are around. So maybe
+   I'd rather see that as not being a default, so as to nudge
+   programmers to the GADT syntax.
+LambdaCase: probably not
+   ^ As popular and lovely as this extension is, considering that
+   there are some discussion on its future, I'm sadly compelled to
+   give it a pass.
+
+## Type class stuff
+
+MultiParamTypeClasses: yes
+FlexibleContexts: yes
+FlexibleInstances: yes
+   ^ I believe both FlexibleContexts and FlexibleInstances to be
+   almost always innocuous, so they should probably make it in.
+UndecidableInstances: no
+UndecidableSuperClasses: no
+   ^ The UndecidableX are not as scary as they look, yet, I don't
+   think they ought to be there by default. This termination check
+   exists for a reason. It's true that, today, many (most?) instances
+   using MultiParamTypeClasses need UndecidableInstances, though. But
+   it could probably be improved.
+
+## Feature switches
+
+These are switches for advanced feature (or "slow" features in the
+case of the case of Template Haskell), they should never be on by
+default.
+
+NoImplicitPrelude: no
+TemplateHaskell: no
+TemplateHaskellQuotes: no
+QuasiQuotes: no
+RebindableSyntax: no
+CApiFFI: no
+CPP: no
+ForeignFunctionInterface: no
+GHCForeignImportPrim: no
+InterruptibleFFI: no
+MagicHash: no
+UnboxedSums: no
+UnboxedTuples: no
+    ^ Though, frankly, all of MagicHash, UnboxedSums, and
+    UnboxedTuples could very well become not-advanced in a
+    not-so-far-future. Then we could turn them on by default as
+    just-adding-syntax.
+
+### Forks on the roads
+
+These are not so much advanced features as features that change
+significantly the meaning of the module they are in.
+
+Strict: no
+StrictData: no
+
+## Module metadata
+
+None of these should be on.
+
+Safe: no
+Trustworthy: no
+Unsafe: no
+
+## OverloadedX
+
+These extensions can confuse type inference, yielding ambiguous type
+variables message. And as much as I like them, I don't think it's safe
+to include them yet. Not until we have a reasonable story for
+defaulting literals.
+
+OverloadedLabels: no
+OverloadedLists: no
+OverloadedStrings: no
+
+## Difficult errors
+
+These extension yield type errors which are quite a bit more difficult
+than turning them off. So they are better left out.
+
+AllowAmbiguousTypes: no
+
+## Not ready yet
+
+Hodgepodge list.
+
+ApplicativeDo: no
+LinearTypes: no
+ImpredicativeTypes: no
+QualifiedDo: no
+QuantifiedConstraints: no
+RoleAnnotations: no
+StaticPointers: no
+StandaloneKindSignatures: no
+UnliftedNewtypes: no
+
+## Already in GHC
+
+MonadFailDesugaring: yes
+StarIsType: yes
+    ^ We should not turn this one off until standalone kind signatures
+    are also the default, in my opinion.
+
+## Already in Haskell 2010
+
+EmptyDataDecls: yes
+EmptyDataDeriving: yes
+
+## Uncommon extensions
+
+ExtendedDefaultRules: no
+ImplicitParams: no
+InstanceSigs: no
+  -- ^ It does feel mostly innocuous on the surface, but it has a
+  probably surprising semantics. Considering that it's quite rarely
+  used, probably better left out.
+LiberalTypeSynonyms: no
+NoMonomorphismRestriction: no
+NoPatternGuards: no
+NoTraditionalRecordSyntax: no
+PatternSynonyms: no
+
+## Deprecated extensions
+
+OverlappingInstances: no
+DatatypeContexts: no
+IncoherentInstances: no
+MultiWayIf: no
+NPlusKPatterns: no

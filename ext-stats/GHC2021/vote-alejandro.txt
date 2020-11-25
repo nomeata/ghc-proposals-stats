@@ -1,0 +1,150 @@
+ -- the ones with comments
+CUSKs: no
+-- ^ according to the guide, this is superseded by StandaloneKindSignatures
+ConstrainedClassMethods: yes
+-- ^ it is implied by MultiParamTypeClasses anyway
+DefaultSignatures: no
+-- ^ as Joachim says, this should be succeeded by DerivingVia
+-- ^ anyway, this is one required for the writer of the class, so no big
+deal
+DeriveAnyClass: yes
+-- ^ I think this makes no harm, and I tend to use deriving (ToJSON,
+FromJSON)
+DerivingVia: yes
+-- ^ even though it’s quite recent, I think it’s quite sensible and I don’t
+foresee many changes to it
+DisambiguateRecordFields: no
+DuplicateRecordFields: no
+-- ^ we seem to still be working on this
+FunctionalDependencies: maybe
+-- ^ this is a hard one! Not so terrible since it’s only required by the
+creator of the class, not of the instances
+MonadFailDesugaring: yes
+-- ^ isn’t this the default nowadays?
+MonoLocalBinds: maybe
+-- ^ this is implied by GADTs, but otherwise we shouldn’t
+MultiWayIf: no
+-- ^ still in discussion
+NamedWildCards: yes
+-- ^ not many people use this, but I think this is the sane default
+OverloadedLists: maybe
+OverloadedStrings: maybe
+-- ^ I would love to see these included, but I agree with the sentiment
+that they need more work
+PartialTypeSignatures: no
+-- ^ I really think that partial type signatures should not be accepted by
+default
+QuantifiedConstraints: maybe
+-- ^ too early, may want to refine this
+ScopedTypeVariables: yes
+-- ^ I think this is really well understood and people want it
+PatternSynonyms: maybe
+-- ^ we are still working out the edges of this
+
+-- these seem simple syntactic extensions
+-- many of them bring compatibility with the syntax of Java-like languages
+BinaryLiterals: yes
+HexFloatLiterals: yes
+NegativeLiterals: yes
+NumDecimals: yes
+NumericUnderscores: yes
+
+-- too early but wouldn’t care to introduce it
+StandaloneKindSignatures: maybe
+ImportQualifiedPost: maybe
+
+-- don’t know
+ForeignFunctionInterface: maybe
+GHCForeignImportPrim: maybe
+InterruptibleFFI: maybe
+LexicalNegation: maybe
+NondecreasingIndentation: maybe
+PackageImports: maybe
+ParallelListComp: maybe
+StarIsType: maybe
+TransformListComp: maybe
+UnliftedFFITypes: maybe
+UnliftedNewtypes: maybe
+UnicodeSyntax: maybe
+
+-- the rest
+AllowAmbiguousTypes: no
+ApplicativeDo: no
+Arrows: no
+BangPatterns: yes
+BlockArguments: no
+CApiFFI: no
+CPP: no
+ConstraintKinds: yes
+DataKinds: yes
+DatatypeContexts: no
+DeriveDataTypeable: yes
+DeriveFoldable: yes
+DeriveFunctor: yes
+DeriveGeneric: yes
+DeriveLift: yes
+DeriveTraversable: yes
+DerivingStrategies: yes
+EmptyCase: yes
+EmptyDataDecls: yes
+EmptyDataDeriving: yes
+ExistentialQuantification: yes
+ExplicitForAll: yes
+ExplicitNamespaces: no
+ExtendedDefaultRules: no
+FlexibleContexts: yes
+FlexibleInstances: yes
+GADTSyntax: yes
+-- ^ implied by GADTs anyway
+GADTs: yes
+GeneralisedNewtypeDeriving: yes
+ImplicitParams: no
+ImpredicativeTypes: no
+IncoherentInstances: no
+InstanceSigs: yes
+KindSignatures: yes
+LambdaCase: yes
+LiberalTypeSynonyms: no
+LinearTypes: no
+MagicHash: no
+MonadComprehensions: no
+MultiParamTypeClasses: yes
+NPlusKPatterns: no
+NamedFieldPuns: yes
+NoImplicitPrelude: no
+NoMonomorphismRestriction: yes
+NoPatternGuards: no
+NoTraditionalRecordSyntax: no
+NullaryTypeClasses: yes
+OverlappingInstances: no
+OverloadedLabels: no
+PolyKinds: yes
+PostfixOperators: yes
+QualifiedDo: no
+QuasiQuotes: no
+RankNTypes: no
+RebindableSyntax: no
+RecordWildCards: yes
+RecursiveDo: no
+RoleAnnotations: no
+Safe: no
+StandaloneDeriving: yes
+StaticPointers: no
+Strict: no
+StrictData: no
+TemplateHaskell: no
+TemplateHaskellQuotes: no
+Trustworthy: no
+TupleSections: yes
+TypeApplications: yes
+TypeFamilies: yes
+TypeFamilyDependencies: no
+TypeInType: maybe
+TypeOperators: yes
+TypeSynonymInstances: yes
+UnboxedSums: no
+UnboxedTuples: no
+UndecidableInstances: no
+UndecidableSuperClasses: no
+Unsafe: no
+ViewPatterns: yes

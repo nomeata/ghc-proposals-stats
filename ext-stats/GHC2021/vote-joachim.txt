@@ -1,0 +1,203 @@
+here is my current vote, mostly getting out of the way what seems
+obvious to me.
+
+Let’s first get all those out of the way that are too contentions
+according to the data (with 2*no>yes votes):
+
+My starting point here was:
+*Main> putStr $ unlines [ ext ++ ": no" | E{..} <- M.elems exts, survey_no > 10, survey_no * 2 > survey_yes ]
+
+And that gave me the following:
+
+AllowAmbiguousTypes: no
+ApplicativeDo: no
+Arrows: no
+BlockArguments: no
+CApiFFI: no
+CPP: no
+ConstrainedClassMethods: no
+DatatypeContexts: no
+DisambiguateRecordFields: no
+DuplicateRecordFields: no
+ExplicitNamespaces: no
+ExtendedDefaultRules: no
+ForeignFunctionInterface: no
+HexFloatLiterals: no
+ImplicitParams: no
+ImportQualifiedPost: no
+ImpredicativeTypes: no
+IncoherentInstances: no
+InterruptibleFFI: no
+LiberalTypeSynonyms: no
+MagicHash: no
+MonadComprehensions: no
+MonoLocalBinds: no
+NPlusKPatterns: no
+NamedWildCards: no
+NoImplicitPrelude: no
+NoMonomorphismRestriction: no
+NoPatternGuards: no
+NoTraditionalRecordSyntax: no
+NullaryTypeClasses: no
+NumDecimals: no
+ -- ^ Unsure about this one
+OverlappingInstances: no
+OverloadedLabels: no
+OverloadedLists: no
+PackageImports: no
+ParallelListComp: no
+PartialTypeSignatures: no
+ -- ^ Unsure about this one, but trusting the crowd until convinced 
+   
+otherwise
+PostfixOperators: no
+ -- ^ Woudn’t mind this cleanup. Tally numbers are maybe insignificant
+QuantifiedConstraints: no
+QuasiQuotes: no
+RebindableSyntax: no
+RecursiveDo: no
+ -- ^ I like that one. But probably not widespread enough.
+StaticPointers: no
+Strict: no
+StrictData: no
+TemplateHaskell: no
+TemplateHaskellQuotes: no
+TransformListComp: no
+Trustworthy: no
+TypeFamilyDependencies: no
+TypeInType: no
+TypeSynonymInstances: no
+UnboxedSums: no
+UnboxedTuples: no
+UndecidableInstances: no
+UndecidableSuperClasses: no
+Unsafe: no
+
+Actually, some of them I disagree with, and believe they are safe to
+turn on by default, and would be happy to, with sufficient committee
+support:
+
+NegativeLiterals: yes
+RoleAnnotations: yes
+UnicodeSyntax: yes
+  -- ^ I ❤ unicode
+UnliftedNewtype
+s: yes
+  -- ^ or is there something wrong with that?
+
+Now to those with at least 20% popularity:
+
+*Main> putStr $ unlines [ ext ++ ": no" | E{..} <- M.elems exts, not (survey_no > 10 && survey_no * 2 > survey_yes), 5 * survey_yes > survey_total  ]
+
+These I happily go with, until I learn otherwise:
+
+BangPatterns: yes
+ConstraintKinds: yes
+DataKinds: yes
+DeriveDataTypeable: yes
+DeriveFoldable: yes
+DeriveFunctor: yes
+DeriveGeneric: yes
+DeriveTraversable: yes
+DerivingStrategies: yes
+DerivingVia: yes
+FlexibleContexts: yes
+FlexibleInstances: yes
+GADTs: yes
+GeneralisedNewtypeDeriving: yes
+KindSignatures: yes
+LambdaCase: yes
+MultiParamTypeClasses: yes
+RankNTypes: yes
+StandaloneDeriving: yes
+TupleSections: yes
+TypeApplications: yes
+TypeFamilies: yes
+TypeOperators: yes
+ViewPatterns: yes
+
+There are some where I disagree with the crowd:
+
+ScopedTypeVariables: no
+  -- ^ Too much of a kitchen sink, some edges are rough, and some of 
+       its semantics (“bind type signatures unless in scope”) are being
+       questioned.
+
+       If we had the plain PatternSignatures as a separate extension,
+       I’d vote that in though. If ScopedTypeVariables doesn't make it
+       this round, I will revive #119 to get that.
+
+OverloadedStrings: no
+  -- ^ yes, has many fans. But I believe that many might actuall
+       use that although what they really want is a monomorphic
+
+         "foo" :: Text
+
+       and I wonder if there is a way to give them that.
+
+       Also, some report that too much polymorphism can hurt, e.g. in
+
+         is_vowel c = c `elem` "aeiou"
+
+       Three is also 12% Aloofness and 12% Contentionsness, which are
+       not to be dismissed.
+
+       So I am inclined to leave this out, for this round at least.
+
+MultiWayIf: no
+  -- ^ in light of discussion around a multi-case, maybe premature
+
+
+The remaining ones,
+*Main> putStr $ unlines [ ext ++ ": yes" | E{..} <- M.elems exts, not
+(survey_no > 10 && survey_no * 2 > survey_yes), not (5 * survey_yes >
+survey_total)  ]
+
+Kinda clear:
+
+BinaryLiterals: yes
+DeriveLift: yes
+EmptyCase: yes
+EmptyDataDecls: yes
+EmptyDataDeriving: yes
+ExistentialQuantification: yes
+  -- ^ Or is anything wrong with that?
+ExplicitForAll: yes
+GADTSyntax: yes
+  -- ^ In case GADTs don’t make it
+InstanceSigs: yes
+NamedFieldPuns: yes
+NondecreasingIndentation: yes
+  -- ^ It’s Haskell98
+and the current default(!), but not Haskell2010?
+NumericUnderscores: yes
+RecordWildCards: yes
+UnliftedFFITypes: yes
+StarIsType: yes
+  -- ^ It’s the default now. Probably too early to turn off?
+
+DefaultSignatures: no
+  -- ^ Deriving via is probably preferrable these days
+DeriveAnyClass: no
+LinearTypes: no
+PatternSynonyms: no
+  -- ^ I like them, but maybe a bit too early
+MonadFailDesugaring: no
+  -- ^ This extension is temporary, and will be deprecated in a future
+release.
+QualifiedDo: no
+Safe: no
+
+No expert on these, will read your rationales:
+
+FunctionalDependencies: maybe
+StandaloneKindSignatures: maybe
+CUSKs: maybe
+GHCForeignImportPrim: maybe
+LexicalNegation: maybe
+  -- ^ Unsure about the maturity of the whitespace sensitiviy trend
+PolyKinds: maybe
+  -- ^ Does it even make sense to vote on this?
+
+
+Quite a long list! Surely the next years will be easier.

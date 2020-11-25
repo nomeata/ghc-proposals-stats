@@ -1,16 +1,23 @@
 {-# LANGUAGE RecordWildCards #-}
 import qualified Data.ByteString.Lazy as BS
 import qualified Data.Map as M
+import qualified Data.Set as S
 import qualified Data.Vector as V
 import qualified Data.Csv as CSV
+import System.Directory
+import System.FilePath
+import Data.Traversable
 import Data.List
 import Data.List.Split
+import Control.Monad
 import Data.Coerce
 import Data.Monoid
 import Text.Printf
+import Data.Ord
 import Data.Char
 import Data.Functor
 import Data.Foldable
+import Text.Regex.TDFA
 
 -- A record, intented to be loaded into GHC with record punning
 data D = D
@@ -18,6 +25,7 @@ data D = D
   { hackage_parsed   :: Int
   , hackage_in_cabal_total :: Int
   , survey_total :: Int
+  , votes_total :: Int
   , exts :: M.Map String E
   } deriving Show
 
@@ -29,6 +37,7 @@ data E = E
   , hackage_mod_use  :: Int -- ^ Turnd on in modules, when the package uses default-extensions
   , survey_yes       :: Int -- ^ Survey votes in favor
   , survey_no        :: Int -- ^ Survey votes against
+  , votes            :: Int -- ^ Committee votes
   } deriving Show
 
 loadD :: IO D
@@ -41,6 +50,10 @@ loadD = do
   let hackage_parsed = hackage_totals M.! "parsed"
   let hackage_in_cabal_total = hackage_totals M.! "in-cabal"
 
+  ballots <- readBallots
+  let votes_total = length ballots
+  let ballot_map = M.unionsWith (+) [ M.fromSet (const 1) s | s <- ballots ]
+
   putStrLn "Ignoring hackage data about unknown extensions:"
   putStrLn "(But compare with users_guide/expected-undocumented-flags.txt)"
   forM_ (M.toList (M.difference hackage versions)) $ \(ext, dat) ->
@@ -50,14 +63,33 @@ loadD = do
   forM_ (M.toList (M.difference survey versions)) $ \(ext, dat) ->
     printf "    %s (%s)\n"  ext (show dat)
 
+  putStrLn "Ignoring votes about unknown extensions:"
+  forM_ (M.toList (M.difference ballot_map versions)) $ \(ext, dat) ->
+    printf "    %s (%s)\n"  ext (show dat)
+
   let exts = (`M.mapWithKey` versions) $ \ext since ->
         let (hackage_used, hackage_in_cabal, hackage_mod_use) = M.findWithDefault (0,0,0) ext hackage in
         let (survey_yes, survey_no) = M.findWithDefault (0,0) ext survey in
+        let votes = M.findWithDefault 0 ext ballot_map in
         E{..}
   return D{..}
 
+readBallots :: IO [S.Set String]
+readBallots = do
+    fs <- filter ("vote-" `isPrefixOf`) <$> listDirectory "GHC2021"
+    printf "%d votes found (%s)\n" (length fs) (intercalate ", " fs)
+    for fs $ \fn -> do
+        s <- readFile $ "GHC2021" </> fn
+        let exts = [ ext | [_, ext] <- s =~ "^([A-Z][A-Za-z0-9]+): yes" ]
+        when (null exts) $
+            printf "WARNING: No votes found in %s\n" fn
+        return (S.fromList exts)
+
 toRst :: D -> String
 toRst D{..} = unlines $
+    [ printf "Data based on %d hackage packages, %d survey responses and %d committee votes. (Votes may be changed.)" hackage_parsed survey_total votes_total
+    , ""
+    ] ++
     [ rstTable header
           [ [ rstAnchor ext
             , since
@@ -65,9 +97,9 @@ toRst D{..} = unlines $
             , hackage_in_cabal `outOf` hackage_in_cabal_total
             , hackage_mod_use `outOf` hackage_in_cabal_total
             , survey_yes `outOf` survey_total, survey_no `outOf` survey_yes
-            , "N/A"
+            , votes `outOf` votes_total
             ]
-          | E{..} <- M.elems exts
+          | E{..} <- sortOn (Down . votes) $ M.elems exts
           ]
     ] ++
     [ ".. _" ++ ext ++ ": " ++ extHref ext | E{..} <- M.elems exts ]
