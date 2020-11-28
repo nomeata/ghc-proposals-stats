@@ -1,0 +1,127 @@
+-- Definitely 'yes'
+
+InstanceSigs: yes
+-- I have a special feeling about this one,
+-- it is extremely helpful when teaching
+
+BangPatterns: yes
+BinaryLiterals: yes
+NegativeLiterals: yes
+HexFloatLiterals: yes
+NumericUnderscores: yes
+DeriveDataTypeable: yes
+DeriveFoldable: yes
+DeriveFunctor: yes
+DeriveGeneric: yes
+DeriveLift: yes
+DeriveTraversable: yes
+DerivingStrategies: yes
+DerivingVia: yes
+GeneralisedNewtypeDeriving: yes
+EmptyCase: yes
+EmptyDataDecls: yes
+EmptyDataDeriving: yes
+ExplicitForAll: yes
+ConstraintKinds: yes
+DataKinds: yes
+FlexibleContexts: yes
+FlexibleInstances: yes
+GADTSyntax: yes
+GADTs: yes
+ImportQualifiedPost: yes
+MultiParamTypeClasses: yes
+NamedFieldPuns: yes
+RankNTypes: yes
+RecordWildCards: yes
+ScopedTypeVariables: yes
+StandaloneDeriving: yes
+StarIsType: yes
+TupleSections: yes
+TypeApplications: yes
+TypeFamilies: yes
+TypeOperators: yes
+TypeSynonymInstances: yes
+ViewPatterns: yes
+KindSignatures: yes
+LambdaCase: yes
+MonadFailDesugaring: yes
+
+
+
+-- Not now
+
+AllowAmbiguousTypes: no
+ApplicativeDo: no
+Arrows: no
+BlockArguments: no
+CApiFFI: no
+CPP: no
+CUSKs: no
+ConstrainedClassMethods: no
+DatatypeContexts: no
+DefaultSignatures: no
+DeriveAnyClass: no
+DisambiguateRecordFields: no
+DuplicateRecordFields: no
+ExistentialQuantification: no
+ExplicitNamespaces: no
+ExtendedDefaultRules: no
+ForeignFunctionInterface: no
+FunctionalDependencies: no
+GHCForeignImportPrim: no
+ImplicitParams: no
+ImpredicativeTypes: no
+IncoherentInstances: no
+InterruptibleFFI: no
+LexicalNegation: no
+LiberalTypeSynonyms: no
+LinearTypes: no
+MagicHash: no
+MonadComprehensions: no
+MonoLocalBinds: no
+MultiWayIf: no
+NPlusKPatterns: no
+NamedWildCards: no
+NoImplicitPrelude: no
+NoMonomorphismRestriction: no
+NoPatternGuards: no
+NoTraditionalRecordSyntax: no
+NondecreasingIndentation: no
+NullaryTypeClasses: no
+NumDecimals: no
+OverlappingInstances: no
+OverloadedLabels: no
+OverloadedLists: no
+OverloadedStrings: no
+PackageImports: no
+ParallelListComp: no
+PartialTypeSignatures: no
+PatternSynonyms: no
+PolyKinds: no
+PostfixOperators: no
+QualifiedDo: no
+QuantifiedConstraints: no
+QuasiQuotes: no
+RebindableSyntax: no
+RecursiveDo: no
+RoleAnnotations: no
+Safe: no
+StandaloneKindSignatures: no
+StaticPointers: no
+Strict: no
+StrictData: no
+TemplateHaskell: no
+TemplateHaskellQuotes: no
+TransformListComp: no
+Trustworthy: no
+TypeFamilyDependencies: no
+TypeInType: no
+UnboxedSums: no
+UnboxedTuples: no
+UndecidableInstances: no
+UndecidableSuperClasses: no
+UnicodeSyntax: no
+UnliftedFFITypes: no
+UnliftedNewtypes: no
+Unsafe: no
+
