@@ -1,0 +1,185 @@
+My votes:
+
+## Uncontroversial extensions
+
+I've been writing code with most of these enabled by default for quite
+some time now. It saves a lot of LANGUAGE pragmas. Other than
+RecordWildCards I doubt any of these are controversial.
+
+BangPatterns: yes
+BinaryLiterals: yes
+DataKinds: yes
+DeriveDataTypeable: yes
+DeriveGeneric: yes
+EmptyCase: yes
+ExistentialQuantification: yes
+FlexibleContexts: yes
+FlexibleInstances: yes
+GADTs: yes
+GeneralisedNewtypeDeriving: yes
+LambdaCase: yes
+MultiParamTypeClasses: yes
+MultiWayIf: yes
+NoMonomorphismRestriction: yes
+OverloadedStrings: yes
+PatternSynonyms: yes
+RankNTypes: yes
+RecordWildCards: yes
+ScopedTypeVariables: yes
+StandaloneDeriving: yes
+TupleSections: yes
+TypeFamilies: yes
+TypeSynonymInstances: yes
+NondecreasingIndentation: yes
+ConstrainedClassMethods: yes
+ConstraintKinds: yes
+DefaultSignatures: yes
+DeriveFoldable: yes
+DeriveFunctor: yes
+DeriveTraversable: yes
+DeriveAnyClass: yes
+EmptyDataDecls: yes
+EmptyDataDeriving: yes
+HexFloatLiterals: yes
+ImportQualifiedPost: yes
+InstanceSigs: yes
+KindSignatures: yes
+LiberalTypeSynonyms: yes
+NamedFieldPuns: yes
+  (I don't personally like this, but I can't justify having
+  RecordWildcards but not having this)
+NegativeLiterals: yes
+NumDecimals: yes
+PolyKinds: yes
+PostfixOperators: yes
+UnicodeSyntax: yes
+
+## Extensions that are implied by others, or are irrelevant:
+
+GADTSyntax: yes
+ExplicitForAll: yes
+MonadFailDesugaring: irrelevant
+MonoLocalBinds: yes
+
+## Extensions that are deprecated or exist for legacy reasons:
+
+DatatypeContexts: no
+NPlusKPatterns: no
+CUSKs: no
+NoPatternGuards: no
+ForeignFunctionInterface: yes
+  (already implied by Haskell2010, why do we have this but
+  NoPatternGuards?)
+NullaryTypeClasses: no
+OverlappingInstances: no
+IncoherentInstances: no
+TypeInType: no
+
+## No to extensions that are too new to include in GHC2021:
+
+QualifiedDo: no
+LinearTypes: no
+BlockArguments: no
+LexicalNegation: no
+QuantifiedConstraints: no
+StandaloneKindSignatures: no
+StarIsType: no
+
+## No to extensions that are opt-in by design:
+
+ApplicativeDo: no
+  (can lead to non-deterministic behaviour with non-rule-abiding
+  Applicative instances)
+PackageImports: no
+CPP: no
+DeriveLift: no
+  (only makes sense with TemplateHaskell, which is opt-in)
+TemplateHaskell: no
+TemplateHaskellQuotes: no
+QuasiQuotes: no
+RebindableSyntax: no
+Safe: no
+Strict: no
+StrictData: no
+Trustworthy: no
+Unsafe: no
+ExtendedDefaultRules: no
+NoImplicitPrelude: no
+
+## No to unsafe extensions:
+
+UndecidableInstances: no
+UndecidableSuperClasses: no
+
+## No to low-level extensions, not intended to be on by default:
+
+UnboxedTuples: no
+UnboxedSums: no
+MagicHash: no
+UnliftedFFITypes: no
+UnliftedNewtypes: no
+GHCForeignImportPrim: no
+InterruptibleFFI: no
+
+## No to record-related extensions
+
+Records are in flux, let's not do any of this in GHC2021.
+
+DisambiguateRecordFields: no
+DuplicateRecordFields: no
+NoTraditionalRecordSyntax: no
+OverloadedLabels: no
+
+## The rest
+
+That leaves some tricky ones, I'm putting all these as "no" or
+"maybe"; we could conservatively just say "no" to all of them.
+
+I'm voting NO on these:
+
+Arrows: no
+  (not widely used)
+ImplicitParams: no
+  (not widely used; questionable semantics; functionality available
+  with reflection package)
+ImpredicativeTypes: no
+  (I don't think we want this on by default, right?)
+ParallelListComp: no
+  (not widely used, most uses are covered by zip)
+StaticPointers: no
+  (quite a niche extension, only really useful with Distributed Haskell)
+TransformListComp: no
+  (not widely used)
+ViewPatterns: no
+  (not widely used, and in my opinion not a good design)
+
+I'm undecided on these:
+
+AllowAmbiguousTypes: maybe
+TypeApplications: maybe
+CApiFFI: maybe
+  (harmless, but a bit niche)
+DerivingVia: maybe
+  (not very widely-used, quite new)
+DerivingStrategies: maybe
+  (not very widely-used, quite new)
+FunctionalDependencies: maybe
+  (slightly inclined to "no", given the overlap
+  with TypeFamilies and the lack of widespread usage)
+ExplicitNamespaces: maybe
+  (might change, so defer?)
+MonadComprehensions: maybe
+  (does this make error messages worse?)
+PartialTypeSignatures: maybe
+NamedWildCards: maybe
+NumericUnderscores: maybe
+OverloadedLists: maybe
+  (impact on error messages?)
+RecursiveDo: maybe
+  (but introduced by a keyword so relatively harmless)
+RoleAnnotations: maybe
+  (not widely used, but when you need it you need it)
+TypeFamilyDependencies: maybe
+  (not widely used, but when you need it you need it)
+TypeOperators: maybe
+

@@ -104,9 +104,9 @@ toRst D{..} = unlines $
     ] ++
     [ ".. _" ++ ext ++ ": " ++ extHref ext | E{..} <- M.elems exts ]
   where
-    header = [ "Extension", "In GHC Since"
-             , "Proliferation", "Innocuousness", "Aloofness"
-             , "Popularity", "Contentionsness"
+    header = [ "Extension", "Since"
+             , "Prolif…", "Innoc…", "Aloof…"
+             , "Pop…", "Cont…"
              , "Votes"
              ]
     rstLink txt url = "`" ++ txt ++ " <" ++ url ++ ">`_"
