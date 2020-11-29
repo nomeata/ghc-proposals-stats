@@ -70,6 +70,7 @@ Data based on 13951 hackage packages, 1348 survey responses and 5 committee vote
            `RoleAnnotations`_  7.8.1      1%     1%     1%   6%   75%   20%
     `TypeFamilyDependencies`_  8.0.1      1%     2%     1%   9%   59%   20%
           `UnliftedFFITypes`_  6.8.1      0%     0%     0%    0   N/A   20%
+          `UnliftedNewtypes`_ 8.10.1      0%      0      0   3%  121%   20%
        `AllowAmbiguousTypes`_  7.8.1      3%     3%     4%   4%  348%     0
              `ApplicativeDo`_  8.0.1      1%     2%     1%  14%   65%     0
             `BlockArguments`_  8.6.1      0%     2%     0%  12%   63%     0
@@ -117,7 +118,6 @@ Data based on 13951 hackage packages, 1348 survey responses and 5 committee vote
              `UnboxedTuples`_  6.8.1      3%     8%     1%   5%  134%     0
       `UndecidableInstances`_      ?     14%     7%    16%   3%  411%     0
    `UndecidableSuperClasses`_  8.0.1      1%     0%     1%   1% 1675%     0
-          `UnliftedNewtypes`_ 8.10.1      0%      0      0   3%  121%     0
                     `Unsafe`_  7.4.1       0      0      0   0% 3475%     0
 ============================= ====== ======= ====== ====== ==== ===== =====
 

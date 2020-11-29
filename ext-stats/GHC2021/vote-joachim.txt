@@ -81,8 +81,7 @@ NegativeLiterals: yes
 RoleAnnotations: yes
 UnicodeSyntax: yes
   -- ^ I ❤ unicode
-UnliftedNewtype
-s: yes
+UnliftedNewtypes: yes
   -- ^ or is there something wrong with that?
 
 Now to those with at least 20% popularity:
