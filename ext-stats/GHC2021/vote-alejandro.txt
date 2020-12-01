@@ -1,24 +1,22 @@
- -- the ones with comments
+Thanks everybody for an illuminating discussion about DeriveAnyClass. I was not aware of the dark corners of the extension (and actually, now I find it weird that GHC itself suggests that extension!). Here are my updated votes; apart from a ’No’ to DeriveAnyClass I’ve updated my votes of StandaloneKindSignatures and ImportQualifiedPost to ‘Yes’.
+
+-- the ones with comments
 CUSKs: no
 -- ^ according to the guide, this is superseded by StandaloneKindSignatures
 ConstrainedClassMethods: yes
 -- ^ it is implied by MultiParamTypeClasses anyway
 DefaultSignatures: no
 -- ^ as Joachim says, this should be succeeded by DerivingVia
--- ^ anyway, this is one required for the writer of the class, so no big
-deal
-DeriveAnyClass: yes
--- ^ I think this makes no harm, and I tend to use deriving (ToJSON,
-FromJSON)
+-- ^ anyway, this is one required for the writer of the class, so no big deal
+DeriveAnyClass: no
+-- ^ I think this makes no harm, and I tend to use deriving (ToJSON, FromJSON)
 DerivingVia: yes
--- ^ even though it’s quite recent, I think it’s quite sensible and I don’t
-foresee many changes to it
+-- ^ even though it’s quite recent, I think it’s quite sensible and I don’t foresee many changes to it
 DisambiguateRecordFields: no
 DuplicateRecordFields: no
 -- ^ we seem to still be working on this
 FunctionalDependencies: maybe
--- ^ this is a hard one! Not so terrible since it’s only required by the
-creator of the class, not of the instances
+-- ^ this is a hard one! Not so terrible since it’s only required by the creator of the class, not of the instances
 MonadFailDesugaring: yes
 -- ^ isn’t this the default nowadays?
 MonoLocalBinds: maybe
@@ -27,13 +25,11 @@ MultiWayIf: no
 -- ^ still in discussion
 NamedWildCards: yes
 -- ^ not many people use this, but I think this is the sane default
-OverloadedLists: maybe
-OverloadedStrings: maybe
--- ^ I would love to see these included, but I agree with the sentiment
-that they need more work
+OverloadedLists: yes
+OverloadedStrings: yes
+-- ^ I would love to see these included, but I agree with the sentiment that they need more work
 PartialTypeSignatures: no
--- ^ I really think that partial type signatures should not be accepted by
-default
+-- ^ I really think that partial type signatures should not be accepted by default
 QuantifiedConstraints: maybe
 -- ^ too early, may want to refine this
 ScopedTypeVariables: yes
@@ -50,8 +46,8 @@ NumDecimals: yes
 NumericUnderscores: yes
 
 -- too early but wouldn’t care to introduce it
-StandaloneKindSignatures: maybe
-ImportQualifiedPost: maybe
+StandaloneKindSignatures: yes
+ImportQualifiedPost: yes
 
 -- don’t know
 ForeignFunctionInterface: maybe
