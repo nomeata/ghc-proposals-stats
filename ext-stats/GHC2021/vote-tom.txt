@@ -1,0 +1,169 @@
+Module System
+=============
+
+ImportQualifiedPost: yes
+PackageImports: yes
+NoImplicitPrelude: a very breaking change
+
+Notation
+========
+
+BlockArguments: yes
+MultiWayIf: yes
+LambdaCase: yes
+BinaryLiterals: yes
+HexFloatLiterals: yes
+NumericUnderscores: yes
+NumDecimals: yes
+OverloadedStrings: more problems along the lines of `show 1` that seem to trip up a lot of newcomers.
+OverloadedLists: same as OverloadedStrings
+OverloadedLabels: not a no as much as a "no strong opinion" - personally never preferred it over alternatives.
+EmptyCase: yes
+PostfixOperators: yes
+LexicalNegation: yes
+UnicodeSyntax: yes
+NegativeLiterals: yes / N/A
+TupleSections: yes
+ImplicitParams: not obvious syntax, turning it on in cabal files/pragmas gives unfamiliar readers something to search for
+ParallelListComp: yes
+RecursiveDo: no strong opinion, I’ve never needed/used it in practice
+TransformListComp: adds more complexity to list comp notation, which is already complexity on do-notation
+Arrows: no strong opinion, but I’d lean towards no for the same reason as ImplicitParams
+ApplicativeDo: probably quite a breaking change in practice
+QualifiedDo: no
+MonadComprehensions: no
+NondecreasingIndentation: I had no idea about this until I saw the user guide example - this is probably unintuitive
+RebindableSyntax: definitely a breaking change, not least because it implies NoImplicitPrelude
+ExplicitNamespaces: yes
+
+Data Types
+==========
+
+DatatypeContexts: no
+ExistentialQuantification: yes
+EmptyDataDecls: yes
+RoleAnnotations: yes
+StrictData: no, definitely a breaking change
+GADTSyntax: yes
+GADTs: the implied MonoLocalBinds probably means this would be a breaking change
+
+Patterns and Guards
+===================
+
+BangPatterns: yes
+ViewPatterns: yes
+PatternSynonyms: no
+NoPatternGuards: no
+NPlusKPatterns: no
+
+Records
+=======
+
+NamedFieldPuns: yes
+RecordWildCards: yes, but a weak yes
+DisambiguateRecordFields: yes
+DuplicateRecordFields: yes
+NoTraditionalRecordSyntax: no
+
+Deriving
+=======
+
+DeriveGeneric: yes
+DeriveLift: yes
+DeriveDataTypeable: yes
+EmptyDataDeriving: yes
+StandaloneDeriving: yes
+DeriveFunctor: yes
+DeriveFoldable: yes
+DeriveTraversable: yes
+DerivingStrategies: yes
+DerivingVia: yes
+GeneralisedNewtypeDeriving: yes
+DeriveAnyClass: no, I can imagine this would be rather dangerous
+
+Class System
+============
+
+MultiParamTypeClasses: yes
+NullaryTypeClasses: yes (albeit implied)
+ConstraintKinds: yes
+TypeSynonymInstances: yes
+FlexibleInstances: yes
+FlexibleContexts: yes
+ConstrainedClassMethods: yes
+DefaultSignatures: yes
+InstanceSigs: yes
+ExtendedDefaultRules: leads to some unexpected error messages
+FunctionalDependencies: yes
+QuantifiedConstraints: probably too new
+UndecidableInstances: noooo
+IncoherentInstances: noooo
+UndecidableSuperClasses: noooo
+OverlappingInstances: noooo
+
+Types
+=====
+
+RankNTypes: yes
+StandaloneKindSignatures: yes
+KindSignatures: yes
+LiberalTypeSynonyms: yes
+ScopedTypeVariables: yes
+ExplicitForAll: yes
+AllowAmbiguousTypes: the class-site error is more useful than the use-site
+ImpredicativeTypes: not yet
+MonoLocalBinds: definitely a breaking change
+NoMonomorphismRestriction: I’d lean weakly towards “yes”, but happy to be overruled.
+PartialTypeSignatures: no
+NamedWildCards: yes
+LinearTypes: no
+TypeApplications: yes
+PolyKinds: yes
+TypeOperators: yes
+StarIsType: no, or even No
+TypeFamilies: yes
+TypeFamilyDependencies: yes
+DataKinds: yes
+
+FFI
+===
+
+ForeignFunctionInterface: no
+CApiFFI: no
+GHCForeignImportPrim: no
+InterruptibleFFI: no
+UnliftedFFITypes: no
+StaticPointers: no
+
+Low Level
+=========
+
+UnboxedSums: yes
+UnboxedTuples: yes
+MagicHash: yes
+UnliftedNewtypes: yes
+
+Macros
+======
+
+CPP: no
+TemplateHaskell: yes
+TemplateHaskellQuotes: yes
+QuasiQuotes: yes
+
+
+Other
+=====
+
+Unsafe: no
+Safe: no
+Trustworthy: no
+Strict: no
+
+Obsolete/Deprecated
+===================
+
+CUSKs: no
+TypeInType: no
+MonadFailDesugaring: no
+

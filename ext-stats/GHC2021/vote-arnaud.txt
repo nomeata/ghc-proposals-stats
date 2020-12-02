@@ -1,5 +1,3 @@
-Here is my vote:
-
 ## I don't know what these are
 
 LexicalNegation: maybe
@@ -32,7 +30,6 @@ NumDecimals: maybe
 PackageImports: maybe
 ParallelListComp: maybe
 PolyKinds: maybe
-PostfixOperators: maybe
 RankNTypes: maybe
 RecursiveDo: maybe
 TransformListComp: maybe
@@ -90,6 +87,9 @@ PartialTypeSignatures: yes
 ViewPatterns: yes
 TypeApplications: yes
 StandaloneDeriving: yes
+PostfixOperators: yes
+    ^ Not really new syntax, rather refined semantics in existing syntax. But just as
+    innocuous.
 
 MonoLocalBinds: yes
    ^ MonoLocalBinds is implied by both GADTs and TypeFamilies. And it
@@ -121,7 +121,7 @@ LambdaCase: probably not
    ^ As popular and lovely as this extension is, considering that
    there are some discussion on its future, I'm sadly compelled to
    give it a pass.
-
+   
 ## Type class stuff
 
 MultiParamTypeClasses: yes

@@ -1,4 +1,4 @@
-My votes:
+I will also change DeriveAnyClass to no:
 
 ## Uncontroversial extensions
 
@@ -37,7 +37,6 @@ DefaultSignatures: yes
 DeriveFoldable: yes
 DeriveFunctor: yes
 DeriveTraversable: yes
-DeriveAnyClass: yes
 EmptyDataDecls: yes
 EmptyDataDeriving: yes
 HexFloatLiterals: yes
@@ -53,6 +52,7 @@ NumDecimals: yes
 PolyKinds: yes
 PostfixOperators: yes
 UnicodeSyntax: yes
+  (but only the language extension, not the UI changes)
 
 ## Extensions that are implied by others, or are irrelevant:
 
@@ -152,6 +152,8 @@ TransformListComp: no
   (not widely used)
 ViewPatterns: no
   (not widely used, and in my opinion not a good design)
+DeriveAnyClass: no
+  (see discussion on the mailing list)
 
 I'm undecided on these:
 

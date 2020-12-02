@@ -1,0 +1,173 @@
+I also adopted Iavor's very helpful categorization.
+
+I have not given any motivations below, as it's too difficult to read everyone's motivations inline. Instead, I give several varieties of "no" votes. Let's debate when someone disagrees with me. (To be clear: "obscure" just means that someone should manually opt in, not that the feature is really obscure.)
+
+Module System
+=============
+
+ImportQualifiedPost: yes
+PackageImports: obscure
+NoImplicitPrelude: breaking
+
+Notation
+========
+
+BlockArguments: yes
+MultiWayIf: might change
+LambdaCase: might change
+BinaryLiterals: yes
+HexFloatLiterals: yes
+NumericUnderscores: yes
+NumDecimals: yes
+OverloadedStrings: bad for beginners
+OverloadedLists: bad for beginners
+OverloadedLabels: obscure
+EmptyCase: yes
+PostfixOperators: yes
+LexicalNegation: yes
+UnicodeSyntax: yes
+NegativeLiterals: superseded
+TupleSections: yes
+ImplicitParams: obscure
+ParallelListComp: yes
+RecursiveDo: obscure
+TransformListComp: obscure
+Arrows: obscure
+ApplicativeDo: breaking
+QualifiedDo: too fresh
+MonadComprehensions: bad for beginners
+NondecreasingIndentation: obscure
+RebindableSyntax: breaking
+ExplicitNamespaces: yes
+
+Data Types
+==========
+
+DatatypeContexts: no
+ExistentialQuantification: yes
+EmptyDataDecls: yes
+RoleAnnotations: yes
+StrictData: breaking
+GADTSyntax: yes
+GADTs: obscure
+
+Patterns and Guards
+===================
+
+BangPatterns: yes
+ViewPatterns: yes
+PatternSynonyms: too fresh
+NoPatternGuards: breaking
+NPlusKPatterns: deprecated
+
+Records
+=======
+
+NamedFieldPuns: yes
+RecordWildCards: confusing
+DisambiguateRecordFields: yes
+DuplicateRecordFields: might change
+NoTraditionalRecordSyntax: no
+
+Deriving
+=======
+
+DeriveGeneric: yes
+DeriveLift: yes
+DeriveDataTypeable: yes
+EmptyDataDeriving: yes
+StandaloneDeriving: yes
+DeriveFunctor: yes
+DeriveFoldable: yes
+DeriveTraversable: yes
+DerivingStrategies: yes
+DerivingVia: yes
+GeneralisedNewtypeDeriving: yes
+DeriveAnyClass: dangerous
+
+Class System
+============
+
+MultiParamTypeClasses: yes
+NullaryTypeClasses: superseded
+ConstraintKinds: yes
+TypeSynonymInstances: yes
+FlexibleInstances: yes
+FlexibleContexts: yes
+ConstrainedClassMethods: yes
+DefaultSignatures: yes
+InstanceSigs: yes
+ExtendedDefaultRules: might change
+FunctionalDependencies: obscure
+QuantifiedConstraints: too fresh
+UndecidableInstances: dangerous
+IncoherentInstances: dangerous
+UndecidableSuperClasses: dangerous
+OverlappingInstances: superseded
+
+Types
+=====
+
+RankNTypes: yes
+StandaloneKindSignatures: yes
+KindSignatures: yes
+LiberalTypeSynonyms: confusing
+ScopedTypeVariables: might change
+ExplicitForAll: yes
+AllowAmbiguousTypes: dangerous
+ImpredicativeTypes: too fresh
+MonoLocalBinds: breaking
+NoMonomorphismRestriction: debate!
+PartialTypeSignatures: obscure
+NamedWildCards: yes
+LinearTypes: too fresh
+TypeApplications: yes
+PolyKinds: yes
+TypeOperators: yes
+StarIsType: deprecated
+TypeFamilies: obscure
+TypeFamilyDependencies: obscure
+DataKinds: might change
+
+FFI
+===
+
+ForeignFunctionInterface: obscure
+CApiFFI: obscure
+GHCForeignImportPrim: obscure
+InterruptibleFFI: obscure
+UnliftedFFITypes: obscure
+StaticPointers: obscure
+
+Low Level
+=========
+
+UnboxedSums: obscure
+UnboxedTuples: obscure
+MagicHash: obscure
+UnliftedNewtypes: yes
+
+Macros
+======
+
+CPP: obscure
+TemplateHaskell: TH
+TemplateHaskellQuotes: yes
+QuasiQuotes: TH
+
+
+Other
+=====
+
+Unsafe: no
+Safe: no
+Trustworthy: no
+Strict: no
+
+Obsolete/Deprecated
+===================
+
+CUSKs: no
+TypeInType: no
+MonadFailDesugaring: maybe
+
