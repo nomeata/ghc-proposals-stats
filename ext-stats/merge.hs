@@ -1,36 +1,36 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# OPTIONS_GHC -Wno-name-shadowing #-}
 import qualified Data.ByteString.Lazy as BS
 import qualified Data.Map as M
 import qualified Data.Set as S
 import qualified Data.Vector as V
 import qualified Data.Csv as CSV
 import System.Directory
-import System.FilePath
 import Data.Traversable
 import Data.List
+import Data.Maybe
 import Data.List.Split
 import Control.Monad
 import Data.Coerce
 import Data.Monoid
 import Text.Printf
 import Data.Ord
-import Data.Char
-import Data.Functor
-import Data.Foldable
 import Text.Regex.TDFA
 
 -- A record, intented to be loaded into GHC with record punning
+type Ext = String
 data D = D
   -- Totals
   { hackage_parsed   :: Int
   , hackage_in_cabal_total :: Int
   , survey_total :: Int
   , votes_total :: Int
-  , exts :: M.Map String E
+  , exts :: M.Map Ext E
+  , ballots :: M.Map String (S.Set Ext)
   } deriving Show
 
 data E = E
-  { ext :: String -- ^ The extension (redundant, as it's the map key, but convenient)
+  { ext :: Ext              -- ^ The extension (redundant, as it's the map key, but convenient)
   , since :: String         -- ^ First GHC version
   , hackage_used     :: Int -- ^ Used somewhere in the package
   , hackage_in_cabal :: Int -- ^ Turned on by default
@@ -50,9 +50,9 @@ loadD = do
   let hackage_parsed = hackage_totals M.! "parsed"
   let hackage_in_cabal_total = hackage_totals M.! "in-cabal"
 
-  ballots <- readBallots
+  ballots <- M.fromList <$> readBallots
   let votes_total = length ballots
-  let ballot_map = M.unionsWith (+) [ M.fromSet (const 1) s | s <- ballots ]
+  let ballot_map = M.unionsWith (+) [ M.fromSet (const 1) s | s <- M.elems ballots ]
 
   putStrLn "Ignoring hackage data about unknown extensions:"
   putStrLn "(But compare with users_guide/expected-undocumented-flags.txt)"
@@ -74,16 +74,18 @@ loadD = do
         E{..}
   return D{..}
 
-readBallots :: IO [S.Set String]
+readBallots :: IO [(String, S.Set String)]
 readBallots = do
-    fs <- filter ("vote-" `isPrefixOf`) <$> listDirectory "GHC2021"
-    printf "%d votes found (%s)\n" (length fs) (intercalate ", " fs)
-    for fs $ \fn -> do
-        s <- readFile $ "GHC2021" </> fn
+    voters <- mapMaybe (stripSuffix ".txt") . mapMaybe (stripPrefix "vote-") <$> listDirectory "GHC2021"
+    printf "%d votes found (%s)\n" (length voters) (intercalate ", " voters)
+    for voters $ \voter -> do
+        let filename = "GHC2021/vote-" ++ voter ++ ".txt"
+        s <- readFile filename
         let exts = [ ext | [_, ext] <- s =~ "^([A-Z][A-Za-z0-9]+): yes" ]
         when (null exts) $
-            printf "WARNING: No votes found in %s\n" fn
-        return (S.fromList exts)
+            printf "WARNING: No votes found in %s\n" filename
+        return (voter, S.fromList exts)
+   where stripSuffix p = fmap reverse . stripPrefix (reverse p) . reverse
 
 toRst :: D -> String
 toRst D{..} = unlines $
@@ -109,21 +111,37 @@ toRst D{..} = unlines $
              , "Pop…", "Cont…"
              , "Votes"
              ]
-    rstLink txt url = "`" ++ txt ++ " <" ++ url ++ ">`_"
+    _rstLink txt url = "`" ++ txt ++ " <" ++ url ++ ">`_"
     rstAnchor txt = "`" ++ txt ++ "`_"
     extHref ext = "https://downloads.haskell.org/ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-" ++ ext
 
+sadnessReport :: D -> String
+sadnessReport D{..} = unlines $ flip foldMap (M.toList ballots) $ \(n, b) ->
+    [ n
+    , printf "would miss:"
+    , pp (b `S.difference` accepted)
+    , "doesn’t want:"
+    , pp (accepted `S.difference` b)
+    , ""
+    ]
+  where
+    accepted = S.fromList [ ext | E{..} <- M.elems exts, 3 * votes >= 2 * votes_total ]
+    pp s | S.null s = "none!"
+    pp s = intercalate ", " $ S.toList s
+
+main :: IO ()
 main = do
   d <- loadD
   writeFile "GHC2021/result.rst" $ toRst d
 
 outOf :: Int -> Int -> String
 outOf 0 0 = "N/A"
-outOf x 0 = "∞%"
+outOf _ 0 = "∞%"
 outOf 0 _ = "0"
 outOf x y = printf "%.0f%%" (fromIntegral x / fromIntegral y * 100 :: Double)
 
 
+norm :: Ext -> Ext
 norm "GeneralizedNewtypeDeriving" = "GeneralisedNewtypeDeriving"
 norm s = s
 
@@ -131,11 +149,13 @@ norm s = s
 -- https://www.danwc.com/posts/2020-06-01-row-types-for-csv-library/
 -- were a readily available library
 
+d :: CSV.FromRecord a => String -> IO [a]
 d file =
     V.toList .
     either error id .
     CSV.decodeWith CSV.defaultDecodeOptions CSV.HasHeader <$>
     BS.readFile ("GHC2021/" ++ file)
+d' :: CSV.FromNamedRecord a => String -> IO [a]
 d' file =
     V.toList .
     either error snd .
@@ -169,6 +189,7 @@ fromSurvey survey =
     )
 
 -- normalize names
+surveyTick :: Ext -> Bool -> M.Map Ext (Sum Int, Sum Int)
 surveyTick "Cpp"                        v = surveyTick' "CPP"                        v
 surveyTick "GeneralizedNewtypeDeriving" v = surveyTick' "GeneralisedNewtypeDeriving" v
 surveyTick "Rank2Types"                 v = surveyTick' "RankNTypes"                 v
@@ -177,5 +198,6 @@ surveyTick "NoEmptyDataDecls"           v = surveyTick' "EmptyDataDecls"        
 surveyTick "NoMonadFailDesugaring"      v = surveyTick' "MonadFailDesugaring"        (not v)
 surveyTick ext v = surveyTick' ext v
 
+surveyTick' :: Ext -> Bool -> M.Map Ext (Sum Int, Sum Int)
 surveyTick' ext True  = M.singleton ext (Sum (1::Int), mempty)
 surveyTick' ext False = M.singleton ext (mempty, Sum (1::Int))

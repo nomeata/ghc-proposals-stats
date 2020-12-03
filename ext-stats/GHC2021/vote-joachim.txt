@@ -1,5 +1,38 @@
-here is my current vote, mostly getting out of the way what seems
-obvious to me.
+Hi,
+
+thanks all for various inputs, I’ll update my votes as follows:
+
+PostfixOperators: yes
+
+NamedWildCards: yes
+ -- ^ Following Alejandro here: Seems safe and maybe more useful if
+      it can be used without friction.
+
+ForeignFunctionInterface: yes
+ -- ^ As Simon M points out, this is part of Haskell2010, and
+      was put on the ballet in this form (rather than
+      NoForeignFunctionInterface) by accident. I do not want to remove
+      anything that’s there (and I assume that nobody does without
+      making that very explicit).
+
+MonoLocalBinds: yes
+ -- ^ Not an expert, but it’s probably nice if turning on GADTs or
+      TypeFamilies (if they don't make it on their own) don’t change
+      seemingly unrelated part of the code.
+
+ImportQualifiedPost: yes
+ -- ^ Personally don’t care a lot about it, but I don’t want to veto it
+      either, so following Iavor here.
+
+HexFloatLiterals: yes
+ -- ^ More syntax for literals doesn’t hurt
+
+
+I’d also like to advocate for UnicodeSyntax, with the implied provision that -XGHC2021 will make GHC accept unicode syntax, but without writing error messages using it (i.e. no implied -fprint-unicode-syntax). I hope that at least those who have this on maybe (Alejandro, Arnaud, Iavor and SPJ) might be swayed by that clarification.
+
+
+Unchanged votes follow:
+
 
 Let’s first get all those out of the way that are too contentions
 according to the data (with 2*no>yes votes):
@@ -21,19 +54,14 @@ DisambiguateRecordFields: no
 DuplicateRecordFields: no
 ExplicitNamespaces: no
 ExtendedDefaultRules: no
-ForeignFunctionInterface: no
-HexFloatLiterals: no
 ImplicitParams: no
-ImportQualifiedPost: no
 ImpredicativeTypes: no
 IncoherentInstances: no
 InterruptibleFFI: no
 LiberalTypeSynonyms: no
 MagicHash: no
 MonadComprehensions: no
-MonoLocalBinds: no
 NPlusKPatterns: no
-NamedWildCards: no
 NoImplicitPrelude: no
 NoMonomorphismRestriction: no
 NoPatternGuards: no
@@ -50,8 +78,6 @@ PartialTypeSignatures: no
  -- ^ Unsure about this one, but trusting the crowd until convinced 
    
 otherwise
-PostfixOperators: no
- -- ^ Woudn’t mind this cleanup. Tally numbers are maybe insignificant
 QuantifiedConstraints: no
 QuasiQuotes: no
 RebindableSyntax: no

@@ -150,7 +150,6 @@ QuasiQuotes: no
 RebindableSyntax: no
 CApiFFI: no
 CPP: no
-ForeignFunctionInterface: no
 GHCForeignImportPrim: no
 InterruptibleFFI: no
 MagicHash: no
@@ -220,6 +219,7 @@ StarIsType: yes
 
 EmptyDataDecls: yes
 EmptyDataDeriving: yes
+ForeignFunctionInterface: yes
 
 ## Uncommon extensions
 
@@ -241,4 +241,5 @@ OverlappingInstances: no
 DatatypeContexts: no
 IncoherentInstances: no
 MultiWayIf: no
-NPlusKPatterns: no
+NPlusKPatterns: no 
+
