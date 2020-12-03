@@ -1,3 +1,16 @@
+Following the discussions I've decided to update my vote:
+
+-- Updates:
+ConstrainedClassMethods: yes
+ForeignFunctionInterface: yes
+NamedWildCards: yes
+OverloadedLists: yes
+OverloadedStrings: yes
+PolyKinds: yes
+PostfixOperators: yes
+MonoLocalBinds: yes
+
+-- The rest goes without changes
 -- Definitely 'yes'
 
 InstanceSigs: yes
@@ -57,7 +70,6 @@ BlockArguments: no
 CApiFFI: no
 CPP: no
 CUSKs: no
-ConstrainedClassMethods: no
 DatatypeContexts: no
 DefaultSignatures: no
 DeriveAnyClass: no
@@ -66,7 +78,6 @@ DuplicateRecordFields: no
 ExistentialQuantification: no
 ExplicitNamespaces: no
 ExtendedDefaultRules: no
-ForeignFunctionInterface: no
 FunctionalDependencies: no
 GHCForeignImportPrim: no
 ImplicitParams: no
@@ -78,10 +89,8 @@ LiberalTypeSynonyms: no
 LinearTypes: no
 MagicHash: no
 MonadComprehensions: no
-MonoLocalBinds: no
 MultiWayIf: no
 NPlusKPatterns: no
-NamedWildCards: no
 NoImplicitPrelude: no
 NoMonomorphismRestriction: no
 NoPatternGuards: no
@@ -91,14 +100,10 @@ NullaryTypeClasses: no
 NumDecimals: no
 OverlappingInstances: no
 OverloadedLabels: no
-OverloadedLists: no
-OverloadedStrings: no
 PackageImports: no
 ParallelListComp: no
 PartialTypeSignatures: no
 PatternSynonyms: no
-PolyKinds: no
-PostfixOperators: no
 QualifiedDo: no
 QuantifiedConstraints: no
 QuasiQuotes: no

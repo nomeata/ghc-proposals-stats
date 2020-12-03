@@ -1,3 +1,8 @@
+Given that choice, I think I’d rather add GADTs to my “yes” list than add TypeFamilies to my “no” list. Joachim, sorry to mess up your statistics again :)
+
+GADTs: yes
+
+
 Module System
 =============
 
@@ -45,7 +50,6 @@ EmptyDataDecls: yes
 RoleAnnotations: yes
 StrictData: no, definitely a breaking change
 GADTSyntax: yes
-GADTs: the implied MonoLocalBinds probably means this would be a breaking change
 
 Patterns and Guards
 ===================
