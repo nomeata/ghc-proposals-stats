@@ -1,7 +1,7 @@
 More updates
 
 ViewPatterns: no
-
+PolyKinds: yes
 
 Hi,
 
@@ -225,8 +225,5 @@ CUSKs: maybe
 GHCForeignImportPrim: maybe
 LexicalNegation: maybe
   -- ^ Unsure about the maturity of the whitespace sensitiviy trend
-PolyKinds: maybe
-  -- ^ Does it even make sense to vote on this?
-
 
 Quite a long list! Surely the next years will be easier.
