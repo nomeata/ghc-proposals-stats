@@ -1,3 +1,8 @@
+More updates
+
+ViewPatterns: no
+
+
 Hi,
 
 thanks all for various inputs, I’ll update my votes as follows:
@@ -139,7 +144,6 @@ TupleSections: yes
 TypeApplications: yes
 TypeFamilies: yes
 TypeOperators: yes
-ViewPatterns: yes
 
 There are some where I disagree with the crowd:
 
