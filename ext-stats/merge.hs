@@ -135,10 +135,10 @@ main = do
   writeFile "GHC2021/result.rst" $ toRst d
 
 printVotes :: Int -> Int -> String
-printVotes votes total = printf formatString votes total
+printVotes votes total = printf formatString votes
  where formatString
-        | (fromIntegral votes / fromIntegral total :: Double) >= 2/3 = "**%d/%d**"
-        | otherwise                                                  = "%d/%d"
+        | 3 * votes >= 2 * total = "**%d**"
+        | otherwise              = "%d"
 
 outOf :: Int -> Int -> String
 outOf 0 0 = "N/A"
