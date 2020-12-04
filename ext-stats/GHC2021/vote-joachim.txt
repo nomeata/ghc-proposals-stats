@@ -2,6 +2,9 @@ More updates
 
 ViewPatterns: no
 PolyKinds: yes
+ExistentialQuantification: no
+CUSKs: no
+GADTs: no (too uncontroversial)
 
 Hi,
 
@@ -189,8 +192,6 @@ DeriveLift: yes
 EmptyCase: yes
 EmptyDataDecls: yes
 EmptyDataDeriving: yes
-ExistentialQuantification: yes
-  -- ^ Or is anything wrong with that?
 ExplicitForAll: yes
 GADTSyntax: yes
   -- ^ In case GADTs don’t make it
@@ -221,7 +222,6 @@ No expert on these, will read your rationales:
 
 FunctionalDependencies: maybe
 StandaloneKindSignatures: maybe
-CUSKs: maybe
 GHCForeignImportPrim: maybe
 LexicalNegation: maybe
   -- ^ Unsure about the maturity of the whitespace sensitiviy trend
