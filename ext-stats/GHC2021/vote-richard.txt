@@ -1,6 +1,3 @@
-I also adopted Iavor's very helpful categorization.
-
-I have not given any motivations below, as it's too difficult to read everyone's motivations inline. Instead, I give several varieties of "no" votes. Let's debate when someone disagrees with me. (To be clear: "obscure" just means that someone should manually opt in, not that the feature is really obscure.)
 
 Module System
 =============
@@ -124,7 +121,7 @@ LinearTypes: too fresh
 TypeApplications: yes
 PolyKinds: yes
 TypeOperators: yes
-StarIsType: deprecated
+StarIsType: yes
 TypeFamilies: obscure
 TypeFamilyDependencies: obscure
 DataKinds: might change
@@ -132,7 +129,7 @@ DataKinds: might change
 FFI
 ===
 
-ForeignFunctionInterface: obscure
+ForeignFunctionInterface: yes
 CApiFFI: obscure
 GHCForeignImportPrim: obscure
 InterruptibleFFI: obscure
@@ -170,4 +167,3 @@ Obsolete/Deprecated
 CUSKs: no
 TypeInType: no
 MonadFailDesugaring: maybe
-
