@@ -89,7 +89,7 @@ readBallots = do
 
 toRst :: D -> String
 toRst D{..} = unlines $
-    [ printf "Data based on %d hackage packages, %d survey responses and %d committee votes. (Votes may be changed.)" hackage_parsed survey_total votes_total
+    [ printf "Data based on %d hackage packages, %d survey responses and %d committee votes. (Votes may be changed. Bold votes are currently above 2/3.)" hackage_parsed survey_total votes_total
     , ""
     ] ++
     [ rstTable header
@@ -99,7 +99,7 @@ toRst D{..} = unlines $
             , hackage_in_cabal `outOf` hackage_in_cabal_total
             , hackage_mod_use `outOf` hackage_in_cabal_total
             , survey_yes `outOf` survey_total, survey_no `outOf` survey_yes
-            , votes `outOf` votes_total
+            , printVotes votes votes_total
             ]
           | E{..} <- sortOn (Down . votes) $ M.elems exts
           ]
@@ -133,6 +133,12 @@ main :: IO ()
 main = do
   d <- loadD
   writeFile "GHC2021/result.rst" $ toRst d
+
+printVotes :: Int -> Int -> String
+printVotes votes total = printf formatString votes total
+ where formatString
+        | (fromIntegral votes / fromIntegral total :: Double) >= 2/3 = "**%d/%d**"
+        | otherwise                                                  = "%d/%d"
 
 outOf :: Int -> Int -> String
 outOf 0 0 = "N/A"
