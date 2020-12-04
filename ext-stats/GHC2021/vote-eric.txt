@@ -1,0 +1,177 @@
+Here are my votes, sorry to be so slow!
+
+## syntax
+
+BangPatterns: yes
+BinaryLiterals: yes
+EmptyCase: yes
+EmptyDataDecls: yes
+ExplicitForAll: yes
+ExplicitNamespaces: yes
+GADTSyntax: yes
+HexFloatLiterals: yes
+ImportQualifiedPost: yes
+InstanceSigs: yes
+KindSignatures: yes
+MonadFailDesugaring: yes
+NegativeLiterals: yes
+NumericUnderscores: yes
+PatternSynonyms: yes
+PostfixOperators: yes
+TypeApplications: yes
+
+OverloadedLists: yes
+OverloadedStrings: yes
+  I have to enable OverloadedStrings regularly,
+  and it's one of the few extensions GHC
+  cannot suggest, which trips up my editor, and by
+  extension me, on a regular basis. I admit that I've
+  never actually used OverloadedLists, but I like it
+  as a direction for the language.
+
+BlockArguments: maybe
+  I like this one, but it feels a bit recent.
+MonadComprehensions: maybe
+NumDecimals: maybe
+ParallelListComp: maybe
+RecursiveDo: maybe
+
+ApplicativeDo: no
+Arrows: no
+LexicalNegation: no
+NPlusKPatterns: no
+NondecreasingIndentation: no
+OverloadedLabels: no
+QualifiedDo: no
+RebindableSyntax: no
+StarIsType: no
+  It's marked legacy syntax, let's be bold and get rid of it.
+TransformListComp: no
+TupleSections: no
+  This conflicts with proposals around trailing commas
+  that we may want to consider.
+UnicodeSyntax: no
+ViewPatterns: no
+
+LambdaCase: no
+MultiWayIf: no
+  I like both of these, but I've been convinced to wait out
+  the current discussion around alternate designs.
+
+
+## types
+
+ConstrainedClassMethods: yes
+ConstraintKinds: yes
+DataKinds: yes
+DefaultSignatures: yes
+ExistentialQuantification: yes
+  This is occasionally useful, and purely opt-in.
+FlexibleContexts: yes
+FlexibleInstances: yes
+FunctionalDependencies: yes
+GADTs: yes
+MonoLocalBinds: yes
+  I think I actually prefer this even in the absence of GADTs.
+MultiParamTypeClasses: yes
+PolyKinds: yes
+RankNTypes: yes
+RoleAnnotations: yes
+ScopedTypeVariables: yes
+StandaloneKindSignatures: yes
+TypeFamilies: yes
+TypeFamilyDependencies: yes
+TypeOperators: yes
+TypeSynonymInstances: yes
+
+NamedWildCards: yes
+PartialTypeSignatures: yes
+  These are useful for debugging and warned on by default.
+
+UndecidableInstances: maybe
+UndecidableSuperClasses: maybe
+  Is it really that bad if we allow the possibility of the
+  type checker looping? This does not introduce unsoundness.
+
+CUSKs: no
+DatatypeContexts: no
+ImplicitParams: no
+ImpredicativeTypes: no
+IncoherentInstances: no
+LiberalTypeSynonyms: no
+LinearTypes: no
+NullaryTypeClasses: no
+OverlappingInstances: no
+QuantifiedConstraints: no
+TypeInType: no
+
+
+## records
+
+DisambiguateRecordFields: yes
+  This only allows unambiguous uses of fields,
+  so it seems very safe.
+
+NamedFieldPuns: yes
+RecordWildCards: yes
+  I know these are controversial, but they're opt-in
+  and super useful.
+
+DuplicateRecordFields: maybe
+  There are some valid critiques of this extension,
+  but I think it's still generally useful, at least
+  until RecordDotSyntax is implemented and stable.
+
+
+## deriving
+
+DeriveDataTypeable: yes
+DeriveFoldable: yes
+DeriveFunctor: yes
+DeriveGeneric: yes
+DeriveLift: yes
+DeriveTraversable: yes
+DerivingVia: yes
+GeneralisedNewtypeDeriving: yes
+StandaloneDeriving: yes
+
+DerivingStrategies: maybe
+
+DeriveAnyClass: no
+EmptyDataDeriving: no
+
+
+## low-level / ffi
+
+CApiFFI: no
+ForeignFunctionInterface: no
+  I know this is part of Haskell2010, but I feel like
+  FFI is niche and low-level enough to warrant a marker
+GHCForeignImportPrim: no
+InterruptibleFFI: no
+MagicHash: no
+UnboxedSums: no
+UnboxedTuples: no
+UnliftedFFITypes: no
+UnliftedNewtypes: no
+
+
+## other
+
+AllowAmbiguousTypes: no
+CPP: no
+ExtendedDefaultRules: no
+NoImplicitPrelude: no
+NoMonomorphismRestriction: no
+NoPatternGuards: no
+NoTraditionalRecordSyntax: no
+PackageImports: no
+QuasiQuotes: no
+Safe: no
+StaticPointers: no
+Strict: no
+StrictData: no
+TemplateHaskell: no
+TemplateHaskellQuotes: no
+Trustworthy: no
+Unsafe: no
