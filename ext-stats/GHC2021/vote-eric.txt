@@ -1,4 +1,9 @@
-Here are my votes, sorry to be so slow!
+Here are my updated votes, I changed:
+
+> StarIsType: yes (convinced by Joachim not to rock the boat too much at first)
+> DerivingVia: no (convinced by Arnaud that it's not mature enough yet)
+
+---
 
 ## syntax
 
@@ -18,6 +23,7 @@ NegativeLiterals: yes
 NumericUnderscores: yes
 PatternSynonyms: yes
 PostfixOperators: yes
+StarIsType: yes
 TypeApplications: yes
 
 OverloadedLists: yes
@@ -44,7 +50,6 @@ NondecreasingIndentation: no
 OverloadedLabels: no
 QualifiedDo: no
 RebindableSyntax: no
-StarIsType: no
   It's marked legacy syntax, let's be bold and get rid of it.
 TransformListComp: no
 TupleSections: no
@@ -131,13 +136,13 @@ DeriveFunctor: yes
 DeriveGeneric: yes
 DeriveLift: yes
 DeriveTraversable: yes
-DerivingVia: yes
 GeneralisedNewtypeDeriving: yes
 StandaloneDeriving: yes
 
 DerivingStrategies: maybe
 
 DeriveAnyClass: no
+DerivingVia: no
 EmptyDataDeriving: no
 
 
