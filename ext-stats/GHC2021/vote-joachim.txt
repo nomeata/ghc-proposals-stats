@@ -4,6 +4,7 @@ ViewPatterns: no
 PolyKinds: yes
 ExistentialQuantification: no
 CUSKs: no
+StandaloneKindSignatures: yes
 GADTs: no (too uncontroversial)
 
 Hi,

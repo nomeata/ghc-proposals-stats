@@ -1,10 +1,9 @@
-I will also change DeriveAnyClass to no:
+
+delta:
+- StandaloneKindSignatures: yes
+- StarIsType: yes
 
 ## Uncontroversial extensions
-
-I've been writing code with most of these enabled by default for quite
-some time now. It saves a lot of LANGUAGE pragmas. Other than
-RecordWildCards I doubt any of these are controversial.
 
 BangPatterns: yes
 BinaryLiterals: yes
@@ -82,8 +81,10 @@ LinearTypes: no
 BlockArguments: no
 LexicalNegation: no
 QuantifiedConstraints: no
-StandaloneKindSignatures: no
-StarIsType: no
+StandaloneKindSignatures: yes
+  (changed to yes because it's needed to replace CUSKs)
+StarIsType: yes
+  (changed to yes following discussion)
 
 ## No to extensions that are opt-in by design:
 
@@ -184,4 +185,3 @@ RoleAnnotations: maybe
 TypeFamilyDependencies: maybe
   (not widely used, but when you need it you need it)
 TypeOperators: maybe
-
