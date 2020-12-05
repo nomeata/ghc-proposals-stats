@@ -222,7 +222,6 @@ Safe: no
 No expert on these, will read your rationales:
 
 FunctionalDependencies: maybe
-StandaloneKindSignatures: maybe
 GHCForeignImportPrim: maybe
 LexicalNegation: maybe
   -- ^ Unsure about the maturity of the whitespace sensitiviy trend

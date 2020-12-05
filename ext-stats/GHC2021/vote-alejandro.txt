@@ -1,4 +1,3 @@
-
 -- the ones with comments
 CUSKs: no
 -- ^ according to the guide, this is superseded by StandaloneKindSignatures
@@ -9,13 +8,13 @@ DefaultSignatures: no
 -- ^ anyway, this is one required for the writer of the class, so no big deal
 DeriveAnyClass: no
 -- ^ given our discussion
-DerivingVia: yes
--- ^ even though it’s quite recent, I think it’s quite sensible and I don’t foresee many changes to it
+DerivingVia: no
+-- ^ too recent
 DisambiguateRecordFields: no
 DuplicateRecordFields: no
 -- ^ we seem to still be working on this
-FunctionalDependencies: maybe
--- ^ this is a hard one! Not so terrible since it’s only required by the creator of the class, not of the instances
+FunctionalDependencies: yes
+-- ^ this is a hard one! I lean towards yes because they are guarded by its own syntax
 MonadFailDesugaring: yes
 -- ^ isn’t this the default nowadays?
 MonoLocalBinds: yes
@@ -43,6 +42,8 @@ TypeInType: maybe
 -- ^ this simply implies PolyKinds, DataKinds, KindSignatures, according to the documentation
 StarIsType: yes
 -- ^ this is on by default, and I think it would be very confusing to stop treating “*” different from “Type” as this moment
+BlockArguments: no
+-- ^ too early
 
 -- these seem simple syntactic extensions
 -- many of them bring compatibility with the syntax of Java-like languages
@@ -72,7 +73,6 @@ AllowAmbiguousTypes: no
 ApplicativeDo: no
 Arrows: no
 BangPatterns: yes
-BlockArguments: no
 CApiFFI: no
 CPP: no
 ConstraintKinds: yes
@@ -95,7 +95,6 @@ ExtendedDefaultRules: no
 FlexibleContexts: yes
 FlexibleInstances: yes
 GADTSyntax: yes
--- ^ implied by GADTs anyway
 GADTs: yes
 GeneralisedNewtypeDeriving: yes
 ImplicitParams: no
