@@ -1,15 +1,25 @@
 More updates
 
-ViewPatterns: no
 PolyKinds: yes
-ExistentialQuantification: no
+  -- ^ Got convinced by Richard
+
 CUSKs: no
 StandaloneKindSignatures: yes
-GADTs: no (too uncontroversial)
+  -- ^ A change from Haskell2010, but in a corner where the target
+       audience probably prefers progress
 
-Hi,
+MonomorphismRestriction: yes
+  -- ^ Is in Haskell2010, I have no reason to change that
 
-thanks all for various inputs, I’ll update my votes as follows:
+Controversial and/or pleaded against:
+
+ViewPatterns: no (convinced by Iavor)
+GADTs: no (too controversial)
+ExistentialQuantification: no (convinced by Richard)
+
+
+
+Unchanged votes follow:
 
 PostfixOperators: yes
 
@@ -72,7 +82,6 @@ MagicHash: no
 MonadComprehensions: no
 NPlusKPatterns: no
 NoImplicitPrelude: no
-NoMonomorphismRestriction: no
 NoPatternGuards: no
 NoTraditionalRecordSyntax: no
 NullaryTypeClasses: no
@@ -137,7 +146,6 @@ DerivingStrategies: yes
 DerivingVia: yes
 FlexibleContexts: yes
 FlexibleInstances: yes
-GADTs: yes
 GeneralisedNewtypeDeriving: yes
 KindSignatures: yes
 LambdaCase: yes
@@ -205,7 +213,7 @@ NumericUnderscores: yes
 RecordWildCards: yes
 UnliftedFFITypes: yes
 StarIsType: yes
-  -- ^ It’s the default now. Probably too early to turn off?
+  -- ^ It’s the default now. Probably too early to turn off!
 
 DefaultSignatures: no
   -- ^ Deriving via is probably preferrable these days
