@@ -38,12 +38,14 @@ ForeignFunctionInterface: yes
 RankNTypes: yes
 UnicodeSyntax: yes
 -- ^ following Joachim’s suggestion: enable this for syntax but *not* for error messages
-TypeInType: maybe
+TypeInType: no
 -- ^ this simply implies PolyKinds, DataKinds, KindSignatures, according to the documentation
 StarIsType: yes
 -- ^ this is on by default, and I think it would be very confusing to stop treating “*” different from “Type” as this moment
 BlockArguments: no
 -- ^ too early
+ViewPatterns: no
+-- ^ the are better alternatives being proposed
 
 -- these seem simple syntactic extensions
 -- many of them bring compatibility with the syntax of Java-like languages
@@ -59,14 +61,14 @@ ImportQualifiedPost: yes
 
 -- don’t know
 GHCForeignImportPrim: maybe
-InterruptibleFFI: maybe
+InterruptibleFFI: no
 LexicalNegation: maybe
 NondecreasingIndentation: maybe
-PackageImports: maybe
-ParallelListComp: maybe
-TransformListComp: maybe
-UnliftedFFITypes: maybe
-UnliftedNewtypes: maybe
+PackageImports: no
+ParallelListComp: no
+TransformListComp: no
+UnliftedFFITypes: no
+UnliftedNewtypes: no
 
 -- the rest
 AllowAmbiguousTypes: no
@@ -144,4 +146,3 @@ UnboxedTuples: no
 UndecidableInstances: no
 UndecidableSuperClasses: no
 Unsafe: no
-ViewPatterns: yes
