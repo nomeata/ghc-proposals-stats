@@ -1,5 +1,3 @@
-
-
 Module System
 =============
 
@@ -23,9 +21,8 @@ MultiWayIf: yes
 -- ^ This is nice on occasion, and it does not seem to conflict with
 -- anything.  Certainly nicer than the alternative `case () of _ | ... `:
 
-LambdaCase: maybe
--- ^ Personally I don't use this, but I know a lot of folks like it,
--- so I'd be OK with it being enabled.
+LambdaCase: no
+-- ^ CHANGED from maybe.  Simon PJ makes a good point that alternatives are under consideration, so it should not be on yet.
 
 -- | The various literal notations seem useful when you need them
 -- and don't conflict with anything.
@@ -36,8 +33,8 @@ NumDecimals: maybe
 -- ^ | Not too sure about this last one, I've never used, but it
 -- I could see it being useful on occasion.
 
-OverloadedStrings: yes
--- ^ | I use this a lot, and would be OK with it being on all the time.
+OverloadedStrings: maybe
+-- ^ | CHANGED from yes.  I use this a lot, and would be OK with it being on all the time, but if others would rather not have it on, it's not a big deal to turn on when needed.
 
 OverloadedLists: maybe
 -- | ^ I've never used this, but I could see it potentially being useful.
@@ -53,9 +50,12 @@ EmptyCase: maybe
 -- if it was lazy, so I could go either way.
 
 -- | I haven't really used any of those, so I could go either way:
-PostfixOperators: maybe
+PostfixOperators: yes
+-- CHANGED from maybe.  Convinced by Simon M.
+
 LexicalNegation: maybe
-UnicodeSyntax: maybe
+UnicodeSyntax: yes
+-- CHANGED from maybe.  Convinced by Joachim.
 
 NegativeLiterals: no
 -- ^ It seems that `LexicalNegation` might be a nicer way to do this?
@@ -142,7 +142,7 @@ ViewPatterns: yes
 -- explicitly helps anyone.
 
 PatternSynonyms: maybe
--- ^ These are quite useful, but I am not sure how stable is theiry design.
+-- ^ These are quite useful, but I am not sure how stable is their design.
 
 NoPatternGuards: no
 -- ^ Conflicts with Haskell2010
@@ -185,9 +185,11 @@ StandaloneDeriving: yes
 at the moment, so I don't think we should have them on by default, at least
 not yet, even though I find some of them quite useful.
 
-DeriveFunctor: no
-DeriveFoldable: no
-DeriveTraversable: no
+DeriveFunctor: yes
+DeriveFoldable: yes
+DeriveTraversable: yes
+-- ^ The 3 above CHANGED from no.   I was concerned about conflicting deriving strategies, but I guess these probably always make sense.
+
 DerivingStrategies: no
 DerivingVia: no
 GeneralisedNewtypeDeriving: no
@@ -203,8 +205,8 @@ MultiParamTypeClasses: yes
 NullaryTypeClasses: yes
 -- ^ Seems like a natural extension and does not really conflict with anything
 
-ConstraintKinds: maybe
--- ^ These seem like a very nice fit with the rest of the kind system,
+ConstraintKinds: yes
+-- ^ CHANGED from maybe. These seem like a very nice fit with the rest of the kind system,
 -- so I think we can enable them.  The reason I wrote `maybe` is due to
 -- the confusion between constraints and tuples.
 
@@ -219,7 +221,8 @@ FlexibleContexts: yes
 ConstrainedClassMethods: maybe
 DefaultSignatures: maybe
 InstanceSigs: maybe
-ExtendedDefaultRules: maybe
+ExtendedDefaultRules: no
+CHANGED from maybe.  This is mostly for GHCi.
 
 FunctionalDependencies: no
 -- ^ While I quite like the general idea here, I don't think we should
@@ -260,8 +263,9 @@ LiberalTypeSynonyms: maybe
 
 -- | These two go together and seem quite useful, especially when writing
 -- local type signatures.
-ScopedTypeVariables: yes
-ExplicitForAll: yes
+ScopedTypeVariables: maybe
+ExplicitForAll: maybe
+CHANGED from yes to maybe.  Personally, I wouldn't mind if this was on all the time, but Richard seems to prefer that it is not, so I could go either way.
 
 AllowAmbiguousTypes: no
 -- ^ Often these are unintentional, and are due to a mistake in the program.
@@ -297,14 +301,18 @@ TypeFamilies: no
 TypeFamilyDependencies: no
 DataKinds: no
 
+
 FFI
 ===
 I don't think the FFI should be on by default, as it is used relatively
 infrequently, although it might be nice if `ForeignFunctionInterface`
 implied `CApiFFI`
 
-ForeignFunctionInterface: no
-CApiFFI: no
+ForeignFunctionInterface: yes
+CApiFFI: yes
+CHANGED from no.  FFI is part of Haskell 2010, and so should be on by default.  If the FFI is on, then it makes a lot of sense to have CApiFFI on too.
+
+
 GHCForeignImportPrim: no
 InterruptibleFFI: no
 UnliftedFFITypes: no
@@ -321,7 +329,8 @@ all of them with a single extension (e.g., `UnliftedTypes`)
 UnboxedSums: no
 UnboxedTuples: no
 MagicHash: no
-UnliftedNewtypes: no
+UnliftedNewtypes: yes
+CHANGED from no.  This one just makes sense, and while it is not terribly useful without the other extensions (as there is no way to actually write an unboxed type in the first place), it would be one fewer extension to write if one want to use low level stuff
 
 Macros
 ======
@@ -356,4 +365,3 @@ Obsolete/Deprecated
 CUSKs: no
 TypeInType: no
 MonadFailDesugaring: maybe
-

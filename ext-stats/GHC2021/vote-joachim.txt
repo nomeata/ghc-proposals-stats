@@ -8,12 +8,12 @@ StandaloneKindSignatures: yes
   -- ^ A change from Haskell2010, but in a corner where the target
        audience probably prefers progress
 
-MonomorphismRestriction: yes
-  -- ^ Is in Haskell2010, I have no reason to change that
+NoMonomorphismRestriction: no
+  -- ^ MonomorphismRestriction in Haskell2010, I have no reason to change that
 
 Controversial and/or pleaded against:
 
-ViewPatterns: no (convinced by Iavor)
+ViewPatterns: no (convinced by SPJ)
 GADTs: no (too controversial)
 ExistentialQuantification: no (convinced by Richard)
 
