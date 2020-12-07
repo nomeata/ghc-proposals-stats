@@ -137,9 +137,9 @@ Patterns and Guards
 BangPatterns: yes
 -- ^ Seem to be useful, and quite popular.
 
-ViewPatterns: yes
--- ^ Useful on occasion, and I don't think calling out the extension
--- explicitly helps anyone.
+ViewPatterns: no
+-- ^ CHANGES form yes. Useful on occasion, but seems that there might be better designs aroudn
+-- (e.g. guarded patterns)
 
 PatternSynonyms: maybe
 -- ^ These are quite useful, but I am not sure how stable is their design.
