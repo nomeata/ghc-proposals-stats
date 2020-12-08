@@ -273,8 +273,8 @@ AllowAmbiguousTypes: no
 ImpredicativeTypes: no
 -- ^ These are being currently redesigned, so not ready.
 
-MonoLocalBinds: maybe
--- ^ I don't know if this one is on by default or not already...
+MonoLocalBinds: no
+-- ^ CHANGED from maybe. I don't know if this one is on by default or not already...  Convinced by Richard.
 
 NoMonomorphismRestriction: yes
 -- ^ The monomrphism restriction seems to cause a lot of confusion, and I

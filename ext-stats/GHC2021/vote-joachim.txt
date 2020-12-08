@@ -1,5 +1,11 @@
 More updates
 
+MonoLocalBinds: no
+TypeFamilies: no
+  -- ^ Not uncontentious, as per Richard’s plea
+
+Unchanged votes follow:
+
 PolyKinds: yes
   -- ^ Got convinced by Richard
 
@@ -18,9 +24,6 @@ GADTs: no (too controversial)
 ExistentialQuantification: no (convinced by Richard)
 
 
-
-Unchanged votes follow:
-
 PostfixOperators: yes
 
 NamedWildCards: yes
@@ -34,10 +37,6 @@ ForeignFunctionInterface: yes
       anything that’s there (and I assume that nobody does without
       making that very explicit).
 
-MonoLocalBinds: yes
- -- ^ Not an expert, but it’s probably nice if turning on GADTs or
-      TypeFamilies (if they don't make it on their own) don’t change
-      seemingly unrelated part of the code.
 
 ImportQualifiedPost: yes
  -- ^ Personally don’t care a lot about it, but I don’t want to veto it
@@ -154,7 +153,6 @@ RankNTypes: yes
 StandaloneDeriving: yes
 TupleSections: yes
 TypeApplications: yes
-TypeFamilies: yes
 TypeOperators: yes
 
 There are some where I disagree with the crowd:
