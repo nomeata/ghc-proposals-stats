@@ -1,7 +1,15 @@
+Updated votes, resolving all my maybes:
 
-delta:
-- StandaloneKindSignatures: yes
-- StarIsType: yes
+Delta:
+
+ * yes to NamedWildCards *and* PartialTypeSignatures (these are
+   actually really useful and unless someone tells me otherwise I
+   don't know any reason why the language with these is less
+   principled than without.  I would also -Wno-partial-type-signatures
+   by default if that was in scope for GHC2021)
+ * yes to TypeApplications (sure, why not)
+ * all other maybes -> no (mainly just being conservative, we can
+   reconsider for GHC2022 any that miss out)
 
 ## Uncontroversial extensions
 
@@ -156,32 +164,33 @@ ViewPatterns: no
 DeriveAnyClass: no
   (see discussion on the mailing list)
 
-I'm undecided on these:
+Undecided (later resolved):
 
-AllowAmbiguousTypes: maybe
-TypeApplications: maybe
-CApiFFI: maybe
+AllowAmbiguousTypes: no
+TypeApplications: yes
+CApiFFI: no
   (harmless, but a bit niche)
-DerivingVia: maybe
+DerivingVia: no
   (not very widely-used, quite new)
-DerivingStrategies: maybe
+DerivingStrategies: no
   (not very widely-used, quite new)
-FunctionalDependencies: maybe
+FunctionalDependencies: no
   (slightly inclined to "no", given the overlap
   with TypeFamilies and the lack of widespread usage)
-ExplicitNamespaces: maybe
+ExplicitNamespaces: no
   (might change, so defer?)
-MonadComprehensions: maybe
+MonadComprehensions: no
   (does this make error messages worse?)
-PartialTypeSignatures: maybe
-NamedWildCards: maybe
-NumericUnderscores: maybe
-OverloadedLists: maybe
+NamedWildCards: yes
+NumericUnderscores: no
+OverloadedLists: no
   (impact on error messages?)
-RecursiveDo: maybe
+PartialTypeSignatures: yes
+RecursiveDo: no
   (but introduced by a keyword so relatively harmless)
-RoleAnnotations: maybe
+RoleAnnotations: no
   (not widely used, but when you need it you need it)
-TypeFamilyDependencies: maybe
+TypeFamilyDependencies: no
   (not widely used, but when you need it you need it)
-TypeOperators: maybe
+TypeOperators: no
+
