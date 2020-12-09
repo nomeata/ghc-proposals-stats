@@ -1,10 +1,3 @@
-Here are my updated votes, I changed:
-
-> StarIsType: yes (convinced by Joachim not to rock the boat too much at first)
-> DerivingVia: no (convinced by Arnaud that it's not mature enough yet)
-
----
-
 ## syntax
 
 BangPatterns: yes
@@ -90,8 +83,7 @@ TypeOperators: yes
 TypeSynonymInstances: yes
 
 NamedWildCards: yes
-PartialTypeSignatures: yes
-  These are useful for debugging and warned on by default.
+  This is useful for debugging and does not actually accept partial type signatures without PartialTypeSignatures.
 
 UndecidableInstances: maybe
 UndecidableSuperClasses: maybe
@@ -107,9 +99,9 @@ LiberalTypeSynonyms: no
 LinearTypes: no
 NullaryTypeClasses: no
 OverlappingInstances: no
+PartialTypeSignatures: no
 QuantifiedConstraints: no
 TypeInType: no
-
 
 ## records
 
