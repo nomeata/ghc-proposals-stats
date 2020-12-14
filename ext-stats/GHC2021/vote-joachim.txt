@@ -1,13 +1,18 @@
-More updates
+
+NegativeLiterals: no
+  -- ^ The latest docs paint an incomplete picture of this, and make it look
+  like it only affects desugaring of “negate followed by literal”. But it does
+  more, affects parsing, changes `x-1`, and changes meaning in 9.0.
+  So (unfortunately), no. Thanks Iavor for pointing that out on kiala.com
 
 MonoLocalBinds: no
 TypeFamilies: no
   -- ^ Not uncontentious, as per Richard’s plea
 
-Unchanged votes follow:
-
 PolyKinds: yes
   -- ^ Got convinced by Richard
+
+Unchanged votes follow:
 
 CUSKs: no
 StandaloneKindSignatures: yes
@@ -120,7 +125,6 @@ Actually, some of them I disagree with, and believe they are safe to
 turn on by default, and would be happy to, with sufficient committee
 support:
 
-NegativeLiterals: yes
 RoleAnnotations: yes
 UnicodeSyntax: yes
   -- ^ I ❤ unicode
