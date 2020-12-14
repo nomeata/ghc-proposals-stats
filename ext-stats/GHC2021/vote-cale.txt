@@ -1,0 +1,499 @@
+
+AllowAmbiguousTypes: no
+I think this one is mostly okay, but not as a default.
+
+ApplicativeDo: no
+My take on this is that either you care about how your computations
+decompose into Applicative/Monad operations or you don't. In the first
+case, you probably don't want ApplicativeDo because it's basically
+unpredictable, and in the second, you probably don't mind having
+everything in terms of (>>=).
+
+Arrows: no
+Arrow syntax needs work before it will be more useful, and it's not
+used often enough as it stands.
+
+BangPatterns: yes
+This is useful and wanted commonly enough to warrant making default. I
+much preferred it in its original form before it could turn `let` into
+`case`, but it's good.
+
+BinaryLiterals: yes
+Why not?
+
+BlockArguments: maybe
+I don't care so much one way or the other on this one. Personally, I
+don't mind writing the $ before a block, and I haven't looked into
+what contortions were needed to implement this. Obviously now GHC
+supports both anyway, so we've already paid whatever cost was
+involved.
+
+CApiFFI: maybe
+The only reason this isn't a "yes" is that I don't know if this
+impacts the build pipeline or performance of compilation at all. If it
+only causes an impact when it actually gets used, I see no harm in
+turning it on by default.
+
+CPP: no
+I like this extension, but it's better to have some indication that
+it's in use on a per-file basis.
+
+CUSKs: no
+This is already legacy.
+
+ConstrainedClassMethods: yes
+As far as I can tell, this removes a restriction that served no
+purpose to begin with.
+
+ConstraintKinds: yes
+You need to import the Constraint kind to use it anyway. Might as well
+make it work when you do.
+
+DataKinds: no
+I don't want this lifting happening automatically everywhere prior to
+having Dependent Haskell really figured out. This also worsens various
+error messages for beginners as well. I think it's fair enough to turn
+it on when you really want it -- I'd actually prefer it was on a
+per-declaration basis myself.
+
+DatatypeContexts: no
+The context this enables is pointless and doesn't do what anyone would
+reasonably expect the first time they saw it.
+
+DefaultSignatures: yes
+This harms very little and enables some very good idioms when it comes
+to classes of monads specifically (i.e. you can provide defaults which
+lift through a transformer in the case that the monad is a transformer
+application, and never have to fill in instances manually apart from
+the one transformer that implements the features properly.)
+
+DeriveAnyClass: no
+This is dangerous to have on by default. I would support it being
+available by default when using the DerivingStrategies syntax though.
+
+DeriveDataTypeable: yes
+The name of this extension is no longer appropriate, as Typeable no
+longer needs to be derived. Still, if I derive Data, I'd like that to
+just work without having to tell GHC that yes, I really do mean it.
+
+DeriveFoldable: yes
+DeriveFunctor: yes
+DeriveGeneric: yes
+DeriveTraversable: yes
+Similar to the above.
+
+DeriveLift: maybe
+I think this should be enabled by TemplateHaskell, but I don't think
+TemplateHaskell should be default on.
+
+DerivingStrategies: yes
+I don't use this enough as it is, since it's usually not worth writing
+out an additional LANGUAGE pragma for, but it's really good for
+clarity about where the instances are coming from.
+
+DerivingVia: yes
+This is also excellent and seems harmless to turn on by default.
+
+DisambiguateRecordFields: no
+DuplicateRecordFields: no
+I consider these actively harmful and I wish they'd go away.
+
+EmptyCase: yes
+EmptyDataDecls: yes
+EmptyDataDeriving: yes
+These are pretty meh, but I don't see much reason to have GHC complain
+about empty types and make people flip the switch.
+
+ExistentialQuantification: yes
+Syntactically distinguished and sometimes quite useful. Not sure if we
+need the non-GADT syntax, but there's little harm in it.
+
+ExplicitForAll: yes
+I mean, I'm going to vote yes on GADTs, so...
+
+ExplicitNamespaces: maybe
+I'd want this turned on if TypeOperators ends up turned on, but I'm
+voting no on TypeOperators.
+
+ExtendedDefaultRules: no
+This extension is only for GHCi imo.
+
+FlexibleContexts: yes
+Having to turn this on is obnoxious, and perhaps one of the reasons we
+want to define GHC2021 in the first place.
+
+FlexibleInstances: yes
+Similarly to FlexibleContexts, but very slightly more controversial
+perhaps. The only arguments against this I'm aware of have to do with
+issues surrounding functional dependencies that should be solved
+separately (and blamed on functional dependencies in the first place).
+
+ForeignFunctionInterface: no
+I wouldn't be against turning this on by default, but also the need
+for doing so is rare, and I'm uncertain about whether flipping this
+switch induces overhead in the build. I also see no harm in making
+users turn it on explicitly.
+
+FunctionalDependencies: yes
+Oof, this would have been a solid "yes" from me at any point before
+last week, but now I'm really fighting with myself on this one. I
+think we can fix the issues with fundeps, but there are some really
+fun issues right now. Still, I think they're a vital enough part of
+how programming gets done in modern Haskell, and it's easy enough to
+tell when they're being used.
+
+GADTSyntax: yes
+GADTs: yes
+GADTs are just inside where I draw the line on fancy types right now.
+I just keep discovering new practical applications for them (they're
+really good for encoding the types of responses to APIs, for
+instance). The syntax is also distinct enough that toggling it on
+isn't going to cause confusion.
+
+GHCForeignImportPrim: maybe
+I don't know what this is.
+
+GeneralisedNewtypeDeriving: yes
+My argument for this one is just that it's so often desirable. All the
+stuff with roles we needed in order to make it not possible to break
+things with it is still a little rough, but this is a key component of
+being able to lean on the type system and get things done without
+wasting massive amounts of time.
+
+HexFloatLiterals: yes
+Sure, why not? Seems a natural extension of the syntax for hexadecimal
+literals to allow this, and I can imagine numerical algorithms people
+wanting it.
+
+ImplicitParams: no
+I don't outright *hate* ImplicitParams, but I don't love the extension
+either, and I want the fair warning when people turn this on.
+
+ImportQualifiedPost: yes
+This is a bit controversial in my own head, but while I'd never turn
+this extension on manually or actually suggest that people implement
+it, I do really think that "import Foo qualified" reads a whole lot
+better and would be handled by tools better (easier to sort imports!).
+It's sort of the way that the syntax always should have been, so maybe
+let's turn it on and move in that direction!
+
+ImpredicativeTypes: no
+This might have been fixed in modern GHC with the new developments,
+but I don't have enough evidence that it's safe to turn this on. It's
+been in a state of brokenness on and off for so long that I'd hesitate
+to encourage people to use it. Maybe in GHC2026 or something.
+
+IncoherentInstances: no
+Obviously not.
+
+InstanceSigs: yes
+Can be really good for readability. If this didn't exist, I'd often be
+writing those signatures as comments anyway, and it's good to have the
+compiler check them and make sure that my impression of the type is
+correct.
+
+InterruptibleFFI: maybe
+I do kind of feel that FFI ought to just turn this one on by itself,
+but I'm not sure about the implications of toggling FFI on everywhere.
+
+KindSignatures: yes
+I don't see any harm in this being on.
+
+LambdaCase: yes
+I rather like LambdaCase and use it a fair amount myself, but I'm also
+not sure it's definitely the ideal syntax in the long run? Still, I
+use it enough that having this on by default is better than not for
+now.
+
+LexicalNegation: no
+While the name is suggestive of what this is, it's not currently
+documented in the latest GHC User's Guide. Also, I'm not a huge fan of
+fiddling with how negation works -- it's ugly, but let it be one kind
+of ugly rather than several kinds of ugly.
+
+LiberalTypeSynonyms: yes
+This just corrects a mistake in the specification, as far as I'm concerned.
+
+LinearTypes: no
+sigh.
+
+MagicHash: no
+The purpose of this extension is to be explicitly and manually enabled
+to provide access to internals. It shouldn't even be up for voting.
+
+MonadComprehensions: no
+It kind of pains me to say no here. If it was just the simple version
+without the weird grouping shenanigans, I would be voting yes, since
+there's not a whole lot of reason to make the syntax only work with
+lists. TransformListComp is kind of baroque and confusing though, and
+it's currently implied by this.
+
+MonadFailDesugaring: yes
+At least, until we get rid of this temporary extension altogether,
+this is already default.
+
+MonoLocalBinds: yes
+I *really* wish this were not required to make TypeFamilies and GADTs
+work, but it is.
+
+MultiParamTypeClasses: yes
+These have been a staple forever now.
+
+MultiWayIf: maybe
+This should probably be handled however we end up handling LambdaCase.
+I occasionally use it, but less than LambdaCase. It's probably fine if
+it remains a manually-toggled extension.
+
+NPlusKPatterns: no
+Having these off has been the status quo for a long time. While
+there'll always be a place in my heart for c*n+k patterns, it's easy
+to understand why this should not be turned on.
+
+NamedFieldPuns: no
+Better than RecordWildCards, but still awkward to shadow like that,
+and I still want fair warning of usage.
+
+NamedWildCards: yes
+This makes tools like ghcid more useful, even though it shouldn't
+significantly impact final programs.
+
+NegativeLiterals: maybe
+More fussing about the lexical syntax of negation. I'm not sure about
+this one. It's probably fine.
+
+NoImplicitPrelude: no
+Haha.
+
+NoMonomorphismRestriction: yes
+I've never once had the MR make my life easier or better, but I have
+wasted at least a few hours over the past couple decades in
+frustration due to something that it quietly decided should be
+monomorphic.
+
+NoPatternGuards: no
+Weird double negative here. Pattern guards are good and should stay on.
+
+NoTraditionalRecordSyntax: no
+Too disruptive to disable this, and while I can imagine better uses
+for the syntax it occupies, traditional record syntax isn't really
+that bad.
+
+NondecreasingIndentation: no
+As far as I'm concerned, it was a mistake for Haskell2010 to change
+this, let's revert the mistake. Helping people indent their code in a
+less clear way is bad. Having a nested do-block indented to the same
+place as the enclosing one is *extremely* frustrating to encounter
+when reading unfamiliar code.
+
+NullaryTypeClasses: no
+As much of a fan I usually am of handling the zero case, this one
+really is pretty awkward, and I don't think it's all that bad to
+require the pragma to turn it on first.
+
+NumDecimals: no
+Not documented in a released GHC, so no. But what is this?
+
+NumericUnderscores: yes
+I can see why someone might want them, but they also look pretty
+awkward. I've never used them, but this also seems harmless.
+
+OverlappingInstances: no
+Overlapping instances are bad in essentially any case that doesn't
+involve hiding the class, and when you use them, you're probably
+better off with the per-instance pragmas anyway.
+
+OverloadedLabels: no
+Oof, all the stuff that has cropped up surrounding record syntax is so
+painful. None of it should default to on at the very least.
+
+OverloadedLists: no
+This extension is probably fine, but it's rare enough that I'd like
+the extra warning that list literals are not literally lists.
+
+OverloadedStrings: yes
+Kind of essential. We use Data.Text everywhere in our applications,
+and this is basically mandatory for that. Feels kind of funny to vote
+differently between this and OverloadedLists, but there you go.
+
+PackageImports: maybe
+Don't hate this, but also don't use it enough to care.
+
+ParallelListComp: no
+Kind of strange and very uncommon.
+
+PartialTypeSignatures: no
+I like using holes in types sometimes, but I *usually* don't want to
+leave those holes in my code. In the cases where I might want to,
+having to flip the switch seems okay.
+
+PatternSynonyms: no
+This extension has a bunch of rough edges still, and I'm still
+hesitant to encourage its use until those get hammered out.
+
+PolyKinds: yes
+Having this turned off can result in extremely confusing errors when
+poly-kinded terms are imported and used.
+
+PostfixOperators: no
+Nobody uses this, it's basically frivolous.
+
+QualifiedDo: no
+This is too new to turn on by default. Maybe part of GHC2026.
+
+QuantifiedConstraints: yes
+This has been around for a few versions and has been very successful in my view.
+
+QuasiQuotes: no
+TH probably shouldn't be on by default.
+
+RankNTypes: yes
+You might not need these every day, but I think there's no harm in
+having the compiler accept these types when the programmer writes
+them.
+
+RebindableSyntax: no
+Knowing when this is in use explicitly is helpful, since it could
+otherwise be quite startling, or even help sneak malicious code into
+something.
+
+RecordWildCards: no
+Although there are some rather nice idioms that this makes possible,
+generally things which bind variables without mentioning them and
+things which force you to shadow variables are not great.
+
+RecursiveDo: yes
+Could we just have rec without mdo perhaps?
+
+RoleAnnotations: no
+I'm not yet convinced that roles are the right solution to the problem
+that they solve.
+
+Safe: no
+This is a user flag. Should not be in this list.
+
+ScopedTypeVariables: yes
+Right now, this is almost mandatory. There are details about how it
+works that I think should perhaps not stay the way they are forever,
+but it's too inconvenient to have this off.
+
+StandaloneDeriving: yes
+This is fairly common and good. Maybe deriving should always have been
+standalone.
+
+StandaloneKindSignatures: yes
+This seems uncontroversial so long as TypeFamilies ends up being on as well.
+
+StarIsType: yes
+Too much code needs this still, and it doesn't require extra imports
+to use, so in practice, it's still quite convenient.
+
+StaticPointers: no
+Too obscure, and the only time I've seen this used in one of our
+projects, it ended up seeming like a bit of a mistake to have done so
+(not to say that it doesn't have legitimate uses as well, just that
+they're pretty rare).
+
+Strict: no
+If this becomes default, I quit.
+
+StrictData: no
+Better to be explicit.
+
+TemplateHaskell: no
+TemplateHaskellQuotes: no
+I don't really think TH should be on by default. It would be worth
+figuring out if it has any impact on compilation time when switched on
+and unused though.
+
+TransformListComp: no
+I've never seen anyone put this to use.
+
+Trustworthy: no
+This is meant to be explicit. Shouldn't be up for debate.
+
+TupleSections: yes
+I usually don't use this, but I might on occasion if it were turned on
+by default, and it seems a natural thing to expect from the language.
+
+TypeApplications: yes
+This one I'm less sure about than many of the other
+type-system-related ones, as those mostly don't steal syntax. This
+doesn't steal *too* much syntax though, and when you need it, it's
+quite handy. I don't like the way that TypeApplications works even
+when types were not explicitly quantified, but that ship has basically
+sailed.
+
+TypeFamilies: yes
+This is one of those "might not be around forever" extensions that
+still occupies an important enough place in modern-day Haskell that I
+think it should get turned on by default for now.
+
+TypeFamilyDependencies: no
+This extension of type families has only seen quite rare use thus far,
+and it doesn't feel entirely complete.
+
+TypeInType: yes
+This makes things work better across the board, at least for now.
+There's an obvious downside to it, but until we're really going to
+start caring about termination, it's not a huge deal.
+
+TypeOperators: no
+I wish this could be turned on only for :~: -- perhaps it's worth
+turning on just for the sake of that type, but otherwise, I prefer to
+encourage people to write their type constructors prefix, for the most
+part. I'm not sure about this one.
+
+TypeSynonymInstances: yes
+Doesn't seem like there's any harm in unfolding type synonyms before
+checking if the instance is otherwise valid.
+
+UnboxedSums: maybe
+UnboxedTuples: maybe
+I don't really have a strong feeling one way or the other about
+whether these are on or off by default. On the one hand, it seems fine
+to enable the syntax, on the other, it has a bit of the same feeling
+as auto-enabling MagicHash (though less so). Usually when you get to
+this point, you're fine-tuning code, and flipping a manual switch is
+no problem.
+
+UndecidableInstances: no
+I'm tempted to say yes on this, but there are some cases right now
+where instead of actually not terminating in the face of undecidable
+instances, GHC will come to a loopy conclusion in finite time. Maybe
+sometimes that's essential (I seem to recall a case involving scrap
+your bopilerplate), but it also means we end up with a way to subvert
+any functional dependency, for example:
+
+class C a b | a -> b where ...
+instance (C Int b) => C Int b where ...
+
+There are also cases where you didn't mean for an instance to be
+undecidable, and this catches you, so perhaps it's good to leave it
+off by default.
+
+UndecidableSuperClasses: maybe
+I have less explicit reason to disallow this than
+UndecidableInstances, though it does feel weird to come to a different
+conclusion on it, and there may be downsides that I'm unaware of. I'll
+leave this as maybe.
+
+UnicodeSyntax: no
+I like being able to type all my identifiers without special editor support.
+
+UnliftedFFITypes: maybe
+If FFI is turned on by default, then this should be, but I'm not sure
+FFI has any place being turned on by default.
+
+UnliftedNewtypes: no
+This seems kind of new to enable by default. Seems natural enough that
+if someone writes an unlifted newtype to just accept their declaration
+though. Also, all stuff involving syntax with "#" in it I think is
+fine to leave as a flag.
+
+Unsafe: no
+This is explicitly a flag and we shouldn't even be voting on it.
+
+ViewPatterns: no
+The results of using this are usually hard to read. Sometimes in
+conjunction with PatternSynonyms it can be used to build nice syntax,
+but it can be turned on explicitly in those moments, I think.
