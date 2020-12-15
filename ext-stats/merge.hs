@@ -94,7 +94,7 @@ toRst D{..} = unlines $
     [ rstTable header
           [ [ rstAnchor ext
             , printVotes votes votes_total ] ++
-            [ if ext `S.member` s then "✗" else "" | s <- M.elems ballots ] ++
+            [ if ext `S.member` s then "✔" else "" | s <- M.elems ballots ] ++
             [ since
             , survey_yes `outOf` survey_total, survey_no `outOf` survey_yes
             , hackage_used `outOf` hackage_parsed
