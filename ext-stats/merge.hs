@@ -93,25 +93,26 @@ toRst D{..} = unlines $
     ] ++
     [ rstTable header
           [ [ rstAnchor ext
-            , since
+            , printVotes votes votes_total ] ++
+            [ if ext `S.member` s then "✗" else "" | s <- M.elems ballots ] ++
+            [ since
+            , survey_yes `outOf` survey_total, survey_no `outOf` survey_yes
             , hackage_used `outOf` hackage_parsed
             , hackage_in_cabal `outOf` hackage_in_cabal_total
             , hackage_mod_use `outOf` hackage_in_cabal_total
-            , survey_yes `outOf` survey_total, survey_no `outOf` survey_yes
-            ] ++
-            [ if ext `S.member` s then "✗" else "" | s <- M.elems ballots ] ++
-            [ printVotes votes votes_total
             ]
           | E{..} <- sortOn (Down . votes) $ M.elems exts
           ]
     ] ++
     [ ".. _" ++ ext ++ ": " ++ extHref ext | E{..} <- M.elems exts ]
   where
-    header = [ "Extension", "Since"
-             , "Prolif…", "Innoc…", "Aloof…"
+    header = [ "Extension"
+             , "Votes" ] ++
+             M.keys ballots ++
+             [ "Since"
              , "Pop…", "Cont…"
-             ] ++ M.keys ballots ++
-             [ "Votes" ]
+             , "Prolif…", "Innoc…", "Aloof…"
+             ]
     _rstLink txt url = "`" ++ txt ++ " <" ++ url ++ ">`_"
     rstAnchor txt = "`" ++ txt ++ "`_"
     extHref ext = "https://downloads.haskell.org/ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-" ++ ext
