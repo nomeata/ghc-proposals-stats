@@ -53,7 +53,6 @@ loadD = do
   ballots <- M.fromList <$> readBallots
   let votes_total = length ballots
   let ballot_map = M.unionsWith (+) [ M.fromSet (const 1) s | s <- M.elems ballots ]
-
   putStrLn "Ignoring hackage data about unknown extensions:"
   putStrLn "(But compare with users_guide/expected-undocumented-flags.txt)"
   forM_ (M.toList (M.difference hackage versions)) $ \(ext, dat) ->
@@ -76,10 +75,10 @@ loadD = do
 
 readBallots :: IO [(String, S.Set String)]
 readBallots = do
-    voters <- mapMaybe (stripSuffix ".txt") . mapMaybe (stripPrefix "vote-") <$> listDirectory "GHC2021"
+    voters <- mapMaybe (stripSuffix ".txt") <$> listDirectory "GHC2021/votes"
     printf "%d votes found (%s)\n" (length voters) (intercalate ", " voters)
     for voters $ \voter -> do
-        let filename = "GHC2021/vote-" ++ voter ++ ".txt"
+        let filename = "GHC2021/votes/" ++ voter ++ ".txt"
         s <- readFile filename
         let exts = [ ext | [_, ext] <- s =~ "^([A-Z][A-Za-z0-9]+): yes" ]
         when (null exts) $
@@ -99,7 +98,9 @@ toRst D{..} = unlines $
             , hackage_in_cabal `outOf` hackage_in_cabal_total
             , hackage_mod_use `outOf` hackage_in_cabal_total
             , survey_yes `outOf` survey_total, survey_no `outOf` survey_yes
-            , printVotes votes votes_total
+            ] ++
+            [ if ext `S.member` s then "✗" else "" | s <- M.elems ballots ] ++
+            [ printVotes votes votes_total
             ]
           | E{..} <- sortOn (Down . votes) $ M.elems exts
           ]
@@ -109,8 +110,8 @@ toRst D{..} = unlines $
     header = [ "Extension", "Since"
              , "Prolif…", "Innoc…", "Aloof…"
              , "Pop…", "Cont…"
-             , "Votes"
-             ]
+             ] ++ M.keys ballots ++
+             [ "Votes" ]
     _rstLink txt url = "`" ++ txt ++ " <" ++ url ++ ">`_"
     rstAnchor txt = "`" ++ txt ++ "`_"
     extHref ext = "https://downloads.haskell.org/ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-" ++ ext
