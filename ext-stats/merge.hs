@@ -172,8 +172,9 @@ d' file =
 
 rstTable :: [String] -> [[String]] -> String
 rstTable header rows = unlines $
-    [ sep, padRow header, sep ] ++ map padRow rows ++ [ sep ]
+    concatMap (headerWithSep ++) (chunksOf 20 (map padRow rows)) ++ [ sep ]
   where
+    headerWithSep = [ sep, padRow header, sep ]
     widths = map (maximum . map length) (transpose (header : rows))
     padRow = unwords . zipWith padField widths
     padField = printf "%*s"
