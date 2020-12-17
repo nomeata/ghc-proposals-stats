@@ -294,7 +294,7 @@ I don't think the FFI should be on by default, as it is used relatively
 infrequently, although it might be nice if `ForeignFunctionInterface`
 implied `CApiFFI`
 
-ForeignFunctionInterface: no
+ForeignFunctionInterface: yes
 CApiFFI: no
 GHCForeignImportPrim: no
 InterruptibleFFI: no
