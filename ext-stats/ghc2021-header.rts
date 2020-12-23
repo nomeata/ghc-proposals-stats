@@ -60,6 +60,3 @@ Caveats:
 * The hackage data is based on the the latest version of each hackage package. This skews heavily towards libraries, which are more likely to be found on Hackage than executable. It also puts higher weight on projects that are split into many haskell packages (e.g. amazonka).
 
 * The poll data has no serious protection aginst double voting, and skews heavily towards the part of the communit that is reached by the poll announcemnt.
-
-Results
--------

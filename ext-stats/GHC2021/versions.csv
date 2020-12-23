@@ -1,117 +1,117 @@
-extension,since
-AllowAmbiguousTypes,7.8.1
-ApplicativeDo,8.0.1
-Arrows,6.8.1
-BangPatterns,6.8.1
-BinaryLiterals,7.10.1
-BlockArguments,8.6.1
-CApiFFI,7.10.1
-CPP,6.8.1
-CUSKs,8.10.1
-ConstrainedClassMethods,6.8.1
-ConstraintKinds,7.4.1
-DataKinds,7.4.1
-DatatypeContexts,7.0.1
-DefaultSignatures,7.2.1
-DeriveAnyClass,7.10.1
-DeriveDataTypeable,6.8.1
-DeriveFoldable,7.10.1
-DeriveFunctor,7.10.1
-DeriveGeneric,7.2.1
-DeriveLift,8.0.1
-DeriveTraversable,7.10.1
-DerivingStrategies,8.2.1
-DerivingVia,8.6.1
-DisambiguateRecordFields,6.8.1
-DuplicateRecordFields,8.0.1
-EmptyCase,7.8.1
-EmptyDataDecls,6.8.1
-EmptyDataDeriving,8.4.1
-ExistentialQuantification,6.8.1
-ExplicitForAll,6.12.1
-ExplicitNamespaces,7.6.1
-ExtendedDefaultRules,6.8.1
-FlexibleContexts,6.8.1
-FlexibleInstances,6.8.1
-ForeignFunctionInterface,6.8.1
-FunctionalDependencies,6.8.1
-GADTSyntax,7.2.1
-GADTs,6.8.1
-GHCForeignImportPrim,6.12.1
-GeneralisedNewtypeDeriving,6.8.1
-HexFloatLiterals,8.4.1
-ImplicitParams,6.8.1
-ImportQualifiedPost,8.10.1
-ImpredicativeTypes,6.10.1
-IncoherentInstances,6.8.1
-InstanceSigs,7.6.1
-InterruptibleFFI,7.2.1
-KindSignatures,6.8.1
-LambdaCase,7.6.1
-LexicalNegation,9.0.1
-LiberalTypeSynonyms,6.8.1
-LinearTypes,9.0.1
-MagicHash,6.8.1
-MonadComprehensions,7.2.1
-MonadFailDesugaring,8.0.1
-MonoLocalBinds,6.12.1
-MultiParamTypeClasses,6.8.1
-MultiWayIf,7.6.1
-NPlusKPatterns,6.12.1
-NamedFieldPuns,6.10.1
-NamedWildCards,7.10.1
-NegativeLiterals,7.8.1
-NoImplicitPrelude,6.8.1
-NoMonomorphismRestriction,6.8.1
-NoPatternGuards,6.8.1
-NoTraditionalRecordSyntax,7.4.1
-NondecreasingIndentation,?
-NullaryTypeClasses,7.8.1
-NumDecimals,7.8.1
-NumericUnderscores,8.6.1
-OverlappingInstances,?
-OverloadedLabels,8.0.1
-OverloadedLists,7.8.1
-OverloadedStrings,6.8.1
-PackageImports,6.10.1
-ParallelListComp,6.8.1
-PartialTypeSignatures,7.10.1
-PatternSynonyms,7.8.1
-PolyKinds,7.4.1
-PostfixOperators,7.10.1
-QualifiedDo,9.0.1
-QuantifiedConstraints,8.6.1
-QuasiQuotes,6.10.1
-RankNTypes,6.8.1
-RebindableSyntax,7.0.1
-RecordWildCards,6.8.1
-RecursiveDo,6.8.1
-RoleAnnotations,7.8.1
-Safe,7.2.1
-ScopedTypeVariables,6.8.1
-StandaloneDeriving,6.8.1
-StandaloneKindSignatures,8.10.1
-StarIsType,8.6.1
-StaticPointers,7.10.1
-Strict,8.0.1
-StrictData,8.0.1
-TemplateHaskell,6.0
-TemplateHaskellQuotes,8.0.1
-TransformListComp,6.10.1
-Trustworthy,7.2.1
-TupleSections,6.12
-TypeApplications,8.0.1
-TypeFamilies,6.8.1
-TypeFamilyDependencies,8.0.1
-TypeInType,8.0.1
-TypeOperators,6.8.1
-TypeSynonymInstances,6.8.1
-UnboxedSums,8.2.1
-UnboxedTuples,6.8.1
-UndecidableInstances,?
-UndecidableSuperClasses,8.0.1
-UnicodeSyntax,6.8.1
-UnliftedFFITypes,6.8.1
-UnliftedNewtypes,8.10.1
-Unsafe,7.4.1
-ViewPatterns,6.10.1
+extension,since,path,category
+AllowAmbiguousTypes,7.8.1,exts/ambiguous_types.rst,Type signatures
+ApplicativeDo,8.0.1,exts/applicative_do.rst,Syntax
+Arrows,6.8.1,exts/arrows.rst,Syntax
+BangPatterns,6.8.1,exts/strict.rst,Other
+BinaryLiterals,7.10.1,exts/binary_literals.rst,Literals
+BlockArguments,8.6.1,exts/block_arguments.rst,Syntax
+CApiFFI,7.10.1,exts/ffi.rst,Other
+CPP,6.8.1,phases.rst,Other
+CUSKs,8.10.1,exts/poly_kinds.rst,Types
+ConstrainedClassMethods,6.8.1,exts/constrained_class_methods.rst,Class and instances declarations
+ConstraintKinds,7.4.1,exts/constraint_kind.rst,Constraints
+DataKinds,7.4.1,exts/data_kinds.rst,Types
+DatatypeContexts,7.0.1,exts/datatype_contexts.rst,Types
+DefaultSignatures,7.2.1,exts/default_signatures.rst,Class and instances declarations
+DeriveAnyClass,7.10.1,exts/derive_any_class.rst,Deriving mechanism
+DeriveDataTypeable,6.8.1,exts/deriving_extra.rst,Deriving mechanism
+DeriveFoldable,7.10.1,exts/deriving_extra.rst,Deriving mechanism
+DeriveFunctor,7.10.1,exts/deriving_extra.rst,Deriving mechanism
+DeriveGeneric,7.2.1,exts/generics.rst,Miscellaneous
+DeriveLift,8.0.1,exts/deriving_extra.rst,Deriving mechanism
+DeriveTraversable,7.10.1,exts/deriving_extra.rst,Deriving mechanism
+DerivingStrategies,8.2.1,exts/deriving_strategies.rst,Deriving mechanism
+DerivingVia,8.6.1,exts/deriving_via.rst,Deriving mechanism
+DisambiguateRecordFields,6.8.1,exts/disambiguate_record_fields.rst,Records
+DuplicateRecordFields,8.0.1,exts/duplicate_record_fields.rst,Records
+EmptyCase,7.8.1,exts/empty_case.rst,Syntax
+EmptyDataDecls,6.8.1,exts/nullary_types.rst,Types
+EmptyDataDeriving,8.4.1,exts/empty_data_deriving.rst,Deriving mechanism
+ExistentialQuantification,6.8.1,exts/existential_quantification.rst,Types
+ExplicitForAll,6.12.1,exts/explicit_forall.rst,Type signatures
+ExplicitNamespaces,7.6.1,exts/explicit_namespaces.rst,Import and export
+ExtendedDefaultRules,6.8.1,ghci.rst,Other
+FlexibleContexts,6.8.1,exts/flexible_contexts.rst,Class and instances declarations
+FlexibleInstances,6.8.1,exts/instances.rst,Class and instances declarations
+ForeignFunctionInterface,6.8.1,exts/ffi.rst,Other
+FunctionalDependencies,6.8.1,exts/functional_dependencies.rst,Class and instances declarations
+GADTSyntax,7.2.1,exts/gadt_syntax.rst,Types
+GADTs,6.8.1,exts/gadt.rst,Types
+GHCForeignImportPrim,6.12.1,exts/ffi.rst,Other
+GeneralisedNewtypeDeriving,6.8.1,exts/newtype_deriving.rst,Deriving mechanism
+HexFloatLiterals,8.4.1,exts/hex_float_literals.rst,Literals
+ImplicitParams,6.8.1,exts/implicit_parameters.rst,Type signatures
+ImportQualifiedPost,8.10.1,exts/import_qualified_post.rst,Import and export
+ImpredicativeTypes,6.10.1,exts/impredicative_types.rst,Types
+IncoherentInstances,6.8.1,exts/instances.rst,Class and instances declarations
+InstanceSigs,7.6.1,exts/instances.rst,Class and instances declarations
+InterruptibleFFI,7.2.1,exts/ffi.rst,Other
+KindSignatures,6.8.1,exts/kind_signatures.rst,Type signatures
+LambdaCase,7.6.1,exts/lambda_case.rst,Syntax
+LexicalNegation,9.0.1,exts/lexical_negation.rst,Syntax
+LiberalTypeSynonyms,6.8.1,exts/liberal_type_synonyms.rst,Types
+LinearTypes,9.0.1,exts/linear_types.rst,Types
+MagicHash,6.8.1,exts/magic_hash.rst,Syntax
+MonadComprehensions,7.2.1,exts/monad_comprehensions.rst,Syntax
+MonadFailDesugaring,8.0.1,exts/monadfail_desugaring.rst,Syntax
+MonoLocalBinds,6.12.1,exts/let_generalisation.rst,Bindings and generalisation
+MultiParamTypeClasses,6.8.1,exts/multi_param_type_classes.rst,Class and instances declarations
+MultiWayIf,7.6.1,exts/multiway_if.rst,Syntax
+NPlusKPatterns,6.12.1,exts/nk_patterns.rst,Patterns
+NamedFieldPuns,6.10.1,exts/record_puns.rst,Records
+NamedWildCards,7.10.1,exts/partial_type_signatures.rst,Type signatures
+NegativeLiterals,7.8.1,exts/negative_literals.rst,Literals
+NoImplicitPrelude,6.8.1,exts/rebindable_syntax.rst,Syntax
+NoMonomorphismRestriction,6.8.1,exts/monomorphism.rst,Bindings and generalisation
+NoPatternGuards,6.8.1,exts/pattern_guards.rst,Patterns
+NoTraditionalRecordSyntax,7.4.1,exts/traditional_record_syntax.rst,Records
+NondecreasingIndentation,?,bugs.rst,Other
+NullaryTypeClasses,7.8.1,exts/nullary_type_classes.rst,Class and instances declarations
+NumDecimals,7.8.1,exts/num_decimals.rst,Literals
+NumericUnderscores,8.6.1,exts/numeric_underscores.rst,Literals
+OverlappingInstances,?,exts/instances.rst,Class and instances declarations
+OverloadedLabels,8.0.1,exts/overloaded_labels.rst,Literals
+OverloadedLists,7.8.1,exts/overloaded_lists.rst,Syntax
+OverloadedStrings,6.8.1,exts/overloaded_strings.rst,Literals
+PackageImports,6.10.1,exts/package_qualified_imports.rst,Import and export
+ParallelListComp,6.8.1,exts/parallel_list_comprehensions.rst,Syntax
+PartialTypeSignatures,7.10.1,exts/partial_type_signatures.rst,Type signatures
+PatternSynonyms,7.8.1,exts/pattern_synonyms.rst,Patterns
+PolyKinds,7.4.1,exts/poly_kinds.rst,Types
+PostfixOperators,7.10.1,exts/rebindable_syntax.rst,Syntax
+QualifiedDo,9.0.1,exts/qualified_do.rst,Syntax
+QuantifiedConstraints,8.6.1,exts/quantified_constraints.rst,Constraints
+QuasiQuotes,6.10.1,exts/template_haskell.rst,Other
+RankNTypes,6.8.1,exts/rank_polymorphism.rst,Types
+RebindableSyntax,7.0.1,exts/rebindable_syntax.rst,Syntax
+RecordWildCards,6.8.1,exts/record_wildcards.rst,Records
+RecursiveDo,6.8.1,exts/recursive_do.rst,Syntax
+RoleAnnotations,7.8.1,exts/roles.rst,Types
+Safe,7.2.1,exts/safe_haskell.rst,Other
+ScopedTypeVariables,6.8.1,exts/scoped_type_variables.rst,Type signatures
+StandaloneDeriving,6.8.1,exts/standalone_deriving.rst,Deriving mechanism
+StandaloneKindSignatures,8.10.1,exts/poly_kinds.rst,Types
+StarIsType,8.6.1,exts/poly_kinds.rst,Types
+StaticPointers,7.10.1,exts/static_pointers.rst,Parallel and Concurrent
+Strict,8.0.1,exts/strict.rst,Other
+StrictData,8.0.1,exts/strict.rst,Other
+TemplateHaskell,6.0,exts/template_haskell.rst,Other
+TemplateHaskellQuotes,8.0.1,exts/template_haskell.rst,Other
+TransformListComp,6.10.1,exts/generalised_list_comprehensions.rst,Syntax
+Trustworthy,7.2.1,exts/safe_haskell.rst,Other
+TupleSections,6.12,exts/tuple_sections.rst,Syntax
+TypeApplications,8.0.1,exts/type_applications.rst,Patterns
+TypeFamilies,6.8.1,exts/type_families.rst,Types
+TypeFamilyDependencies,8.0.1,exts/type_families.rst,Types
+TypeInType,8.0.1,exts/poly_kinds.rst,Types
+TypeOperators,6.8.1,exts/type_operators.rst,Types
+TypeSynonymInstances,6.8.1,exts/instances.rst,Class and instances declarations
+UnboxedSums,8.2.1,exts/primitives.rst,Other
+UnboxedTuples,6.8.1,exts/primitives.rst,Other
+UndecidableInstances,?,exts/type_families.rst,Types
+UndecidableSuperClasses,8.0.1,exts/undecidable_super_classes.rst,Class and instances declarations
+UnicodeSyntax,6.8.1,exts/unicode_syntax.rst,Syntax
+UnliftedFFITypes,6.8.1,exts/ffi.rst,Other
+UnliftedNewtypes,8.10.1,exts/primitives.rst,Other
+Unsafe,7.4.1,exts/safe_haskell.rst,Other
+ViewPatterns,6.10.1,exts/view_patterns.rst,Patterns

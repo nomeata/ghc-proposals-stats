@@ -1,4 +1,5 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE TransformListComp #-}
 {-# OPTIONS_GHC -Wno-name-shadowing #-}
 import qualified Data.ByteString.Lazy as BS
 import qualified Data.Map as M
@@ -8,6 +9,7 @@ import qualified Data.Csv as CSV
 import System.Directory
 import Data.Traversable
 import Data.List
+import Data.Functor
 import Data.Maybe
 import Data.List.Split
 import Control.Monad
@@ -16,6 +18,7 @@ import Data.Monoid
 import Text.Printf
 import Data.Ord
 import Text.Regex.TDFA
+import System.FilePath
 
 -- A record, intented to be loaded into GHC with record punning
 type Ext = String
@@ -25,13 +28,16 @@ data D = D
   , hackage_in_cabal_total :: Int
   , survey_total :: Int
   , votes_total :: Int
-  , exts :: M.Map Ext E
+  , exts :: [E]
+  , categories :: [String]
   , ballots :: M.Map String (S.Set Ext)
   } deriving Show
 
 data E = E
   { ext :: Ext              -- ^ The extension (redundant, as it's the map key, but convenient)
   , since :: String         -- ^ First GHC version
+  , file :: String          -- ^ Documentation path
+  , category :: String     -- ^ Category
   , hackage_used     :: Int -- ^ Used somewhere in the package
   , hackage_in_cabal :: Int -- ^ Turned on by default
   , hackage_mod_use  :: Int -- ^ Turnd on in modules, when the package uses default-extensions
@@ -42,7 +48,7 @@ data E = E
 
 loadD :: IO D
 loadD = do
-  versions <- M.fromListWith (error "dup") <$> d "versions.csv"
+  versions <- M.mapKeysWith (error "dup") norm . M.fromListWith (error "dup") . map (\(a,b,c,d) -> (a,(b,c,d))) <$> d "versions.csv"
   hackage_totals <- M.fromListWith (error "dup") <$> d "hackage-totals.csv"
   hackage <- M.mapKeysWith (error "dup") norm . M.fromListWith (error "dup") . map (\(a,b,c,d) -> (a,(b,c,d))) <$> d "hackage-data.csv"
   (survey_total, survey) <- fromSurvey <$> d' "haskell-survey-results.csv"
@@ -66,11 +72,14 @@ loadD = do
   forM_ (M.toList (M.difference ballot_map versions)) $ \(ext, dat) ->
     printf "    %s (%s)\n"  ext (show dat)
 
-  let exts = (`M.mapWithKey` versions) $ \ext since ->
+  let exts = M.toList versions <&> \(ext, (since, file, category)) ->
         let (hackage_used, hackage_in_cabal, hackage_mod_use) = M.findWithDefault (0,0,0) ext hackage in
         let (survey_yes, survey_no) = M.findWithDefault (0,0) ext survey in
         let votes = M.findWithDefault 0 ext ballot_map in
         E{..}
+
+  let categories = S.toList $ S.fromList $ [ cat | (_, _, cat) <- M.elems versions ]
+
   return D{..}
 
 readBallots :: IO [(String, S.Set String)]
@@ -88,7 +97,32 @@ readBallots = do
 
 toRst :: D -> String
 toRst D{..} = unlines $
-    [ printf "Data based on %d hackage packages, %d survey responses and %d committee votes. (Votes may be changed. Bold votes are currently above 2/3.)" hackage_parsed survey_total votes_total
+    [ printf "Executive summary"
+    , printf "================="
+    , ""
+    ] ++
+    [ unlines $
+      [ printf "* %s" cat , "" ] ++
+      [ printf "  * Safely in: %s"  (unwords safely_in) | not (null safely_in)] ++
+      [ printf "  * Barely in: %s"  (unwords barely_in) | not (null barely_in)] ++
+      [ printf "  * Barely out: %s" (unwords barely_out) | not (null barely_out)]
+    | cat <- categories
+    , let safely_in =
+            [ rstAnchor ext
+            | E{..} <- exts
+            , category == cat , votes >= 9
+            , then sortOn by Down votes
+            ]
+    , let barely_in =
+            [ rstAnchor ext | E{..} <- exts, category == cat, votes == 8 ]
+    , let barely_out =
+            [ rstAnchor ext | E{..} <- exts, category == cat, votes == 7 ]
+    , not (null safely_in && null barely_in && null barely_out)
+    ] ++
+    [ printf "Full Results"
+    , printf "============"
+    , ""
+    , printf "Data based on %d hackage packages, %d survey responses and %d committee votes. (Votes may be changed. Bold votes are currently above 2/3.)" hackage_parsed survey_total votes_total
     , ""
     ] ++
     [ rstTable header
@@ -101,10 +135,10 @@ toRst D{..} = unlines $
             , hackage_in_cabal `outOf` hackage_in_cabal_total
             , hackage_mod_use `outOf` hackage_in_cabal_total
             ]
-          | E{..} <- sortOn (Down . votes) $ M.elems exts
+          | E{..} <- exts, then sortOn by Down votes
           ]
     ] ++
-    [ ".. _" ++ ext ++ ": " ++ extHref ext | E{..} <- M.elems exts ]
+    [ ".. _" ++ ext ++ ": " ++ extHref ext file | E{..} <- exts ]
   where
     header = [ "Extension"
              , "Votes" ] ++
@@ -115,7 +149,9 @@ toRst D{..} = unlines $
              ]
     _rstLink txt url = "`" ++ txt ++ " <" ++ url ++ ">`_"
     rstAnchor txt = "`" ++ txt ++ "`_"
-    extHref ext = "https://downloads.haskell.org/ghc/latest/docs/html/users_guide/glasgow_exts.html#extension-" ++ ext
+    extHref ext file =
+        printf "https://ghc.gitlab.haskell.org/ghc/doc/users_guide/%s.html#extension-%s"
+            (dropExtension file) ext
 
 sadnessReport :: D -> String
 sadnessReport D{..} = unlines $ flip foldMap (M.toList ballots) $ \(n, b) ->
@@ -127,7 +163,7 @@ sadnessReport D{..} = unlines $ flip foldMap (M.toList ballots) $ \(n, b) ->
     , ""
     ]
   where
-    accepted = S.fromList [ ext | E{..} <- M.elems exts, 3 * votes >= 2 * votes_total ]
+    accepted = S.fromList [ ext | E{..} <- exts, 3 * votes >= 2 * votes_total ]
     pp s | S.null s = "none!"
     pp s = intercalate ", " $ S.toList s
 
