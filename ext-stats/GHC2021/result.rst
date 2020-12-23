@@ -7,7 +7,7 @@ Executive summary
 
 * Class and instances declarations
 
-  * Safely in: `FlexibleContexts`_ `FlexibleInstances`_ `MultiParamTypeClasses`_ `ConstrainedClassMethods`_ `InstanceSigs`_ `TypeSynonymInstances`_
+  * Safely in: `FlexibleContexts`_, `FlexibleInstances`_, `MultiParamTypeClasses`_, `ConstrainedClassMethods`_, `InstanceSigs`_, `TypeSynonymInstances`_
 
 * Constraints
 
@@ -15,7 +15,7 @@ Executive summary
 
 * Deriving mechanism
 
-  * Safely in: `DeriveDataTypeable`_ `DeriveFoldable`_ `DeriveFunctor`_ `DeriveTraversable`_ `StandaloneDeriving`_ `EmptyDataDeriving`_ `DeriveLift`_ `GeneralisedNewtypeDeriving`_
+  * Safely in: `DeriveDataTypeable`_, `DeriveFoldable`_, `DeriveFunctor`_, `DeriveTraversable`_, `StandaloneDeriving`_, `EmptyDataDeriving`_, `DeriveLift`_, `GeneralisedNewtypeDeriving`_
   * Barely out: `DerivingStrategies`_
 
 * Import and export
@@ -24,7 +24,7 @@ Executive summary
 
 * Literals
 
-  * Safely in: `BinaryLiterals`_ `HexFloatLiterals`_ `NumericUnderscores`_
+  * Safely in: `BinaryLiterals`_, `HexFloatLiterals`_, `NumericUnderscores`_
   * Barely out: `OverloadedStrings`_
 
 * Miscellaneous
@@ -47,19 +47,19 @@ Executive summary
 
 * Syntax
 
-  * Safely in: `EmptyCase`_ `PostfixOperators`_
+  * Safely in: `EmptyCase`_, `PostfixOperators`_
   * Barely in: `TupleSections`_
 
 * Type signatures
 
-  * Safely in: `ExplicitForAll`_ `KindSignatures`_
-  * Barely in: `NamedWildCards`_ `ScopedTypeVariables`_
+  * Safely in: `ExplicitForAll`_, `KindSignatures`_
+  * Barely in: `NamedWildCards`_, `ScopedTypeVariables`_
 
 * Types
 
-  * Safely in: `EmptyDataDecls`_ `GADTSyntax`_ `RankNTypes`_ `StarIsType`_ `PolyKinds`_ `StandaloneKindSignatures`_
-  * Barely in: `ExistentialQuantification`_ `TypeOperators`_
-  * Barely out: `GADTs`_ `TypeFamilies`_
+  * Safely in: `EmptyDataDecls`_, `GADTSyntax`_, `RankNTypes`_, `StarIsType`_, `PolyKinds`_, `StandaloneKindSignatures`_
+  * Barely in: `ExistentialQuantification`_, `TypeOperators`_
+  * Barely out: `GADTs`_, `TypeFamilies`_
 
 Full Results
 ============

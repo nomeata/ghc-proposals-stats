@@ -103,9 +103,9 @@ toRst D{..} = unlines $
     ] ++
     [ unlines $
       [ printf "* %s" cat , "" ] ++
-      [ printf "  * Safely in: %s"  (unwords safely_in) | not (null safely_in)] ++
-      [ printf "  * Barely in: %s"  (unwords barely_in) | not (null barely_in)] ++
-      [ printf "  * Barely out: %s" (unwords barely_out) | not (null barely_out)]
+      [ printf "  * Safely in: %s"  (commas safely_in) | not (null safely_in)] ++
+      [ printf "  * Barely in: %s"  (commas barely_in) | not (null barely_in)] ++
+      [ printf "  * Barely out: %s" (commas barely_out) | not (null barely_out)]
     | cat <- categories
     , let safely_in =
             [ rstAnchor ext
@@ -152,6 +152,7 @@ toRst D{..} = unlines $
     extHref ext file =
         printf "https://ghc.gitlab.haskell.org/ghc/doc/users_guide/%s.html#extension-%s"
             (dropExtension file) ext
+    commas = intercalate ", "
 
 sadnessReport :: D -> String
 sadnessReport D{..} = unlines $ flip foldMap (M.toList ballots) $ \(n, b) ->
