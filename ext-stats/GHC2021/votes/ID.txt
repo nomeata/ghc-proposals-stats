@@ -1,195 +1,75 @@
 Module System
 =============
-
 ImportQualifiedPost: yes
--- ^ This is relatively new, but it seems quite simple, and it does make
--- things read nicer.
-
--- | These are only needed under very special circumstances,
--- so it's good to be explicit:
 PackageImports: no
 NoImplicitPrelude: no
 
-
 Notation
 ========
-
 BlockArguments: yes
--- ^ I use this all the time.
-
 MultiWayIf: yes
--- ^ This is nice on occasion, and it does not seem to conflict with
--- anything.  Certainly nicer than the alternative `case () of _ | ... `:
-
 LambdaCase: no
--- ^ CHANGED from maybe.  Simon PJ makes a good point that alternatives are under consideration, so it should not be on yet.
-
--- | The various literal notations seem useful when you need them
--- and don't conflict with anything.
 BinaryLiterals: yes
 HexFloatLiterals: yes
 NumericUnderscores: yes
-NumDecimals: maybe
--- ^ | Not too sure about this last one, I've never used, but it
--- I could see it being useful on occasion.
-
-OverloadedStrings: maybe
--- ^ | CHANGED from yes.  I use this a lot, and would be OK with it being on all the time, but if others would rather not have it on, it's not a big deal to turn on when needed.
-
-OverloadedLists: maybe
--- | ^ I've never used this, but I could see it potentially being useful.
-
+NumDecimals: yes
+OverloadedStrings: yes
+OverloadedLists: no
 OverloadedLabels: no
--- | ^ This one seems for experimenting with various new features
--- (e.g., record selectors), so it seems reasonable to turn it on only
--- when it is needed.
-
-EmptyCase: maybe
--- ^ Seems like a nicer notation for forcing `Void` values.
--- I agree that it is odd that it is strict.  OTOH, it'd be quite useless
--- if it was lazy, so I could go either way.
-
--- | I haven't really used any of those, so I could go either way:
+EmptyCase: yes
 PostfixOperators: yes
--- CHANGED from maybe.  Convinced by Simon M.
-
-LexicalNegation: maybe
+LexicalNegation: yes
 UnicodeSyntax: yes
--- CHANGED from maybe.  Convinced by Joachim.
-
 NegativeLiterals: no
--- ^ It seems that `LexicalNegation` might be a nicer way to do this?
-
-TupleSections: maybe
--- ^ I don't use this often, but I'd use it more often if it was on by default.
-
+TupleSections: yes
 ImplicitParams: no
--- ^ I find these quite useful on occasion, but it does seem reasonable
--- to be explicit when you need them.
-
 ParallelListComp: yes
--- ^ I find these to be a very nice generalization to list comprehensions
--- that makes some code way more readable than using `zip/zipWith`, just
--- like comprehensions are often nicer than `map` or `concatMap`
-
 RecursiveDo: yes
--- ^ Seems useful when you need it, and it doesn't clash with anything,
--- so I see no reason to not have it on all the time.
-
 TransformListComp: no
--- ^ In my mind these are just a bit too much syntactic sugar.
-
 Arrows: no
--- ^ It's not used a lot, not terribly useful and overall feels "clunky".
-
-ApplicativeDo: maybe
--- ^ I think the core of this extension is really useful,
--- but I would prefer a simpler syntactic version of it,
--- without the various transformations assuming that some laws hold.
-
+ApplicativeDo: yes
 QualifiedDo: no
--- ^ This is neat, but it is too new to be on by default.
-
-MonadComprehensions: maybe
--- ^ I never really use these.
--- On occasion I've wanted `ApplicativeComprehensions` though.
-
+MonadComprehensions: no
 NondecreasingIndentation: no
--- ^ This always felt like a hack to me.
-
 RebindableSyntax: no
--- ^ This is a very special case thing
-
-ExplicitNamespaces: maybe
--- ^ We need this if we also want pattern synonyms.
-
+ExplicitNamespaces: no
 
 Data Types
 ==========
-
 DatatypeContexts: no
--- ^ These are not really used much, and usually don't do what people expect.
-
 ExistentialQuantification: yes
--- ^ This is quite useful, and has been around for a long time.
-
 EmptyDataDecls: yes
--- ^ Seems more consistent to allow this
-
 RoleAnnotations: no
--- ^ This only makes sense with `GeneralisedNewtypeDeriving` which
--- I don't think should be on by default.
-
 StrictData: no
--- ^ This is very unHaskell :)
-
-GADTSyntax: maybe
--- ^ I personally don't use this, but I know some folks like to write
--- their `data` declarations in this notation.
-
+GADTSyntax: yes
 GADTs: no
--- ^ These can be useful, but it seems reasonable to enable them when
--- you need them, as they bring in quite a lot of machinery with them.
-
 
 Patterns and Guards
 ===================
 BangPatterns: yes
--- ^ Seem to be useful, and quite popular.
-
 ViewPatterns: no
--- ^ CHANGES form yes. Useful on occasion, but seems that there might be better designs aroudn
--- (e.g. guarded patterns)
-
-PatternSynonyms: maybe
--- ^ These are quite useful, but I am not sure how stable is their design.
-
+PatternSynonyms: no
 NoPatternGuards: no
--- ^ Conflicts with Haskell2010
-
 NPlusKPatterns: no
--- ^ Conflicts with Haskell2010
-
 
 Records
 =======
-
--- | I find these two very useful when working with records,
--- especially large ones, and declaring the extension really adds no
--- information:
 NamedFieldPuns: yes
 RecordWildCards: yes
-
--- | These seem to be largely about experimenting with new record
-system, and I don't think any of them are quite ready to be on by default:
 DisambiguateRecordFields: no
 DuplicateRecordFields: no
 NoTraditionalRecordSyntax: no
 
 Deriving
 =======
-
--- | Declaring these as extensions explicitly adds very little information.
 DeriveGeneric: yes
 DeriveLift: yes
 DeriveDataTypeable: yes
-
 EmptyDataDeriving: yes
--- ^ Useful for consistency
-
 StandaloneDeriving: yes
--- ^ I find this quite useful on occasion, and does not conflict with anything
-
-
--- | I think the rest of the deriving extensions are not particularly orthogonal
-at the moment, so I don't think we should have them on by default, at least
-not yet, even though I find some of them quite useful.
-
 DeriveFunctor: yes
 DeriveFoldable: yes
 DeriveTraversable: yes
--- ^ The 3 above CHANGED from no.   I was concerned about conflicting deriving strategies, but I guess these probably always make sense.
-
 DerivingStrategies: no
 DerivingVia: no
 GeneralisedNewtypeDeriving: no
@@ -198,170 +78,78 @@ DeriveAnyClass: no
 
 Class System
 ============
-
 MultiParamTypeClasses: yes
--- ^ Seems like a natural extension and does not really conflict with anything
-
 NullaryTypeClasses: yes
--- ^ Seems like a natural extension and does not really conflict with anything
-
 ConstraintKinds: yes
--- ^ CHANGED from maybe. These seem like a very nice fit with the rest of the kind system,
--- so I think we can enable them.  The reason I wrote `maybe` is due to
--- the confusion between constraints and tuples.
-
--- | These 3 seem to be quite common.  There are some reasons to be careful
--- when writing `FlexibleInstances`, but it seems that having the extension
--- does not really help much with those.
 TypeSynonymInstances: yes
 FlexibleInstances: yes
 FlexibleContexts: yes
-
--- | I haven't really used these much, so I don't have a strong opinion:
-ConstrainedClassMethods: maybe
-DefaultSignatures: maybe
-InstanceSigs: maybe
+ConstrainedClassMethods: yes
+DefaultSignatures: no
+InstanceSigs: yes
 ExtendedDefaultRules: no
-CHANGED from maybe.  This is mostly for GHCi.
-
 FunctionalDependencies: no
--- ^ While I quite like the general idea here, I don't think we should
--- have these on by default.
-
 QuantifiedConstraints: no
--- ^ These seem neat, but are quite new to be on by default.
-
 UndecidableInstances: no
--- ^ These are a very special case, and ideally should be specified
--- on a per instance basis.
-
 IncoherentInstances: no
--- ^ Why do we even have this? :)
-
 UndecidableSuperClasses: no
--- ^ These are a very special case.
-
 OverlappingInstances: no
--- ^ This has been subsumed by per-instance pragmas
 
 Types
 =====
-
 RankNTypes: yes
--- ^ These are useful and have been around for a long time.  The design
--- seems to work well.
-
--- | These two seem useful, but I am not sure if they should be on by default.
--- If so, though, it makes sense to have both of them on.
-StandaloneKindSignatures: maybe
-KindSignatures: maybe
-
-LiberalTypeSynonyms: maybe
--- ^ These seem useful, but can lead to some rather confusing situations
--- where types that look "normal" don't behave as you'd expect
--- (e..g, writing `[T]` fails because `T` happens to have `forall` in it)
-
--- | These two go together and seem quite useful, especially when writing
--- local type signatures.
-ScopedTypeVariables: maybe
-ExplicitForAll: maybe
-CHANGED from yes to maybe.  Personally, I wouldn't mind if this was on all the time, but Richard seems to prefer that it is not, so I could go either way.
-
+StandaloneKindSignatures: yes
+KindSignatures: yes
+LiberalTypeSynonyms: no
+ScopedTypeVariables: yes
+ExplicitForAll: yes
 AllowAmbiguousTypes: no
--- ^ Often these are unintentional, and are due to a mistake in the program.
-
 ImpredicativeTypes: no
--- ^ These are being currently redesigned, so not ready.
-
 MonoLocalBinds: no
--- ^ CHANGED from maybe. I don't know if this one is on by default or not already...  Convinced by Richard.
-
 NoMonomorphismRestriction: yes
--- ^ The monomrphism restriction seems to cause a lot of confusion, and I
--- am not sure that it's helped that much with efficiency
-
--- | Doesn't really seem to be commonly used.
 PartialTypeSignatures: no
 NamedWildCards: no
-
 LinearTypes: no
--- ^ Too new to be standardized
-
 TypeApplications: no
--- ^ This one is quite useful, bit it seems that its design and how many users
--- understand it don't match, so maybe there is more work to be done.
-
--- | These are all related to type-level programming, and while I don't think
--- they should be on by default, it might be useful to have a single flag that
--- turns a bunch of them on.
 PolyKinds: no
 TypeOperators: no
-StarIsType: maybe
+StarIsType: yes
 TypeFamilies: no
 TypeFamilyDependencies: no
 DataKinds: no
 
-
 FFI
 ===
-I don't think the FFI should be on by default, as it is used relatively
-infrequently, although it might be nice if `ForeignFunctionInterface`
-implied `CApiFFI`
-
 ForeignFunctionInterface: yes
 CApiFFI: yes
-CHANGED from no.  FFI is part of Haskell 2010, and so should be on by default.  If the FFI is on, then it makes a lot of sense to have CApiFFI on too.
-
-
 GHCForeignImportPrim: no
 InterruptibleFFI: no
 UnliftedFFITypes: no
 StaticPointers: no
 
-
 Low Level
 =========
-
-These are for low-level hacking, so I don't think they should be
-on by default.  However, I wouldn't mind having a flag that enabled
-all of them with a single extension (e.g., `UnliftedTypes`)
-
 UnboxedSums: no
 UnboxedTuples: no
 MagicHash: no
 UnliftedNewtypes: yes
-CHANGED from no.  This one just makes sense, and while it is not terribly useful without the other extensions (as there is no way to actually write an unboxed type in the first place), it would be one fewer extension to write if one want to use low level stuff
 
 Macros
 ======
-
 CPP: no
-This is quite specialized, so it seems reasonable to be explicit about it.
-
-
-I don't think these should be on by default, but I wouldn't mind it
-if `TemplateHaskell` implied `QuasiQuotes`, so that when I use TH
-I just need to turn on a single extension.:
-
 TemplateHaskell: no
 TemplateHaskellQuotes: no
 QuasiQuotes: no
 
-
 Other
 =====
-
--- | These are part of Safe Haskell and are there to be written explicitly
 Unsafe: no
 Safe: no
 Trustworthy: no
-
-
 Strict: no
--- ^ This is not Haskell! :-)
 
 Obsolete/Deprecated
 ===================
 CUSKs: no
 TypeInType: no
-MonadFailDesugaring: maybe
+MonadFailDesugaring: yes
