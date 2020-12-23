@@ -1,5 +1,5 @@
 Executive summary
-=================
+-----------------
 
 * Bindings and generalisation
 
@@ -62,7 +62,7 @@ Executive summary
   * Barely out: `GADTs`_, `TypeFamilies`_
 
 Full Results
-============
+------------
 
 Data based on 13951 hackage packages, 1348 survey responses and 11 committee votes. (Votes may be changed. Bold votes are currently above 2/3.)
 

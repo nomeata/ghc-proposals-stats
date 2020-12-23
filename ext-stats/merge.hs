@@ -98,7 +98,7 @@ readBallots = do
 toRst :: D -> String
 toRst D{..} = unlines $
     [ printf "Executive summary"
-    , printf "================="
+    , printf "-----------------"
     , ""
     ] ++
     [ unlines $
@@ -120,7 +120,7 @@ toRst D{..} = unlines $
     , not (null safely_in && null barely_in && null barely_out)
     ] ++
     [ printf "Full Results"
-    , printf "============"
+    , printf "------------"
     , ""
     , printf "Data based on %d hackage packages, %d survey responses and %d committee votes. (Votes may be changed. Bold votes are currently above 2/3.)" hackage_parsed survey_total votes_total
     , ""
