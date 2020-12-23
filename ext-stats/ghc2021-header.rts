@@ -61,3 +61,5 @@ Caveats:
 
 * The poll data has no serious protection aginst double voting, and skews heavily towards the part of the communit that is reached by the poll announcemnt.
 
+Results
+-------
