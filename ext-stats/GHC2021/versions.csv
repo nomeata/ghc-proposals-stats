@@ -2,11 +2,11 @@ extension,since,path,category
 AllowAmbiguousTypes,7.8.1,exts/ambiguous_types.rst,Type signatures
 ApplicativeDo,8.0.1,exts/applicative_do.rst,Syntax
 Arrows,6.8.1,exts/arrows.rst,Syntax
-BangPatterns,6.8.1,exts/strict.rst,Other
+BangPatterns,6.8.1,exts/strict.rst,Bang patterns and Strict Haskell
 BinaryLiterals,7.10.1,exts/binary_literals.rst,Literals
 BlockArguments,8.6.1,exts/block_arguments.rst,Syntax
-CApiFFI,7.10.1,exts/ffi.rst,Other
-CPP,6.8.1,phases.rst,Other
+CApiFFI,7.10.1,exts/ffi.rst,Foreign function interface (FFI)
+CPP,6.8.1,phases.rst,Options related to a particular phase
 CUSKs,8.10.1,exts/poly_kinds.rst,Types
 ConstrainedClassMethods,6.8.1,exts/constrained_class_methods.rst,Class and instances declarations
 ConstraintKinds,7.4.1,exts/constraint_kind.rst,Constraints
@@ -30,14 +30,14 @@ EmptyDataDeriving,8.4.1,exts/empty_data_deriving.rst,Deriving mechanism
 ExistentialQuantification,6.8.1,exts/existential_quantification.rst,Types
 ExplicitForAll,6.12.1,exts/explicit_forall.rst,Type signatures
 ExplicitNamespaces,7.6.1,exts/explicit_namespaces.rst,Import and export
-ExtendedDefaultRules,6.8.1,ghci.rst,Other
+ExtendedDefaultRules,6.8.1,ghci.rst,Using GHCi
 FlexibleContexts,6.8.1,exts/flexible_contexts.rst,Class and instances declarations
 FlexibleInstances,6.8.1,exts/instances.rst,Class and instances declarations
-ForeignFunctionInterface,6.8.1,exts/ffi.rst,Other
+ForeignFunctionInterface,6.8.1,exts/ffi.rst,Foreign function interface (FFI)
 FunctionalDependencies,6.8.1,exts/functional_dependencies.rst,Class and instances declarations
 GADTSyntax,7.2.1,exts/gadt_syntax.rst,Types
 GADTs,6.8.1,exts/gadt.rst,Types
-GHCForeignImportPrim,6.12.1,exts/ffi.rst,Other
+GHCForeignImportPrim,6.12.1,exts/ffi.rst,Foreign function interface (FFI)
 GeneralisedNewtypeDeriving,6.8.1,exts/newtype_deriving.rst,Deriving mechanism
 HexFloatLiterals,8.4.1,exts/hex_float_literals.rst,Literals
 ImplicitParams,6.8.1,exts/implicit_parameters.rst,Type signatures
@@ -45,7 +45,7 @@ ImportQualifiedPost,8.10.1,exts/import_qualified_post.rst,Import and export
 ImpredicativeTypes,6.10.1,exts/impredicative_types.rst,Types
 IncoherentInstances,6.8.1,exts/instances.rst,Class and instances declarations
 InstanceSigs,7.6.1,exts/instances.rst,Class and instances declarations
-InterruptibleFFI,7.2.1,exts/ffi.rst,Other
+InterruptibleFFI,7.2.1,exts/ffi.rst,Foreign function interface (FFI)
 KindSignatures,6.8.1,exts/kind_signatures.rst,Type signatures
 LambdaCase,7.6.1,exts/lambda_case.rst,Syntax
 LexicalNegation,9.0.1,exts/lexical_negation.rst,Syntax
@@ -65,7 +65,7 @@ NoImplicitPrelude,6.8.1,exts/rebindable_syntax.rst,Syntax
 NoMonomorphismRestriction,6.8.1,exts/monomorphism.rst,Bindings and generalisation
 NoPatternGuards,6.8.1,exts/pattern_guards.rst,Patterns
 NoTraditionalRecordSyntax,7.4.1,exts/traditional_record_syntax.rst,Records
-NondecreasingIndentation,?,bugs.rst,Other
+NondecreasingIndentation,?,bugs.rst,Known bugs and infelicities
 NullaryTypeClasses,7.8.1,exts/nullary_type_classes.rst,Class and instances declarations
 NumDecimals,7.8.1,exts/num_decimals.rst,Literals
 NumericUnderscores,8.6.1,exts/numeric_underscores.rst,Literals
@@ -81,37 +81,37 @@ PolyKinds,7.4.1,exts/poly_kinds.rst,Types
 PostfixOperators,7.10.1,exts/rebindable_syntax.rst,Syntax
 QualifiedDo,9.0.1,exts/qualified_do.rst,Syntax
 QuantifiedConstraints,8.6.1,exts/quantified_constraints.rst,Constraints
-QuasiQuotes,6.10.1,exts/template_haskell.rst,Other
+QuasiQuotes,6.10.1,exts/template_haskell.rst,Template Haskell
 RankNTypes,6.8.1,exts/rank_polymorphism.rst,Types
 RebindableSyntax,7.0.1,exts/rebindable_syntax.rst,Syntax
 RecordWildCards,6.8.1,exts/record_wildcards.rst,Records
 RecursiveDo,6.8.1,exts/recursive_do.rst,Syntax
 RoleAnnotations,7.8.1,exts/roles.rst,Types
-Safe,7.2.1,exts/safe_haskell.rst,Other
+Safe,7.2.1,exts/safe_haskell.rst,Safe Haskell
 ScopedTypeVariables,6.8.1,exts/scoped_type_variables.rst,Type signatures
 StandaloneDeriving,6.8.1,exts/standalone_deriving.rst,Deriving mechanism
 StandaloneKindSignatures,8.10.1,exts/poly_kinds.rst,Types
 StarIsType,8.6.1,exts/poly_kinds.rst,Types
 StaticPointers,7.10.1,exts/static_pointers.rst,Parallel and Concurrent
-Strict,8.0.1,exts/strict.rst,Other
-StrictData,8.0.1,exts/strict.rst,Other
-TemplateHaskell,6.0,exts/template_haskell.rst,Other
-TemplateHaskellQuotes,8.0.1,exts/template_haskell.rst,Other
+Strict,8.0.1,exts/strict.rst,Bang patterns and Strict Haskell
+StrictData,8.0.1,exts/strict.rst,Bang patterns and Strict Haskell
+TemplateHaskell,6.0,exts/template_haskell.rst,Template Haskell
+TemplateHaskellQuotes,8.0.1,exts/template_haskell.rst,Template Haskell
 TransformListComp,6.10.1,exts/generalised_list_comprehensions.rst,Syntax
-Trustworthy,7.2.1,exts/safe_haskell.rst,Other
+Trustworthy,7.2.1,exts/safe_haskell.rst,Safe Haskell
 TupleSections,6.12,exts/tuple_sections.rst,Syntax
-TypeApplications,8.0.1,exts/type_applications.rst,Patterns
+TypeApplications,8.0.1,exts/type_applications.rst,Types
 TypeFamilies,6.8.1,exts/type_families.rst,Types
 TypeFamilyDependencies,8.0.1,exts/type_families.rst,Types
 TypeInType,8.0.1,exts/poly_kinds.rst,Types
 TypeOperators,6.8.1,exts/type_operators.rst,Types
 TypeSynonymInstances,6.8.1,exts/instances.rst,Class and instances declarations
-UnboxedSums,8.2.1,exts/primitives.rst,Other
-UnboxedTuples,6.8.1,exts/primitives.rst,Other
+UnboxedSums,8.2.1,exts/primitives.rst,Unboxed types and primitive operations
+UnboxedTuples,6.8.1,exts/primitives.rst,Unboxed types and primitive operations
 UndecidableInstances,?,exts/type_families.rst,Types
 UndecidableSuperClasses,8.0.1,exts/undecidable_super_classes.rst,Class and instances declarations
 UnicodeSyntax,6.8.1,exts/unicode_syntax.rst,Syntax
-UnliftedFFITypes,6.8.1,exts/ffi.rst,Other
-UnliftedNewtypes,8.10.1,exts/primitives.rst,Other
-Unsafe,7.4.1,exts/safe_haskell.rst,Other
+UnliftedFFITypes,6.8.1,exts/ffi.rst,Foreign function interface (FFI)
+UnliftedNewtypes,8.10.1,exts/primitives.rst,Unboxed types and primitive operations
+Unsafe,7.4.1,exts/safe_haskell.rst,Safe Haskell
 ViewPatterns,6.10.1,exts/view_patterns.rst,Patterns

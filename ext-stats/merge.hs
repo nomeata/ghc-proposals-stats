@@ -50,6 +50,7 @@ loadD :: IO D
 loadD = do
   versions <- M.mapKeysWith (error "dup") norm . M.fromListWith (error "dup") . map (\(a,b,c,d) -> (a,(b,c,d))) <$> d "versions.csv"
   hackage_totals <- M.fromListWith (error "dup") <$> d "hackage-totals.csv"
+  category_order <- map (\[x] -> x) <$> d "order.csv"
   hackage <- M.mapKeysWith (error "dup") norm . M.fromListWith (error "dup") . map (\(a,b,c,d) -> (a,(b,c,d))) <$> d "hackage-data.csv"
   (survey_total, survey) <- fromSurvey <$> d' "haskell-survey-results.csv"
 
@@ -78,7 +79,7 @@ loadD = do
         let votes = M.findWithDefault 0 ext ballot_map in
         E{..}
 
-  let categories = S.toList $ S.fromList $ [ cat | (_, _, cat) <- M.elems versions ]
+  let categories = nub $ category_order ++ [ cat | (_, _, cat) <- M.elems versions ]
 
   return D{..}
 

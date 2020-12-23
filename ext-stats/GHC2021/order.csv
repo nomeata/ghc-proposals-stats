@@ -1,0 +1,21 @@
+category
+Introduction
+Syntax
+Import and export
+Types
+Records
+Deriving mechanism
+Patterns
+Class and instances declarations
+Literals
+Constraints
+Type signatures
+Bindings and generalisation
+Template Haskell
+Bang patterns and Strict Haskell
+Parallel and Concurrent
+Unboxed types and primitive operations
+Foreign function interface (FFI)
+Safe Haskell
+Miscellaneous
+Pragmas
