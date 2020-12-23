@@ -110,13 +110,13 @@ toRst D{..} = unlines $
     , let safely_in =
             [ rstAnchor ext
             | E{..} <- exts
-            , category == cat , votes >= 9
+            , category == cat , votes >= quorum + 1
             , then sortOn by Down votes
             ]
     , let barely_in =
-            [ rstAnchor ext | E{..} <- exts, category == cat, votes == 8 ]
+            [ rstAnchor ext | E{..} <- exts, category == cat, votes == quorum ]
     , let barely_out =
-            [ rstAnchor ext | E{..} <- exts, category == cat, votes == 7 ]
+            [ rstAnchor ext | E{..} <- exts, category == cat, votes == quorum - 1 ]
     , not (null safely_in && null barely_in && null barely_out)
     ] ++
     [ printf "Full Results"
@@ -153,6 +153,7 @@ toRst D{..} = unlines $
         printf "https://ghc.gitlab.haskell.org/ghc/doc/users_guide/%s.html#extension-%s"
             (dropExtension file) ext
     commas = intercalate ", "
+    quorum = ceiling (fromIntegral votes_total * 2/3 :: Double)
 
 sadnessReport :: D -> String
 sadnessReport D{..} = unlines $ flip foldMap (M.toList ballots) $ \(n, b) ->
