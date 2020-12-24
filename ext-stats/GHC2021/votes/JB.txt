@@ -1,3 +1,7 @@
+MonadFailDesugaring: yes
+  -- ^ This extension is temporary, and will be always on in future
+
+Unchanged votes follow:
 
 NegativeLiterals: no
   -- ^ The latest docs paint an incomplete picture of this, and make it look
@@ -11,8 +15,6 @@ TypeFamilies: no
 
 PolyKinds: yes
   -- ^ Got convinced by Richard
-
-Unchanged votes follow:
 
 CUSKs: no
 StandaloneKindSignatures: yes
@@ -223,8 +225,6 @@ DeriveAnyClass: no
 LinearTypes: no
 PatternSynonyms: no
   -- ^ I like them, but maybe a bit too early
-MonadFailDesugaring: no
-  -- ^ This extension is temporary, and will be deprecated in a future
 release.
 QualifiedDo: no
 Safe: no
