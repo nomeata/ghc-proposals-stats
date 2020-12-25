@@ -166,4 +166,4 @@ Obsolete/Deprecated
 
 CUSKs: no
 TypeInType: no
-MonadFailDesugaring: maybe
+MonadFailDesugaring: yes
