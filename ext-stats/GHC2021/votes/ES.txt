@@ -141,9 +141,7 @@ EmptyDataDeriving: no
 ## low-level / ffi
 
 CApiFFI: no
-ForeignFunctionInterface: no
-  I know this is part of Haskell2010, but I feel like
-  FFI is niche and low-level enough to warrant a marker
+ForeignFunctionInterface: yes
 GHCForeignImportPrim: no
 InterruptibleFFI: no
 MagicHash: no
