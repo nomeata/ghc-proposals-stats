@@ -1,5 +1,5 @@
 MonadFailDesugaring: yes
-  -- ^ This extension is temporary, and will be always on in future
+ConstrainedClassMethods: yes
 
 Unchanged votes follow:
 
@@ -73,7 +73,6 @@ Arrows: no
 BlockArguments: no
 CApiFFI: no
 CPP: no
-ConstrainedClassMethods: no
 DatatypeContexts: no
 DisambiguateRecordFields: no
 DuplicateRecordFields: no

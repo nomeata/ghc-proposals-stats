@@ -1,10 +1,13 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# LANGUAGE NamedFieldPuns #-}
 {-# LANGUAGE TransformListComp #-}
 {-# OPTIONS_GHC -Wno-name-shadowing #-}
 import qualified Data.ByteString.Lazy as BS
 import qualified Data.Map as M
 import qualified Data.Set as S
 import qualified Data.Vector as V
+import qualified Data.Vector.Storable as VS
+import qualified Data.Array as A
 import qualified Data.Csv as CSV
 import System.Directory
 import Data.Traversable
@@ -19,6 +22,8 @@ import Text.Printf
 import Data.Ord
 import Text.Regex.TDFA
 import System.FilePath
+import Numeric.Statistics.PCA
+import Numeric.LinearAlgebra.Data (toLists)
 
 -- A record, intented to be loaded into GHC with record punning
 type Ext = String
@@ -37,7 +42,7 @@ data E = E
   { ext :: Ext              -- ^ The extension (redundant, as it's the map key, but convenient)
   , since :: String         -- ^ First GHC version
   , file :: String          -- ^ Documentation path
-  , category :: String     -- ^ Category
+  , category :: String      -- ^ Category
   , hackage_used     :: Int -- ^ Used somewhere in the package
   , hackage_in_cabal :: Int -- ^ Turned on by default
   , hackage_mod_use  :: Int -- ^ Turnd on in modules, when the package uses default-extensions
@@ -239,6 +244,47 @@ fromSurvey survey =
           | vote <-  split (dropBlanks (dropDelims (oneOf ","))) (r M.! "s2q5") ]
       ) survey
     )
+
+distanceGraph :: D -> String
+distanceGraph D{..} = unlines  $
+    [ "graph {" ] ++
+    [ "graph [mode=KK, maxiter=100000, splines=true];" ] ++
+    [ printf "  %s;" k | k <- M.keys ballots ] ++
+    [ printf "  %s -- %s [len=%.2f, label=\"%2.0f%%\"];" k1 k2 ((1-d) * 20) (d * 100)
+    | k1 <- M.keys ballots, k2 <- M.keys ballots , k1 < k2, let d = dist k1 k2 ] ++
+    [ "}" ]
+  where
+    dist x y =
+      fromIntegral (length [ () | E{ext} <- exts,  ext `S.member` (ballots M.! x) == ext `S.member` (ballots M.! y)]) / fromIntegral (length exts) :: Double
+
+pcaAnalysis :: D -> IO ()
+pcaAnalysis D{..} = do
+    writeFile "pca.csv" pcs_csv
+    writeFile "vectors.csv" vectors
+  where
+    interestingExts =
+        [ (ext, category)
+        | E{ext, category} <- exts
+        , any (ext `S.member`) (M.elems ballots)
+        , any (ext `S.notMember`) (M.elems ballots)
+        ]
+
+    input :: A.Array Int (VS.Vector Double)
+    input = A.listArray (0,M.size ballots-1) [ VS.fromList [ if ext `S.member` b then 1.0 else 0.0 | (ext, _) <- interestingExts ] | b <- M.elems ballots ]
+
+    (_evs, pcs) = pcaN input 2
+    pcs_csv = unlines $
+         [ "name,x,y" ] ++
+         [ printf "%s,%.3f,%.3f" e x y | (e, [x,y]) <- zip (M.keys ballots) (toLists pcs)]
+    pca_trans = pcaTransform input pcs
+    vectors = unlines $
+         [ "ext,cat,x,y" ] ++
+         [ printf "%s,%s,%.3f,%.3f" ext cat x y
+         | ((ext,cat),x,y) <- zip3
+            interestingExts
+            (VS.toList (pca_trans A.! 1))
+            (VS.toList (pca_trans A.! 2))
+         ]
 
 -- normalize names
 surveyTick :: Ext -> Bool -> M.Map Ext (Sum Int, Sum Int)

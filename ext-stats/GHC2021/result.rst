@@ -28,7 +28,7 @@ Executive summary
 
 * Class and instances declarations
 
-  * Safely in: `FlexibleContexts`_, `FlexibleInstances`_, `MultiParamTypeClasses`_, `ConstrainedClassMethods`_, `InstanceSigs`_, `TypeSynonymInstances`_
+  * Safely in: `ConstrainedClassMethods`_, `FlexibleContexts`_, `FlexibleInstances`_, `MultiParamTypeClasses`_, `InstanceSigs`_, `TypeSynonymInstances`_
 
 * Literals
 
@@ -70,6 +70,7 @@ Data based on 13951 hackage packages, 1348 survey responses and 11 committee vot
 ============================= ========= ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ====== ========= ======== ========= =========== ========== ==========
               `BangPatterns`_    **11**      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔     6.8.1      35%        9%         13%        22%         7%
             `BinaryLiterals`_    **11**      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔    7.10.1      17%       23%          1%         3%          0
+   `ConstrainedClassMethods`_    **11**      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔     6.8.1       4%      138%          0%         0%         0%
            `ConstraintKinds`_    **11**      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔     7.4.1      21%       19%          9%        27%         7%
         `DeriveDataTypeable`_    **11**      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔     6.8.1      21%       16%         19%        23%         8%
             `DeriveFoldable`_    **11**      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔    7.10.1      32%        9%          5%        19%         2%
@@ -86,7 +87,6 @@ Data based on 13951 hackage packages, 1348 survey responses and 11 committee vot
             `KindSignatures`_    **11**      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔     6.8.1      24%       12%          7%        12%         4%
      `MultiParamTypeClasses`_    **11**      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔     6.8.1      27%       11%         23%        37%        11%
         `StandaloneDeriving`_    **11**      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔     6.8.1      22%       12%         10%        26%         6%
-   `ConstrainedClassMethods`_    **10**      ✔      ✔      ✔      ✔      ✔             ✔      ✔      ✔      ✔      ✔     6.8.1       4%      138%          0%         0%         0%
          `EmptyDataDeriving`_    **10**      ✔      ✔      ✔             ✔      ✔      ✔      ✔      ✔      ✔      ✔     8.4.1        0       N/A          0%          0         0%
                 **Extension** **Votes** **AM** **AS** **CC** **ES** **ID** **JB** **RE** **SJ** **SM** **TH** **VB** **Since** **Pop…** **Cont…** **Prolif…** **Innoc…** **Aloof…**
        `ImportQualifiedPost`_    **10**      ✔             ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔      ✔    8.10.1       4%       70%           0          0          0
